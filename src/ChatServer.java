@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class ChatServer {
 
     public ChatServer (int port) throws IOException {
         ServerSocket server = new ServerSocket (port);
+        System.out.println("IP: " + InetAddress.getLocalHost());
         while (true) {
             System.out.println("Status: 0 (Awaiting Connection Requests)");
             Socket client = server.accept();

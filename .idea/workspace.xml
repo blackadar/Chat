@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/AbstractLayout.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/DimensionInfo.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/GridConstraints.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/GridLayoutManager.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/HorizontalInfo.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/LayoutState.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/Spacer.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/SupportCode.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/Util.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/com/intellij/uiDesigner/core/VerticalInfo.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ChatClient.form" afterPath="$PROJECT_DIR$/src/ChatClient.form" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ChatServer.java" afterPath="$PROJECT_DIR$/src/ChatServer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,14 +29,24 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ChatClient.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChatClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ChatClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="61" column="52" lean-forward="true" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
+            <state relative-caret-position="170">
+              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Util.class" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/com/intellij/uiDesigner/core/Util.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -51,8 +71,8 @@
       <file leaf-file-name="ChatServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ChatServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+            <state relative-caret-position="289">
+              <caret line="21" column="64" lean-forward="false" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -86,10 +106,10 @@
         <option value="$PROJECT_DIR$/src/NewTester.java" />
         <option value="$PROJECT_DIR$/src/ChatHandlerNew.form" />
         <option value="$PROJECT_DIR$/src/ChatHandlerNew.java" />
-        <option value="$PROJECT_DIR$/src/ChatServer.java" />
         <option value="$PROJECT_DIR$/src/ChatHandler.java" />
         <option value="$PROJECT_DIR$/src/ChatClient.java" />
         <option value="$PROJECT_DIR$/src/ChatClient.form" />
+        <option value="$PROJECT_DIR$/src/ChatServer.java" />
       </list>
     </option>
   </component>
@@ -167,6 +187,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="out" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="production" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="intellij" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uiDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -179,12 +247,13 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="248" />
-    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="375" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="150" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="P:\Chat" />
       <recent name="P:\Chat\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -640,8 +709,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.ChatClient" />
-        <item index="1" class="java.lang.String" itemvalue="Application.ChatServer" />
+        <item index="0" class="java.lang.String" itemvalue="Application.ChatServer" />
+        <item index="1" class="java.lang.String" itemvalue="Application.ChatClient" />
         <item index="2" class="java.lang.String" itemvalue="Application.ClientGUI" />
         <item index="3" class="java.lang.String" itemvalue="Application.NewTester" />
       </list>
@@ -663,7 +732,7 @@
       <workItem from="1489696866424" duration="45000" />
       <workItem from="1489704223629" duration="8952000" />
       <workItem from="1489713204230" duration="10168000" />
-      <workItem from="1489769504425" duration="5558000" />
+      <workItem from="1489769504425" duration="6586000" />
     </task>
     <task id="LOCAL-00001" summary="Added commands system and better exception handling">
       <created>1489712799656</created>
@@ -700,15 +769,22 @@
       <option name="project" value="LOCAL" />
       <updated>1489775528951</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added functionality">
+      <created>1489775789578</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1489775789578</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24723000" />
+    <option name="totallyTimeSpent" value="25751000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -719,7 +795,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3963494" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3963494" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -830,14 +906,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/NewTester.java" />
-    <entry file="file://$PROJECT_DIR$/src/ChatServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -862,6 +930,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ChatServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="21" column="64" lean-forward="false" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ChatClient.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
@@ -869,11 +945,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="61" column="52" lean-forward="true" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
+        <state relative-caret-position="170">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/intellij/uiDesigner/core/Util.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
