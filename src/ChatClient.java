@@ -9,7 +9,6 @@ import java.net.SocketException;
  * Created by jordan on 3/16/17.
  */
 public class ChatClient extends JFrame implements Runnable{
-    private JToolBar toolBar;
     private JTextArea chatLog;
     private JTextField textField;
     private JButton button;
