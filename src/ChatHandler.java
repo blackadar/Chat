@@ -92,6 +92,11 @@ public class ChatHandler implements Runnable {
             commandParts[0] = command;
         }
         switch(commandParts[0].toLowerCase()){
+            case("help") : {
+                tell("Under Construction. Check the Source for available commands.");
+                //TODO: Trigger a client popup with help documentation
+            }
+            break;
             case("name"): {
                 String name = "";
                 for(int i = 0; i < arguments.length; i++){
@@ -123,7 +128,9 @@ public class ChatHandler implements Runnable {
                 }
             }
             break;
-
+            default : {
+                tell("Unrecognized command. Use /help for a list of all commands.");
+            }
         }
     }
 

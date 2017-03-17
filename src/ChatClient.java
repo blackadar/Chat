@@ -1,78 +1,123 @@
-import java.net.*;
-import java.io.*;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.net.SocketException;
 
 /**
- * Created by Jordan Blackadar as a part of the Networking package in ScratchPad.
- *
- * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
- * @version 0.1.0
- * @since 3/16/2017 : 4:31 PM
+ * Created by jordan on 3/16/17.
  */
-
-public class ChatClient extends Frame implements Runnable {
-    protected DataInputStream i;
-    protected DataOutputStream o;
-    protected TextArea output;
-    protected TextField input;
+public class ChatClient extends JFrame implements Runnable{
+    private JToolBar toolBar;
+    private JTextArea chatLog;
+    private JTextField textField;
+    private JButton button;
+    private JPanel rootPanel;
+    protected DataInputStream inputStream;
+    protected DataOutputStream outputStream1;
     protected Thread listener;
-    public ChatClient (String title, InputStream i, OutputStream o) {
-        super (title);
-        this.i = new DataInputStream (new BufferedInputStream (i));
-        this.o = new DataOutputStream (new BufferedOutputStream (o));
-        setLayout (new BorderLayout ());
-        add ("Center", output = new TextArea ());
-        output.setEditable (false);
-        add ("South", input = new TextField ());
-        pack ();
-        show ();
-        input.requestFocus ();
+
+    protected static String host = "localhost";
+    protected static int port = 9090;
+
+    public ChatClient(InputStream inputStream, OutputStream outputStream) {
+        super("Network Chat");
+        setContentPane(rootPanel);
+        this.setPreferredSize(new Dimension(600,400));
+        pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.inputStream = new DataInputStream(new BufferedInputStream(inputStream));
+        this.outputStream1 = new DataOutputStream(new BufferedOutputStream(outputStream));
         listener = new Thread (this);
         listener.start ();
-        output.setBackground(Color.GRAY);
+
+        button.addActionListener(actionEvent -> {
+            try {
+                outputStream1.writeUTF(textField.getText());
+                outputStream1.flush();
+                textField.setText("");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        textField.addActionListener(actionEvent -> {
+            try {
+                outputStream1.writeUTF(textField.getText());
+                outputStream1.flush();
+                textField.setText("");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        this.setVisible(true);
     }
+
     public void run () {
         try {
             while (true) {
-                String line = i.readUTF();
-                output.appendText (line + "\n");
+                String line = inputStream.readUTF();
+                chatLog.append(line + "\n");
             }
-        } catch (IOException ex) {
+        }
+        catch(EOFException exc){
+            chatLog.append("Local : Connection to server lost.\n");
+            textField.setVisible(false);
+            button.setText("Reconnect");
+            button.removeActionListener(button.getActionListeners()[0]);
+            button.addActionListener(actionEvent -> {
+                try {
+                    Socket s = new Socket(host, port);
+                    this.inputStream = new DataInputStream(new BufferedInputStream(s.getInputStream()));
+                    this.outputStream1 = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
+                    listener = new Thread (this);
+                    listener.start ();
+                    chatLog.append("Local : Reconnection Successful.\n");
+                    textField.setVisible(true);
+                    button.setText("Send");
+                    button.removeActionListener(button.getActionListeners()[0]);
+                    button.addActionListener(actionEvent1 -> {
+                        try {
+                            outputStream1.writeUTF(textField.getText());
+                            outputStream1.flush();
+                            textField.setText("");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } catch (ConnectException e) {
+                    chatLog.append("Local : Connection to Server Refused.\n");
+                } catch (SocketException e) {
+                    e.printStackTrace();
+                    chatLog.append("Local : Connection to Server could not be established.\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    chatLog.append("Local : General I/O Exception during Reconnection.\n");
+                }
+            });
+
+            JOptionPane.showMessageDialog(null, "Unable to communicate with the chat server.", "Connection Lost", JOptionPane.WARNING_MESSAGE);
+        }
+
+        catch (IOException ex) {
             ex.printStackTrace ();
         } finally {
             listener = null;
-            input.hide ();
+            textField.setVisible(false);
             validate ();
             try {
-                o.close ();
-            } catch (IOException ex) {
-                ex.printStackTrace ();
+                outputStream1.close ();
+            } catch (IOException e) {
+                e.printStackTrace ();
             }
         }
     }
-    public boolean handleEvent (Event e) {
-        if ((e.target == input) && (e.id == Event.ACTION_EVENT)) {
-            try {
-                o.writeUTF ((String) e.arg);
-                o.flush ();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                listener.stop ();
-            }
-            input.setText ("");
-            return true;
-        } else if ((e.target == this) && (e.id == Event.WINDOW_DESTROY)) {
-            if (listener != null)
-                listener.stop ();
-            hide ();
-            return true;
-        }
-        return super.handleEvent (e);
-    }
-
-    public static void main (String args[]) throws IOException {
-        Socket s = new Socket ("localhost", 9090);
-        new ChatClient ("Chat " + "192.168.9.142" + ":" + 9090,
-                s.getInputStream (), s.getOutputStream ());
+    public static void main(String[] args) throws IOException {
+        Socket s = new Socket (host, port);
+        ChatClient test = new ChatClient(s.getInputStream (), s.getOutputStream ());
     }
 }
