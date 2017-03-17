@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -15,6 +14,7 @@ public class ChatClient extends JFrame implements Runnable{
     private JTextField textField;
     private JButton button;
     private JPanel rootPanel;
+    private JScrollPane chatLogHolder;
     protected DataInputStream inputStream;
     protected DataOutputStream outputStream1;
     protected Thread listener;
@@ -26,6 +26,7 @@ public class ChatClient extends JFrame implements Runnable{
         super("Network Chat");
         setContentPane(rootPanel);
         this.setPreferredSize(new Dimension(600,400));
+        chatLogHolder.setAutoscrolls(true);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.inputStream = new DataInputStream(new BufferedInputStream(inputStream));
@@ -61,9 +62,10 @@ public class ChatClient extends JFrame implements Runnable{
             while (true) {
                 String line = inputStream.readUTF();
                 chatLog.append(line + "\n");
+                chatLog.setCaretPosition(chatLog.getDocument().getLength());
             }
         }
-        catch(EOFException exc){
+        catch(EOFException|SocketException e){
             chatLog.append("Local : Connection to server lost.\n");
             textField.setVisible(false);
             button.setText("Reconnect");
@@ -80,21 +82,21 @@ public class ChatClient extends JFrame implements Runnable{
                     button.setText("Send");
                     button.removeActionListener(button.getActionListeners()[0]);
                     button.addActionListener(actionEvent1 -> {
-                        try {
+                        try{
                             outputStream1.writeUTF(textField.getText());
                             outputStream1.flush();
                             textField.setText("");
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
                         }
                     });
-                } catch (ConnectException e) {
-                    chatLog.append("Local : Connection to Server Refused.\n");
-                } catch (SocketException e) {
-                    e.printStackTrace();
-                    chatLog.append("Local : Connection to Server could not be established.\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (ConnectException ex) {
+                    chatLog.append("Local : Connection to Server Refused. (Has the server been stopped?)\n");
+                } catch (SocketException ex) {
+                    ex.printStackTrace();
+                    chatLog.append("Local : Connection to Server could not be established. (Has the Server moved locations?)\n");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                     chatLog.append("Local : General I/O Exception during Reconnection.\n");
                 }
             });
@@ -118,7 +120,7 @@ public class ChatClient extends JFrame implements Runnable{
     public static void main(String[] args) throws IOException {
         try{
             Socket s = new Socket (host, port);
-            ChatClient test = new ChatClient(s.getInputStream (), s.getOutputStream ());
+            new ChatClient(s.getInputStream (), s.getOutputStream ());
         } catch(Exception e){
         JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
         }

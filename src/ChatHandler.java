@@ -40,7 +40,10 @@ public class ChatHandler implements Runnable {
             handlers.add(this);
             while (true) {
                 String received = inputStream.readUTF();
-                if(hasCommand(received)){
+                if(received.isEmpty()){
+                    //Ignore Empty Submissions
+                }
+                else if(hasCommand(received)){
                     executeCommand(received);
                 }
                 else if(isAFK){
@@ -65,6 +68,7 @@ public class ChatHandler implements Runnable {
     }
 
     public void stop(){
+        handlers.remove(this);
         System.err.println("Status: 3 (Lost Client Connection) to " + socket.getInetAddress());
         tellAll(userName + " is offline.");
     }
@@ -92,6 +96,11 @@ public class ChatHandler implements Runnable {
             commandParts = new String[1];
             commandParts[0] = command;
         }
+
+        /*
+        Server Commands
+         */
+
         switch(commandParts[0].toLowerCase()){
             case("help") : {
                 tell("Under Construction. Check the Source for available commands.");
@@ -129,6 +138,16 @@ public class ChatHandler implements Runnable {
                 }
             }
             break;
+
+            case("list"): {
+                String online = "";
+                for(ChatHandler x : handlers){
+                    online += x.userName + ", ";
+                }
+                tell("Online: " + online);
+            }
+            break;
+
             default : {
                 tell("Unrecognized command. Use /help for a list of all commands.");
             }
@@ -161,6 +180,10 @@ public class ChatHandler implements Runnable {
         } catch (IOException e) {
             this.stop();
         }
+    }
+
+    protected void message(String sender, ChatHandler recipient, String message){
+        //TODO: Implement message method
     }
 
     protected static void tellAll(String message){
