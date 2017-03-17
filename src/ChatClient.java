@@ -28,11 +28,10 @@ public class ChatClient extends JFrame implements Runnable{
         this.setPreferredSize(new Dimension(600,400));
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         this.inputStream = new DataInputStream(new BufferedInputStream(inputStream));
         this.outputStream1 = new DataOutputStream(new BufferedOutputStream(outputStream));
-        listener = new Thread (this);
-        listener.start ();
+        listener = new Thread(this);
+        listener.start();
 
         button.addActionListener(actionEvent -> {
             try {
@@ -117,7 +116,11 @@ public class ChatClient extends JFrame implements Runnable{
         }
     }
     public static void main(String[] args) throws IOException {
-        Socket s = new Socket (host, port);
-        ChatClient test = new ChatClient(s.getInputStream (), s.getOutputStream ());
+        try{
+            Socket s = new Socket (host, port);
+            ChatClient test = new ChatClient(s.getInputStream (), s.getOutputStream ());
+        } catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
