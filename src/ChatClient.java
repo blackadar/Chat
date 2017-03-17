@@ -1,4 +1,3 @@
-
 import java.net.*;
 import java.io.*;
 import java.awt.*;
@@ -12,7 +11,6 @@ import java.awt.*;
  */
 
 public class ChatClient extends Frame implements Runnable {
-    // public ChatClient (String title, InputStream i, OutputStream o) ...
     protected DataInputStream i;
     protected DataOutputStream o;
     protected TextArea output;
@@ -31,13 +29,12 @@ public class ChatClient extends Frame implements Runnable {
         input.requestFocus ();
         listener = new Thread (this);
         listener.start ();
-        output.setBackground(Color.PINK);
+        output.setBackground(Color.GRAY);
     }
-    // public void run () ...
     public void run () {
         try {
             while (true) {
-                String line = i.readUTF ();
+                String line = i.readUTF();
                 output.appendText (line + "\n");
             }
         } catch (IOException ex) {
@@ -53,7 +50,6 @@ public class ChatClient extends Frame implements Runnable {
             }
         }
     }
-    // public boolean handleEvent (Event e) ...
     public boolean handleEvent (Event e) {
         if ((e.target == input) && (e.id == Event.ACTION_EVENT)) {
             try {
@@ -74,7 +70,6 @@ public class ChatClient extends Frame implements Runnable {
         return super.handleEvent (e);
     }
 
-    // public static void main (String args[]) throws IOException ...
     public static void main (String args[]) throws IOException {
         Socket s = new Socket ("localhost", 9090);
         new ChatClient ("Chat " + "192.168.9.142" + ":" + 9090,
