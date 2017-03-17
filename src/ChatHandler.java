@@ -45,6 +45,7 @@ public class ChatHandler implements Runnable {
                 }
                 else if(isAFK){
                     tellAll(userName + " is no longer AFK");
+                    isAFK = false;
                     broadcast(userName + " : " + received);
                 }
                 else {
