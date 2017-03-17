@@ -18,6 +18,7 @@ public class ChatClient extends JFrame implements Runnable{
     private JButton button;
     private JPanel rootPanel;
     private JScrollPane chatLogHolder;
+    private JTabbedPane serverTabs;
     protected DataInputStream inputStream;
     protected DataOutputStream outputStream1;
     protected Thread listener;
@@ -29,7 +30,8 @@ public class ChatClient extends JFrame implements Runnable{
         super("Network Chat");
         setContentPane(rootPanel);
         this.setPreferredSize(new Dimension(600,400));
-        chatLogHolder.setAutoscrolls(true);
+        chatLog.setLineWrap(true);
+        serverTabs.setTitleAt(0, host);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.inputStream = new DataInputStream(new BufferedInputStream(inputStream));
@@ -121,6 +123,23 @@ public class ChatClient extends JFrame implements Runnable{
         }
     }
     public static void main(String[] args) throws IOException {
+            try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            }
+                catch(Exception ex){
+                    try {
+                        // Set cross-platform Java L&F (also called "Metal")
+                        UIManager.setLookAndFeel(
+                                UIManager.getCrossPlatformLookAndFeelClassName());
+                    }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
         try{
             Socket s = new Socket (host, port);
             new ChatClient(s.getInputStream (), s.getOutputStream ());
