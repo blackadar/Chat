@@ -6,7 +6,11 @@ import java.net.Socket;
 import java.net.SocketException;
 
 /**
- * Created by jordan on 3/16/17.
+ * Created by Jordan Blackadar as a part of the main package in Chat.
+ * GUI for Chat interface
+ * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
+ * @version 0.1.0
+ * @since 3/17/2017 : 3:05 PM
  */
 public class ChatClient extends JFrame implements Runnable{
     private JTextArea chatLog;

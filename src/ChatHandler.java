@@ -1,13 +1,13 @@
-
 import java.net.*;
 import java.io.*;
 import java.util.*;
+
 /**
- * Created by Jordan Blackadar as a part of the Networking package in ScratchPad.
- *
+ * Created by Jordan Blackadar as a part of the main package in Chat.
+ * Manages String input from Sockets
  * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
  * @version 0.1.0
- * @since 3/16/2017 : 3:41 PM
+ * @since 3/17/2017 : 3:05 PM
  */
 public class ChatHandler implements Runnable {
 

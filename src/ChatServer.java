@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -7,11 +5,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- * Created by Jordan Blackadar as a part of the Networking package in ScratchPad.
+ * Created by Jordan Blackadar as a part of the main package in Chat.
  * Manages threads of ChatHandlers
  * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
  * @version 0.1.0
- * @since 3/16/2017 : 3:39 PM
+ * @since 3/17/2017 : 3:06 PM
  */
 public class ChatServer {
 
