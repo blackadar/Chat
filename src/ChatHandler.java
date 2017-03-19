@@ -16,25 +16,23 @@ public class ChatHandler implements Runnable {
     protected DataOutputStream outputStream;
     protected String userName;
     protected boolean isAFK;
-    protected boolean isModerator;
-    protected boolean isAdministrator;
+    protected static ArrayList<ChatHandler> handlers = new ArrayList<>();
 
     public ChatHandler (Socket socket) throws IOException {
         this.socket = socket;
         this.inputStream = new DataInputStream (new BufferedInputStream (socket.getInputStream()));
         this.outputStream = new DataOutputStream (new BufferedOutputStream (socket.getOutputStream()));
-        this.userName = socket.getInetAddress().toString();
+        this.userName = socket.getInetAddress().toString(); //Set default username to IP address
         this.userName = userName.substring(1,userName.length()-2); //Remove beginning slash and end dot
         this.isAFK = false;
-        this.isModerator = false;
-        this.isAdministrator = false;
         tellAll(userName + " is online.");
         tell("Welcome to the Chat Server.");
         tell("For a full list of commands, type /help .");
     }
 
-    protected static ArrayList<ChatHandler> handlers = new ArrayList<>();
-
+    /**
+     * Looping Logic for a ChatHandler thread. Handles input and commands.
+     */
     public void run() {
         try {
             handlers.add(this);
@@ -47,7 +45,7 @@ public class ChatHandler implements Runnable {
                     executeCommand(received);
                 }
                 else if(isAFK){
-                    tellAll(userName + " is no longer AFK");
+                    tellAll(userName + " is no longer AFK.");
                     isAFK = false;
                     broadcast(userName + " : " + received);
                 }
@@ -87,27 +85,25 @@ public class ChatHandler implements Runnable {
 
     protected void executeCommand(String input){
         String command = input.substring(1,input.length()); //Remove beginning slash
-        String[] commandParts = command.split(" ");
-        String[] arguments = new String[commandParts.length - 1];
-        for(int x = 1; x < commandParts.length; x++){
+        String[] commandParts = command.split(" "); //Split into parts on spaces
+        String[] arguments = new String[commandParts.length - 1]; //Take args after command
+
+        for(int x = 1; x < commandParts.length; x++){ //Fill arguments
             arguments[x - 1] = commandParts[x];
-        }
-        if(commandParts.length == 0){
-            commandParts = new String[1];
-            commandParts[0] = command;
         }
 
         /*
         Server Commands
          */
 
-        switch(commandParts[0].toLowerCase()){
-            case("help") : {
+        switch(commandParts[0].toLowerCase()){ //Switch on command (ignoring case)
+            case("help") : { //Sends help documentation
                 tell("Under Construction. Check the Source for available commands.");
-                //TODO: Trigger a client popup with help documentation
+                //TODO: Send documentation in pages to the client
             }
+
             break;
-            case("name"): {
+            case("name"): { //Changes userName
                 String name = "";
                 for(int i = 0; i < arguments.length; i++){
                     name += arguments[i];
@@ -127,7 +123,7 @@ public class ChatHandler implements Runnable {
             }
             break;
 
-            case("afk"): {
+            case("afk"): { //Toggles isAFK and broadcasts state
                 if(this.isAFK){
                     tellAll(userName + " is no longer AFK");
                     this.isAFK = false;
@@ -139,7 +135,7 @@ public class ChatHandler implements Runnable {
             }
             break;
 
-            case("list"): {
+            case("list"): { // Sends list of all online users
                 String online = "";
                 for(ChatHandler x : handlers){
                     online += x.userName + ", ";
@@ -148,11 +144,15 @@ public class ChatHandler implements Runnable {
             }
             break;
 
-            default : {
+            default : { //Catches unrecognized commands
                 tell("Unrecognized command. Use /help for a list of all commands.");
             }
         }
     }
+
+    /*
+    Internal Methods
+     */
 
     protected static void broadcast(String message) {
         synchronized(handlers) {

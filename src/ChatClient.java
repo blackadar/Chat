@@ -23,8 +23,8 @@ public class ChatClient extends JFrame implements Runnable{
     protected DataOutputStream outputStream1;
     protected Thread listener;
 
-    protected static String host = "localhost";
-    protected static int port = 9090;
+    protected static String host;
+    protected static int port;
 
     public ChatClient(InputStream inputStream, OutputStream outputStream) {
         super("Network Chat");
@@ -122,6 +122,7 @@ public class ChatClient extends JFrame implements Runnable{
             }
         }
     }
+
     public static void main(String[] args) throws IOException {
             try {
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -133,18 +134,24 @@ public class ChatClient extends JFrame implements Runnable{
             }
                 catch(Exception ex){
                     try {
-                        // Set cross-platform Java L&F (also called "Metal")
                         UIManager.setLookAndFeel(
                                 UIManager.getCrossPlatformLookAndFeelClassName());
                     }catch(Exception e){
                     e.printStackTrace();
                 }
             }
+
         try{
-            Socket s = new Socket (host, port);
-            new ChatClient(s.getInputStream (), s.getOutputStream ());
+            String inputDialog = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
+            if(!(inputDialog == null || ("".equals(inputDialog)))) {
+                host = inputDialog.split(":")[0];
+                port = Integer.parseInt(inputDialog.split(":")[1]);
+                Socket s = new Socket(host, port);
+                new ChatClient(s.getInputStream(), s.getOutputStream());
+            }
         } catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
         }
     }
 }
