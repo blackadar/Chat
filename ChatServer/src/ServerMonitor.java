@@ -9,6 +9,7 @@ import java.net.Socket;
  * Created by jordan on 3/19/17.
  */
 public class ServerMonitor extends JFrame implements Runnable, ChatListener{
+    Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
     private JTextArea serverLog;
     private JPanel panel;
     private JTextField inputField;
@@ -18,6 +19,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
 
     public ServerMonitor (int port) throws IOException {
         super("Chat Server");
+        this.setIconImage(image);
         setContentPane(panel);
         this.setPreferredSize(new Dimension(600,400));
         serverLog.setLineWrap(true);

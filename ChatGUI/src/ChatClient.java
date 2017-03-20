@@ -13,6 +13,7 @@ import java.net.SocketException;
  * @since 3/17/2017 : 3:05 PM
  */
 public class ChatClient extends JFrame implements Runnable{
+    Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
     private JTextArea chatLog;
     private JTextField textField;
     private JButton button;
@@ -28,6 +29,7 @@ public class ChatClient extends JFrame implements Runnable{
 
     public ChatClient(InputStream inputStream, OutputStream outputStream) {
         super("Network Chat");
+        this.setIconImage(image);
         setContentPane(rootPanel);
         this.setPreferredSize(new Dimension(600,400));
         chatLog.setLineWrap(true);
