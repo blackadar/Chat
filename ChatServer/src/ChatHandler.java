@@ -67,7 +67,6 @@ public class ChatHandler implements Runnable {
 
     public void stop(){
         handlers.remove(this);
-        System.err.println("Status: 3 (Lost Client Connection) to " + socket.getInetAddress());
         tellAll(userName + " is offline.");
     }
 
