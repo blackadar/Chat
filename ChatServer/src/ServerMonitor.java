@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 /**
- * Created by jordan on 3/19/17.
+ * Created by Jordan Blackadar as a part of the main package in Chat.
+ * GUI for Server interface
+ * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
+ * @version 0.3.5
+ * @since 3/19/2017 : 2:15 PM
  */
 public class ServerMonitor extends JFrame implements Runnable, ChatListener{
-    Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
     private JTextArea serverLog;
     private JPanel panel;
     private JTextField inputField;
@@ -19,6 +23,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
 
     public ServerMonitor (int port) throws IOException {
         super("Chat Server");
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
         setContentPane(panel);
         this.setPreferredSize(new Dimension(600,400));
@@ -33,7 +38,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
 
     public void run(){
         serverLog.append("Listening on Port " + server.getLocalPort() + ".\n");
-        while (true) {
+        while(true) {
             try {
                 Socket client = server.accept();
                 ChatHandler c = new ChatHandler(client);
@@ -41,7 +46,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
                 Thread t = new Thread(c);
                 t.start();
             } catch (IOException e) {
-                serverLog.append(e.getStackTrace().toString() + "\n");
+                serverLog.append(Arrays.toString(e.getStackTrace()) + "\n");
             }
         }
     }

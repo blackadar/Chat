@@ -4,16 +4,17 @@ import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Arrays;
 
 /**
  * Created by Jordan Blackadar as a part of the main package in Chat.
  * GUI for Chat interface
  * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
- * @version 0.1.0
+ * @version 0.7.9
  * @since 3/17/2017 : 3:05 PM
  */
 public class ChatClient extends JFrame implements Runnable{
-    Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
+    private Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
     private JTextArea chatLog;
     private JTextField textField;
     private JButton button;
@@ -66,7 +67,7 @@ public class ChatClient extends JFrame implements Runnable{
 
     public void run () {
         try {
-            while (true) {
+            while(true) {
                 String line = inputStream.readUTF();
                 chatLog.append(line + "\n");
                 chatLog.setCaretPosition(chatLog.getDocument().getLength());
@@ -112,7 +113,7 @@ public class ChatClient extends JFrame implements Runnable{
         }
 
         catch (IOException ex) {
-            chatLog.append(ex.getStackTrace() + "\n");
+            chatLog.append(Arrays.toString(ex.getStackTrace()) + "\n");
         } finally {
             listener = null;
             textField.setVisible(false);
@@ -120,7 +121,7 @@ public class ChatClient extends JFrame implements Runnable{
             try {
                 outputStream1.close ();
             } catch (IOException e) {
-                chatLog.append(e.getStackTrace() + "\n");
+                chatLog.append(Arrays.toString(e.getStackTrace()) + "\n");
             }
         }
     }
