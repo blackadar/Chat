@@ -8,7 +8,7 @@ import java.net.Socket;
 /**
  * Created by jordan on 3/19/17.
  */
-public class ServerMonitor extends JFrame implements Runnable{
+public class ServerMonitor extends JFrame implements Runnable, ChatListener{
     private JTextArea serverLog;
     private JPanel panel;
     private JTextField inputField;
@@ -25,38 +25,46 @@ public class ServerMonitor extends JFrame implements Runnable{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         server = new ServerSocket(port);
-        serverLog.append("IP: " + InetAddress.getLocalHost() + "\n");
+        serverLog.append("Local IP: " + InetAddress.getLocalHost() + "\n");
         this.run();
     }
 
     public void run(){
-        serverLog.append("Starting on Port " + server.getLocalPort() + "\n");
+        serverLog.append("Listening on Port " + server.getLocalPort() + ".\n");
         while (true) {
-            serverLog.append("Status: 0 (Awaiting Connection Requests)" + "\n");
-            Socket client = null;
             try {
-                client = server.accept();
-            } catch (IOException e) {
-                serverLog.append(e.getStackTrace().toString());
-            }
-            serverLog.append("Status: 1 (Initializing Connection) to " + client.getInetAddress() + "\n");
-            ChatHandler c = null;
-            try {
-                c = new ChatHandler(client);
+                Socket client = server.accept();
+                ChatHandler c = new ChatHandler(client);
+                c.addListener(this);
+                Thread t = new Thread(c);
+                t.start();
             } catch (IOException e) {
                 serverLog.append(e.getStackTrace().toString() + "\n");
             }
-            Thread t = new Thread(c);
-            t.start();
         }
     }
 
     public static void main(String[] args){
         try {
-            ServerMonitor monitor = new ServerMonitor(9090);
-        } catch (IOException e) {
+            new ServerMonitor(9090);
+        } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog( null, "A General I/O Exception was Detected.", "Network Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog( null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    @Override
+    public void clientDisconnected(String userName) {
+        serverLog.append("Lost connection to " + userName + ".\n");
+    }
+
+    @Override
+    public void clientConnected(String userName) {
+        serverLog.append("Initializing Connection to " + userName + ".\n");
+    }
+
+    @Override
+    public void clientChangedName(String old, String updated) {
+        serverLog.append("Client " + old + " changed alias to " + updated + ".\n");
     }
 }

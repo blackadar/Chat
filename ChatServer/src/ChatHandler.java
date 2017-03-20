@@ -17,6 +17,7 @@ public class ChatHandler implements Runnable {
     protected String userName;
     protected boolean isAFK;
     protected static ArrayList<ChatHandler> handlers = new ArrayList<>();
+    protected ArrayList<ChatListener> listeners = new ArrayList<>();
 
     public ChatHandler (Socket socket) throws IOException {
         this.socket = socket;
@@ -33,9 +34,12 @@ public class ChatHandler implements Runnable {
     /**
      * Looping Logic for a ChatHandler thread. Handles input and commands.
      */
-    public void run() {
+    public void run(){
         try {
             handlers.add(this);
+            for(ChatListener x : listeners){
+                x.clientConnected(userName);
+            }
             while (true) {
                 String received = inputStream.readUTF();
                 if(received.isEmpty()){
@@ -67,6 +71,9 @@ public class ChatHandler implements Runnable {
 
     public void stop(){
         handlers.remove(this);
+        for(ChatListener x : listeners){
+            x.clientDisconnected(userName);
+        }
         tellAll(userName + " is offline.");
     }
 
@@ -153,6 +160,10 @@ public class ChatHandler implements Runnable {
     Internal Methods
      */
 
+    public void addListener(ChatListener toAdd) {
+        listeners.add(toAdd);
+    }
+
     protected static void broadcast(String message) {
         synchronized(handlers) {
             Enumeration allHandlers = Collections.enumeration(handlers);
@@ -190,6 +201,9 @@ public class ChatHandler implements Runnable {
     }
 
     protected void setName(String name){
+        for(ChatListener x : listeners){
+            x.clientChangedName(userName, name);
+        }
         this.userName = name;
     }
 }

@@ -110,7 +110,7 @@ public class ChatClient extends JFrame implements Runnable{
         }
 
         catch (IOException ex) {
-            ex.printStackTrace ();
+            chatLog.append(ex.getStackTrace() + "\n");
         } finally {
             listener = null;
             textField.setVisible(false);
@@ -118,7 +118,7 @@ public class ChatClient extends JFrame implements Runnable{
             try {
                 outputStream1.close ();
             } catch (IOException e) {
-                e.printStackTrace ();
+                chatLog.append(e.getStackTrace() + "\n");
             }
         }
     }
