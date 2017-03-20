@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="NetworkChatServer">
+    <output-path>$PROJECT_DIR$/out/artifacts/NetworkChatServer</output-path>
+    <root id="archive" name="ChatServer.jar">
+      <element id="module-output" name="ChatServer" />
+    </root>
+  </artifact>
+</component>

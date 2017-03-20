@@ -18,7 +18,7 @@ public class ServerMonitor extends JFrame implements Runnable{
 
 
     public ServerMonitor (int port) throws IOException {
-        super("Network Chat");
+        super("Chat Server");
         setContentPane(panel);
         this.setPreferredSize(new Dimension(600,400));
         serverLog.setLineWrap(true);
