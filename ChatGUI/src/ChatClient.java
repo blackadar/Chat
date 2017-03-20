@@ -22,7 +22,7 @@ public class ChatClient extends JFrame implements Runnable{
     private JScrollPane chatLogHolder;
     private JTabbedPane serverTabs;
     protected DataInputStream inputStream;
-    protected DataOutputStream outputStream1;
+    protected DataOutputStream outputStream;
     protected Thread listener;
 
     protected static String host;
@@ -38,14 +38,14 @@ public class ChatClient extends JFrame implements Runnable{
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.inputStream = new DataInputStream(new BufferedInputStream(inputStream));
-        this.outputStream1 = new DataOutputStream(new BufferedOutputStream(outputStream));
+        this.outputStream = new DataOutputStream(new BufferedOutputStream(outputStream));
         listener = new Thread(this);
         listener.start();
 
         button.addActionListener(actionEvent -> {
             try {
-                outputStream1.writeUTF(textField.getText());
-                outputStream1.flush();
+                this.outputStream.writeUTF(textField.getText());
+                this.outputStream.flush();
                 textField.setText("");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -54,8 +54,8 @@ public class ChatClient extends JFrame implements Runnable{
 
         textField.addActionListener(actionEvent -> {
             try {
-                outputStream1.writeUTF(textField.getText());
-                outputStream1.flush();
+                this.outputStream.writeUTF(textField.getText());
+                this.outputStream.flush();
                 textField.setText("");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -82,7 +82,7 @@ public class ChatClient extends JFrame implements Runnable{
                 try {
                     Socket s = new Socket(host, port);
                     this.inputStream = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    this.outputStream1 = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
+                    this.outputStream = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
                     listener = new Thread (this);
                     listener.start ();
                     chatLog.append("Local : Reconnection Successful.\n");
@@ -91,8 +91,8 @@ public class ChatClient extends JFrame implements Runnable{
                     button.removeActionListener(button.getActionListeners()[0]);
                     button.addActionListener(actionEvent1 -> {
                         try{
-                            outputStream1.writeUTF(textField.getText());
-                            outputStream1.flush();
+                            outputStream.writeUTF(textField.getText());
+                            outputStream.flush();
                             textField.setText("");
                         } catch (IOException ex) {
                             ex.printStackTrace();
@@ -119,7 +119,7 @@ public class ChatClient extends JFrame implements Runnable{
             textField.setVisible(false);
             validate ();
             try {
-                outputStream1.close ();
+                outputStream.close ();
             } catch (IOException e) {
                 chatLog.append(Arrays.toString(e.getStackTrace()) + "\n");
             }

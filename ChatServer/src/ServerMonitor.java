@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,9 +16,9 @@ import java.util.Arrays;
 public class ServerMonitor extends JFrame implements Runnable, ChatListener{
     private JTextArea serverLog;
     private JPanel panel;
-    private JTextField inputField;
-    private JButton sendButton;
+    private JLabel numberOnlineLabel;
     private ServerSocket server;
+    protected int numberOnline = 0;
 
 
     public ServerMonitor (int port) throws IOException {
@@ -28,6 +28,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
         setContentPane(panel);
         this.setPreferredSize(new Dimension(600,400));
         serverLog.setLineWrap(true);
+        updateLabel();
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -38,6 +39,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
 
     public void run(){
         serverLog.append("Listening on Port " + server.getLocalPort() + ".\n");
+        updateLabel();
         while(true) {
             try {
                 Socket client = server.accept();
@@ -62,16 +64,25 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
 
     @Override
     public void clientDisconnected(String userName) {
+        numberOnline--;
+        updateLabel();
         serverLog.append("Lost connection to " + userName + ".\n");
     }
 
     @Override
     public void clientConnected(String userName) {
+        numberOnline++;
+        updateLabel();
         serverLog.append("Initializing Connection to " + userName + ".\n");
     }
 
     @Override
     public void clientChangedName(String old, String updated) {
         serverLog.append("Client " + old + " changed alias to " + updated + ".\n");
+    }
+
+    private void updateLabel(){
+        numberOnlineLabel.setText("Online: " + numberOnline);
+        serverLog.setCaretPosition(serverLog.getDocument().getLength());
     }
 }
