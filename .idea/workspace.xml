@@ -7,10 +7,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+    <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="Cleaning Up, reducing verbosity">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatServer/src/ChatHandler.java" afterPath="$PROJECT_DIR$/ChatServer/src/ChatHandler.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,10 +24,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ChatClient.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChatClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatGUI/src/ChatClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3432">
+            <state relative-caret-position="2068">
               <caret line="156" column="71" lean-forward="false" selection-start-line="156" selection-start-column="67" selection-end-line="156" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -38,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ChatHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="92" column="78" lean-forward="false" selection-start-line="92" selection-start-column="78" selection-end-line="92" selection-end-column="78" />
+            <state relative-caret-position="193">
+              <caret line="106" column="167" lean-forward="true" selection-start-line="106" selection-start-column="167" selection-end-line="106" selection-end-column="167" />
               <folding />
             </state>
           </provider>
@@ -658,7 +656,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489982120793</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Cleaning Up, reducing verbosity">
+      <created>1490125922620</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1490125922620</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -924,14 +929,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="92" column="78" lean-forward="false" selection-start-line="92" selection-start-column="78" selection-end-line="92" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChatServer/src/ServerMonitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1826">
@@ -944,11 +941,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChatGUI/src/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3432">
+        <state relative-caret-position="2068">
           <caret line="156" column="71" lean-forward="false" selection-start-line="156" selection-start-column="67" selection-end-line="156" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="106" column="167" lean-forward="true" selection-start-line="106" selection-start-column="167" selection-end-line="106" selection-end-column="167" />
+          <folding />
         </state>
       </provider>
     </entry>
