@@ -7,10 +7,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
+    <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="Added CLI output for headless servers">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatServer/src/ChatHandler.java" afterPath="$PROJECT_DIR$/ChatServer/src/ChatHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatServer/src/ServerMonitor.java" afterPath="$PROJECT_DIR$/ChatServer/src/ServerMonitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatServer/src/ChatListener.java" afterPath="$PROJECT_DIR$/ChatServer/src/ChatListener.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,7 +28,7 @@
       <file leaf-file-name="ChatClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatGUI/src/ChatClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-587">
+            <state relative-caret-position="510">
               <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -38,34 +37,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChatHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="24" column="103" lean-forward="false" selection-start-line="24" selection-start-column="103" selection-end-line="24" selection-end-column="103" />
+            <state relative-caret-position="1751">
+              <caret line="105" column="55" lean-forward="true" selection-start-line="105" selection-start-column="55" selection-end-line="105" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerMonitor.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ServerMonitor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChatServer/src/ServerMonitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
+            <state relative-caret-position="1275">
               <caret line="75" column="55" lean-forward="false" selection-start-line="75" selection-start-column="55" selection-end-line="75" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -109,11 +98,11 @@
         <option value="$PROJECT_DIR$/src/ChatClient.java" />
         <option value="$PROJECT_DIR$/ChatServer/src/ChatServer.java" />
         <option value="$PROJECT_DIR$/Resources" />
-        <option value="$PROJECT_DIR$/ChatServer/src/ChatListener.java" />
         <option value="$PROJECT_DIR$/ChatGUI/src/ChatClient.java" />
         <option value="$PROJECT_DIR$/ChatServer/src/ServerMonitor.form" />
         <option value="$PROJECT_DIR$/ChatServer/src/ServerMonitor.java" />
         <option value="$PROJECT_DIR$/ChatServer/src/ChatHandler.java" />
+        <option value="$PROJECT_DIR$/ChatServer/src/ChatListener.java" />
       </list>
     </option>
   </component>
@@ -247,7 +236,7 @@
       <recent name="P:\Chat\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerMonitor">
+  <component name="RunManager" selected="Application.ChatClient">
     <configuration default="false" name="ChatClient" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="ChatClient" />
@@ -678,8 +667,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.ServerMonitor" />
-        <item index="1" class="java.lang.String" itemvalue="Application.ChatClient" />
+        <item index="0" class="java.lang.String" itemvalue="Application.ChatClient" />
+        <item index="1" class="java.lang.String" itemvalue="Application.ServerMonitor" />
         <item index="2" class="java.lang.String" itemvalue="JAR Application.ChatServer.jar" />
         <item index="3" class="java.lang.String" itemvalue="JAR Application.NetworkChatClient.jar" />
       </list>
@@ -705,7 +694,7 @@
       <workItem from="1489958358771" duration="18071000" />
       <workItem from="1489981084446" duration="28000" />
       <workItem from="1489981199072" duration="4526000" />
-      <workItem from="1490121792238" duration="1197000" />
+      <workItem from="1490121792238" duration="2863000" />
     </task>
     <task id="LOCAL-00001" summary="Added commands system and better exception handling">
       <created>1489712799656</created>
@@ -826,15 +815,22 @@
       <option name="project" value="LOCAL" />
       <updated>1489982120793</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added CLI output for headless servers">
+      <created>1490123012321</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1490123012321</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50354000" />
+    <option name="totallyTimeSpent" value="52020000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -845,7 +841,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39504564" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39504564" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -891,7 +887,8 @@
     <MESSAGE value="Added Program Icons" />
     <MESSAGE value="Fixed Hierarchy" />
     <MESSAGE value="Cleaning Up, reducing verbosity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaning Up, reducing verbosity" />
+    <MESSAGE value="Added CLI output for headless servers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added CLI output for headless servers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1076,28 +1073,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChatGUI/src/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-587">
+        <state relative-caret-position="510">
           <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatServer/src/ServerMonitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="75" column="55" lean-forward="false" selection-start-line="75" selection-start-column="55" selection-end-line="75" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1106,9 +1085,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="24" column="103" lean-forward="false" selection-start-line="24" selection-start-column="103" selection-end-line="24" selection-end-column="103" />
+        <state relative-caret-position="1751">
+          <caret line="105" column="55" lean-forward="true" selection-start-line="105" selection-start-column="55" selection-end-line="105" selection-end-column="55" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="3" lean-forward="true" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatServer/src/ServerMonitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="75" column="55" lean-forward="false" selection-start-line="75" selection-start-column="55" selection-end-line="75" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
