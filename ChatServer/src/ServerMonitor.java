@@ -33,12 +33,12 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         server = new ServerSocket(port);
-        serverLog.append("Local IP: " + InetAddress.getLocalHost() + "\n");
+        output("Local IP: " + InetAddress.getLocalHost());
         this.run();
     }
 
     public void run(){
-        serverLog.append("Listening on Port " + server.getLocalPort() + ".\n");
+        output("Listening on Port " + server.getLocalPort() + ".");
         updateLabel();
         while(true) {
             try {
@@ -48,7 +48,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
                 Thread t = new Thread(c);
                 t.start();
             } catch (IOException e) {
-                serverLog.append(Arrays.toString(e.getStackTrace()) + "\n");
+                output(Arrays.toString(e.getStackTrace()));
             }
         }
     }
@@ -66,23 +66,29 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
     public void clientDisconnected(String userName) {
         numberOnline--;
         updateLabel();
-        serverLog.append("Lost connection to " + userName + ".\n");
+        output("Lost connection to " + userName + ".");
     }
 
     @Override
     public void clientConnected(String userName) {
         numberOnline++;
         updateLabel();
-        serverLog.append("Initializing Connection to " + userName + ".\n");
+        output("Initializing Connection to " + userName);
     }
 
     @Override
     public void clientChangedName(String old, String updated) {
-        serverLog.append("Client " + old + " changed alias to " + updated + ".\n");
+        output("Client " + old + " changed alias to " + updated + ".");
     }
 
     private void updateLabel(){
         numberOnlineLabel.setText("Online: " + numberOnline);
         serverLog.setCaretPosition(serverLog.getDocument().getLength());
+    }
+
+    private void output(String toOutput){
+        serverLog.append(toOutput + "\n");
+        System.out.println(toOutput);
+        updateLabel();
     }
 }
