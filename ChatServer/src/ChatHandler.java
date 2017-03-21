@@ -117,6 +117,8 @@ public class ChatHandler implements Runnable {
                     for (ChatHandler c : handlers) {
                         if (name.equalsIgnoreCase(c.userName))
                             throw new IllegalArgumentException("Username already exists");
+                        else if(name.equalsIgnoreCase("server"))
+                            throw new IllegalArgumentException("Cannot be named server ");
                     }
                     setName(name);
                     tell("Username changed to " + userName);
