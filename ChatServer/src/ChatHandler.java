@@ -24,7 +24,7 @@ public class ChatHandler implements Runnable {
         this.inputStream = new DataInputStream (new BufferedInputStream (socket.getInputStream()));
         this.outputStream = new DataOutputStream (new BufferedOutputStream (socket.getOutputStream()));
         this.userName = socket.getInetAddress().toString(); //Set default username to IP address
-        this.userName = userName.substring(1,userName.length()-2); //Remove beginning slash and end dot
+        this.userName = userName.substring(1,userName.length()); //Remove beginning slash and end dot
         this.isAFK = false;
         tellAll(userName + " is online.");
         tell("Welcome to the Chat Server.");
@@ -89,12 +89,12 @@ public class ChatHandler implements Runnable {
         else return false;
     }
 
-    protected void executeCommand(String input){
-        String command = input.substring(1,input.length()); //Remove beginning slash
+    protected void executeCommand(String input) {
+        String command = input.substring(1, input.length()); //Remove beginning slash
         String[] commandParts = command.split(" "); //Split into parts on spaces
         String[] arguments = new String[commandParts.length - 1]; //Take args after command
 
-        for(int x = 1; x < commandParts.length; x++){ //Fill arguments
+        for (int x = 1; x < commandParts.length; x++) { //Fill arguments
             arguments[x - 1] = commandParts[x];
         }
 
@@ -102,59 +102,60 @@ public class ChatHandler implements Runnable {
         Server Commands
          */
 
-        switch(commandParts[0].toLowerCase()){ //Switch on command (ignoring case)
-            case("help") : { //Sends help documentation
-                tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users.");
-                //TODO: Send documentation in pages to the client
-            }
-
-            break;
-            case("name"): { //Changes userName
-                String name = "";
-                for(int i = 0; i < arguments.length; i++){
-                    name += arguments[i];
+        try {
+            switch (commandParts[0].toLowerCase()) { //Switch on command (ignoring case)
+                case ("help"): { //Sends help documentation
+                    tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users.");
                 }
-                try {
+                break;
+                case ("name"): { //Changes userName
+                    String name = "";
+                    for (int i = 0; i < arguments.length; i++) {
+                        name += arguments[i];
+                    }
                     if (name.isEmpty()) throw new IllegalArgumentException("Command Invalid: /name [user name]");
                     for (ChatHandler c : handlers) {
                         if (name.equalsIgnoreCase(c.userName))
                             throw new IllegalArgumentException("Username already exists");
-                        else if(name.equalsIgnoreCase("server"))
-                            throw new IllegalArgumentException("Cannot be named server ");
-                        }
+                    }
                     setName(name);
                     tell("Username changed to " + userName);
                 }
-                catch(IllegalArgumentException e){
-                    tell(e.getMessage());
-                }
-            }
-            break;
+                break;
 
-            case("afk"): { //Toggles isAFK and broadcasts state
-                if(this.isAFK){
-                    tellAll(userName + " is no longer AFK");
-                    this.isAFK = false;
+                case ("afk"): { //Toggles isAFK and broadcasts state
+                    if (this.isAFK) {
+                        tellAll(userName + " is no longer AFK");
+                        this.isAFK = false;
+                    } else {
+                        tellAll(userName + " is now AFK");
+                        this.isAFK = true;
+                    }
                 }
-                else{
-                    tellAll(userName + " is now AFK");
-                    this.isAFK = true;
-                }
-            }
-            break;
+                break;
 
-            case("list"): { // Sends list of all online users
-                String online = "";
-                for(ChatHandler x : handlers){
-                    online += x.userName + ", ";
+                case ("list"): { // Sends list of all online users
+                    String online = "";
+                    for (ChatHandler x : handlers) {
+                        online += x.userName + ", ";
+                    }
+                    tell("Online: " + online);
                 }
-                tell("Online: " + online);
-            }
-            break;
+                break;
 
-            default : { //Catches unrecognized commands
-                tell("Unrecognized command. Use /help for a list of all commands.");
+                case ("me"): { //Announces User-Provided State
+                    if (arguments.length == 0) throw new IllegalArgumentException("Command requires parameters.");
+                    tellAll(userName + " " + input.substring(input.indexOf(" ") + 1, input.length()) + ".");
+                }
+                break;
+
+                default: { //Catches unrecognized commands
+                    throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
+                }
             }
+        }
+        catch(IllegalArgumentException e){
+            tell(e.getMessage());
         }
     }
 
