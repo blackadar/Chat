@@ -7,7 +7,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="Cleaning Up, reducing verbosity">
+    <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -39,8 +39,8 @@
       <file leaf-file-name="ChatHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="106" column="167" lean-forward="true" selection-start-line="106" selection-start-column="167" selection-end-line="106" selection-end-column="167" />
+            <state relative-caret-position="281">
+              <caret line="107" column="65" lean-forward="true" selection-start-line="107" selection-start-column="65" selection-end-line="107" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -663,7 +663,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490125922620</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Cleaning Up, reducing verbosity">
+      <created>1490126017301</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1490126017301</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -951,8 +958,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChatServer/src/ChatHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="106" column="167" lean-forward="true" selection-start-line="106" selection-start-column="167" selection-end-line="106" selection-end-column="167" />
+        <state relative-caret-position="281">
+          <caret line="107" column="65" lean-forward="true" selection-start-line="107" selection-start-column="65" selection-end-line="107" selection-end-column="65" />
           <folding />
         </state>
       </provider>
