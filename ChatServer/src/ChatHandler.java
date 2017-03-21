@@ -104,7 +104,7 @@ public class ChatHandler implements Runnable {
 
         switch(commandParts[0].toLowerCase()){ //Switch on command (ignoring case)
             case("help") : { //Sends help documentation
-                tell("List of available commands: \n 1) /name [NEW NAME] changes your name to a new name \n 2) /afk makes you AFK \n 3) /list lists all current server members");
+                tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users.");
                 //TODO: Send documentation in pages to the client
             }
 
@@ -119,7 +119,9 @@ public class ChatHandler implements Runnable {
                     for (ChatHandler c : handlers) {
                         if (name.equalsIgnoreCase(c.userName))
                             throw new IllegalArgumentException("Username already exists");
-                    }
+                        else if(name.equalsIgnoreCase("server"))
+                            throw new IllegalArgumentException("Cannot be named server ");
+                        }
                     setName(name);
                     tell("Username changed to " + userName);
                 }
