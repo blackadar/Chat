@@ -24,7 +24,7 @@ public class ChatHandler implements Runnable {
         this.inputStream = new DataInputStream (new BufferedInputStream (socket.getInputStream()));
         this.outputStream = new DataOutputStream (new BufferedOutputStream (socket.getOutputStream()));
         this.userName = socket.getInetAddress().toString(); //Set default username to IP address
-        this.userName = userName.substring(1,userName.length()-2); //Remove beginning slash and end dot
+        this.userName = userName.substring(1,userName.length()); //Remove beginning slash and end dot
         this.isAFK = false;
         tellAll(userName + " is online.");
         tell("Welcome to the Chat Server.");
