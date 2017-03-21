@@ -104,8 +104,7 @@ public class ChatHandler implements Runnable {
 
         switch(commandParts[0].toLowerCase()){ //Switch on command (ignoring case)
             case("help") : { //Sends help documentation
-                tell("List of available commands: \n 1) /name [NEW NAME] changes your name to a new name \n 2) /afk makes you AFK \n 3) /list lists all current server members");
-                //TODO: Send documentation in pages to the client
+                tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users.");
             }
 
             break;
