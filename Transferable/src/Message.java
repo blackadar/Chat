@@ -44,7 +44,7 @@ public class Message implements Serializable{
     /**
        Inner class representing message prefix, to be used exclusively by instances of Message.
      */
-    private class Prefix{
+    private class Prefix implements Serializable{
         boolean isCommand;
         String destinationRoom;
 

@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @version 0.7.9
  * @since 3/17/2017 : 3:05 PM
  */
-public class UserInterface extends JFrame implements Runnable{
+public class UserInterface extends JFrame implements Runnable {
     private Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
     private JTextArea chatLog;
     private JTextField textField;
@@ -27,12 +27,13 @@ public class UserInterface extends JFrame implements Runnable{
 
     protected static String host;
     protected static int port;
+    protected static String userName;
 
     public UserInterface(InputStream inputStream, OutputStream outputStream) {
         super("Network Chat");
         this.setIconImage(image);
         setContentPane(rootPanel);
-        this.setPreferredSize(new Dimension(600,400));
+        this.setPreferredSize(new Dimension(600, 400));
         chatLog.setLineWrap(true);
         serverTabs.setTitleAt(0, host);
         pack();
@@ -62,7 +63,8 @@ public class UserInterface extends JFrame implements Runnable{
         textField.addActionListener(actionEvent -> {
             try {
                 Message current = new Message(textField.getText());
-                this.outputStream.writeObject(current);;
+                this.outputStream.writeObject(current);
+                ;
                 this.outputStream.flush();
                 textField.setText("");
             } catch (IOException e) {
@@ -73,16 +75,15 @@ public class UserInterface extends JFrame implements Runnable{
         this.setVisible(true);
     }
 
-    public void run () {
+    public void run() {
         try {
-            while(true) {
+            while (true) {
                 Message current = (Message) inputStream.readObject();
                 String line = current.contents;
                 chatLog.append(line + "\n");
                 chatLog.setCaretPosition(chatLog.getDocument().getLength());
             }
-        }
-        catch(EOFException|SocketException e){
+        } catch (EOFException | SocketException e) {
             chatLog.append("Local : Connection to server lost.\n");
             textField.setVisible(false);
             button.setText("Reconnect");
@@ -92,14 +93,14 @@ public class UserInterface extends JFrame implements Runnable{
                     Socket s = new Socket(host, port);
                     this.inputStream = new ObjectInputStream(inputStream);
                     this.outputStream = new ObjectOutputStream(outputStream);
-                    listener = new Thread (this);
-                    listener.start ();
+                    listener = new Thread(this);
+                    listener.start();
                     chatLog.append("Local : Reconnection Successful.\n");
                     textField.setVisible(true);
                     button.setText("Send");
                     button.removeActionListener(button.getActionListeners()[0]);
                     button.addActionListener(actionEvent1 -> {
-                        try{
+                        try {
                             Message current = new Message(textField.getText());
                             this.outputStream.writeObject(current);
                             outputStream.flush();
@@ -120,16 +121,16 @@ public class UserInterface extends JFrame implements Runnable{
             });
 
             JOptionPane.showMessageDialog(null, "Unable to communicate with the chat server.", "Connection Lost", JOptionPane.WARNING_MESSAGE);
-        }
-
-        catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
+            chatLog.append("Local : General I/O Exception during Reconnection.\n");
             chatLog.append(Arrays.toString(ex.getStackTrace()) + "\n");
+            ex.printStackTrace();
         } finally {
             listener = null;
             textField.setVisible(false);
-            validate ();
+            validate();
             try {
-                outputStream.close ();
+                outputStream.close();
             } catch (IOException e) {
                 chatLog.append(Arrays.toString(e.getStackTrace()) + "\n");
             }
@@ -137,34 +138,51 @@ public class UserInterface extends JFrame implements Runnable{
     }
 
     public static void main(String[] args) throws IOException {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
             try {
-                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                        UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
+                UIManager.setLookAndFeel(
+                        UIManager.getCrossPlatformLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-                catch(Exception ex){
-                    try {
-                        UIManager.setLookAndFeel(
-                                UIManager.getCrossPlatformLookAndFeelClassName());
-                    }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
+        }
 
-        try{
+        try {
+            recoverState();
+            Socket s = new Socket(host, port);
+            new UserInterface(s.getInputStream(), s.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private static void recoverState() throws IOException, ClassNotFoundException {
+        File save = new File("save.sv");
+        if (!(save.exists())) {
+            JOptionPane.showInputDialog(null, "Welcome to Network Chat.\nInput Username:");
             String inputDialog = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
-            if(!(inputDialog == null || ("".equals(inputDialog)))) {
+            if (!(inputDialog == null || ("".equals(inputDialog)))) {
                 host = inputDialog.split(":")[0];
                 port = Integer.parseInt(inputDialog.split(":")[1]);
-                Socket s = new Socket(host, port);
-                new UserInterface(s.getInputStream(), s.getOutputStream());
+                FileOutputStream out = new FileOutputStream(save);
+                ObjectOutputStream fileOut = new ObjectOutputStream(out);
+                fileOut.writeObject(new Save(userName, host + ":" + port));
             }
-        } catch(Exception e){
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
+            } else {
+                FileInputStream in = new FileInputStream(save);
+                ObjectInputStream fileOut = new ObjectInputStream(in);
+                Save recovered = (Save) fileOut.readObject();
+                host = recovered.lastUsedServer.split(":")[0];
+                port = Integer.parseInt(recovered.lastUsedServer.split(":")[1]);
+                userName = recovered.handle;
         }
     }
 }
