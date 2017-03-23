@@ -36,6 +36,7 @@ public class UserInterface extends JFrame implements Runnable{
         chatLog.setLineWrap(true);
         serverTabs.setTitleAt(0, host);
         pack();
+        chatLog.setAutoscrolls(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
             this.outputStream = new ObjectOutputStream(outputStream);
