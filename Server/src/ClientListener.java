@@ -158,6 +158,7 @@ public class ClientListener implements Runnable {
                 case("shrug"): {
                     tellAll(userName + ": ¯\\_(ツ)_/¯ ");
                 }
+                break;
 
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
