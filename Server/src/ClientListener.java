@@ -151,9 +151,15 @@ public class ClientListener implements Runnable {
                 }
                 break;
 
+                case("shrug"): {
+                    tellAll(userName + ": ¯\\_(ツ)_/¯ ");
+                }
+
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
                 }
+
+
             }
         }
         catch(IllegalArgumentException e){
