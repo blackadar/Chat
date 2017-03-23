@@ -30,7 +30,6 @@ public class ChatHandler implements Runnable {
         tell("Welcome to the Chat Server.");
         tell("For a full list of commands, type /help .");
     }
-    
 
     /**
      * Looping Logic for a ChatHandler thread. Handles input and commands.
