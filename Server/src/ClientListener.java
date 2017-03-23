@@ -105,7 +105,11 @@ public class ClientListener implements Runnable {
         try {
             switch (commandParts[0].toLowerCase()) { //Switch on command (ignoring case)
                 case ("help"): { //Sends help documentation
-                    tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users.");
+                    tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users. \n 4.  /me [phrase]: (Ex. /me does something = [name] does something)");
+                }
+                break;
+                case ("hack"): {//Hacks
+                    tellAll("Oh no I've been hacked by " + userName + "!");
                 }
                 break;
                 case ("name"): { //Changes userName
@@ -151,9 +155,16 @@ public class ClientListener implements Runnable {
                 }
                 break;
 
+                case("shrug"): {
+                    tellAll(userName + ": ¯\\_(ツ)_/¯ ");
+                }
+                break;
+
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
                 }
+
+
             }
         }
         catch(IllegalArgumentException e){
