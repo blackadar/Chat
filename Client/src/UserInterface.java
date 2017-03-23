@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @version 0.7.9
  * @since 3/17/2017 : 3:05 PM
  */
-public class ChatClient extends JFrame implements Runnable{
+public class UserInterface extends JFrame implements Runnable{
     private Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
     private JTextArea chatLog;
     private JTextField textField;
@@ -28,7 +28,7 @@ public class ChatClient extends JFrame implements Runnable{
     protected static String host;
     protected static int port;
 
-    public ChatClient(InputStream inputStream, OutputStream outputStream) {
+    public UserInterface(InputStream inputStream, OutputStream outputStream) {
         super("Network Chat");
         this.setIconImage(image);
         setContentPane(rootPanel);
@@ -150,7 +150,7 @@ public class ChatClient extends JFrame implements Runnable{
                 host = inputDialog.split(":")[0];
                 port = Integer.parseInt(inputDialog.split(":")[1]);
                 Socket s = new Socket(host, port);
-                new ChatClient(s.getInputStream(), s.getOutputStream());
+                new UserInterface(s.getInputStream(), s.getOutputStream());
             }
         } catch(Exception e){
                     e.printStackTrace();

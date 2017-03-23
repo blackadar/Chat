@@ -2,7 +2,8 @@
   <artifact type="jar" name="NetworkChatClient">
     <output-path>$PROJECT_DIR$/out/artifacts/NetworkChatClient</output-path>
     <root id="archive" name="NetworkChatClient.jar">
-      <element id="module-output" name="ChatGUI" />
+      <element id="module-output" name="Client" />
+      <element id="module-output" name="Transferable" />
     </root>
   </artifact>
 </component>

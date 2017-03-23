@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @version 0.3.5
  * @since 3/19/2017 : 2:15 PM
  */
-public class ServerMonitor extends JFrame implements Runnable, ChatListener{
+public class Monitor extends JFrame implements Runnable, ClientListener {
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
@@ -21,7 +21,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
     protected int numberOnline = 0;
 
 
-    public ServerMonitor (int port) throws IOException {
+    public Monitor(int port) throws IOException {
         super("Chat Server");
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
@@ -43,7 +43,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
         while(true) {
             try {
                 Socket client = server.accept();
-                ChatHandler c = new ChatHandler(client);
+                Client c = new Client(client);
                 c.addListener(this);
                 Thread t = new Thread(c);
                 t.start();
@@ -55,7 +55,7 @@ public class ServerMonitor extends JFrame implements Runnable, ChatListener{
 
     public static void main(String[] args){
         try {
-            new ServerMonitor(9090);
+            new Monitor(9090);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog( null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @version 0.1.0
  * @since 3/23/2017 : 10:02 AM
  */
-public class ChatRoom {
+public class Room {
     public String name;
-    private ArrayList<ChatHandler> participants = new ArrayList<>();
+    private ArrayList<Client> participants = new ArrayList<>();
 }

@@ -9,17 +9,17 @@ import java.util.*;
  * @version 0.1.0
  * @since 3/17/2017 : 3:05 PM
  */
-public class ChatHandler implements Runnable {
+public class Client implements Runnable {
 
     protected Socket socket;
     protected DataInputStream inputStream;
     protected DataOutputStream outputStream;
     protected String userName;
     protected boolean isAFK;
-    protected static ArrayList<ChatHandler> handlers = new ArrayList<>();
-    protected ArrayList<ChatListener> listeners = new ArrayList<>();
+    protected static ArrayList<Client> handlers = new ArrayList<>();
+    protected ArrayList<ClientListener> listeners = new ArrayList<>();
 
-    public ChatHandler (Socket socket) throws IOException {
+    public Client(Socket socket) throws IOException {
         this.socket = socket;
         this.inputStream = new DataInputStream (new BufferedInputStream (socket.getInputStream()));
         this.outputStream = new DataOutputStream (new BufferedOutputStream (socket.getOutputStream()));
@@ -32,12 +32,12 @@ public class ChatHandler implements Runnable {
     }
 
     /**
-     * Looping Logic for a ChatHandler thread. Handles input and commands.
+     * Looping Logic for a Client thread. Handles input and commands.
      */
     public void run(){
         try {
             handlers.add(this);
-            for(ChatListener x : listeners){
+            for(ClientListener x : listeners){
                 x.clientConnected(userName);
             }
             while (true) {
@@ -71,7 +71,7 @@ public class ChatHandler implements Runnable {
 
     public void stop(){
         handlers.remove(this);
-        for(ChatListener x : listeners){
+        for(ClientListener x : listeners){
             x.clientDisconnected(userName);
         }
         tellAll(userName + " is offline.");
@@ -114,7 +114,7 @@ public class ChatHandler implements Runnable {
                         name += arguments[i];
                     }
                     if (name.isEmpty()) throw new IllegalArgumentException("Command Invalid: /name [user name]");
-                    for (ChatHandler c : handlers) {
+                    for (Client c : handlers) {
                         if (name.equalsIgnoreCase(c.userName))
                             throw new IllegalArgumentException("Username already exists");
                         else if(name.equalsIgnoreCase("server"))
@@ -138,7 +138,7 @@ public class ChatHandler implements Runnable {
 
                 case ("list"): { // Sends list of all online users
                     String online = "";
-                    for (ChatHandler x : handlers) {
+                    for (Client x : handlers) {
                         online += x.userName + ", ";
                     }
                     tell("Online: " + online);
@@ -165,7 +165,7 @@ public class ChatHandler implements Runnable {
     Internal Methods
      */
 
-    public void addListener(ChatListener toAdd) {
+    public void addListener(ClientListener toAdd) {
         listeners.add(toAdd);
     }
 
@@ -173,14 +173,14 @@ public class ChatHandler implements Runnable {
         synchronized(handlers) {
             Enumeration allHandlers = Collections.enumeration(handlers);
             while (allHandlers.hasMoreElements ()) {
-                ChatHandler currentChatHandler = (ChatHandler) allHandlers.nextElement();
+                Client currentClient = (Client) allHandlers.nextElement();
                 try {
-                    synchronized(currentChatHandler.outputStream) {
-                        currentChatHandler.outputStream.writeUTF(message);
+                    synchronized(currentClient.outputStream) {
+                        currentClient.outputStream.writeUTF(message);
                     }
-                    currentChatHandler.outputStream.flush();
+                    currentClient.outputStream.flush();
                 } catch (IOException e) {
-                    currentChatHandler.stop();
+                    currentClient.stop();
                 }
             }
         }
@@ -197,7 +197,7 @@ public class ChatHandler implements Runnable {
         }
     }
 
-    protected void message(String sender, ChatHandler recipient, String message){
+    protected void message(String sender, Client recipient, String message){
         //TODO: Implement message method
     }
 
@@ -206,7 +206,7 @@ public class ChatHandler implements Runnable {
     }
 
     protected void setName(String name){
-        for(ChatListener x : listeners){
+        for(ClientListener x : listeners){
             x.clientChangedName(userName, name);
         }
         this.userName = name;
