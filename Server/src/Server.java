@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @version 0.3.5
  * @since 3/19/2017 : 2:15 PM
  */
-public class Monitor extends JFrame implements Runnable, ClientListener {
+public class Server extends JFrame implements Runnable, ClientActionListener {
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
@@ -21,7 +21,7 @@ public class Monitor extends JFrame implements Runnable, ClientListener {
     protected int numberOnline = 0;
 
 
-    public Monitor(int port) throws IOException {
+    public Server(int port) throws IOException {
         super("Chat Server");
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
@@ -43,7 +43,7 @@ public class Monitor extends JFrame implements Runnable, ClientListener {
         while(true) {
             try {
                 Socket client = server.accept();
-                Client c = new Client(client);
+                ClientListener c = new ClientListener(client);
                 c.addListener(this);
                 Thread t = new Thread(c);
                 t.start();
@@ -55,7 +55,7 @@ public class Monitor extends JFrame implements Runnable, ClientListener {
 
     public static void main(String[] args){
         try {
-            new Monitor(9090);
+            new Server(9090);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog( null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
@@ -78,7 +78,7 @@ public class Monitor extends JFrame implements Runnable, ClientListener {
 
     @Override
     public void clientChangedName(String old, String updated) {
-        output("Client " + old + " changed alias to " + updated + ".");
+        output("ClientListener " + old + " changed alias to " + updated + ".");
     }
 
     private void updateLabel(){

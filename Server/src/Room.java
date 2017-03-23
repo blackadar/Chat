@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 public class Room {
     public String name;
-    private ArrayList<Client> participants = new ArrayList<>();
+    private ArrayList<ClientListener> participants = new ArrayList<>();
 }
