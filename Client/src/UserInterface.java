@@ -21,8 +21,8 @@ public class UserInterface extends JFrame implements Runnable{
     private JPanel rootPanel;
     private JScrollPane chatLogHolder;
     private JTabbedPane serverTabs;
-    protected DataInputStream inputStream;
-    protected DataOutputStream outputStream;
+    protected ObjectInputStream inputStream;
+    protected ObjectOutputStream outputStream;
     protected Thread listener;
 
     protected static String host;
@@ -37,14 +37,20 @@ public class UserInterface extends JFrame implements Runnable{
         serverTabs.setTitleAt(0, host);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.inputStream = new DataInputStream(new BufferedInputStream(inputStream));
-        this.outputStream = new DataOutputStream(new BufferedOutputStream(outputStream));
+        try {
+            this.outputStream = new ObjectOutputStream(outputStream);
+            outputStream.flush();
+            this.inputStream = new ObjectInputStream(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         listener = new Thread(this);
         listener.start();
 
         button.addActionListener(actionEvent -> {
             try {
-                this.outputStream.writeUTF(textField.getText());
+                Message current = new Message(textField.getText());
+                this.outputStream.writeObject(current);
                 this.outputStream.flush();
                 textField.setText("");
             } catch (IOException e) {
@@ -54,7 +60,8 @@ public class UserInterface extends JFrame implements Runnable{
 
         textField.addActionListener(actionEvent -> {
             try {
-                this.outputStream.writeUTF(textField.getText());
+                Message current = new Message(textField.getText());
+                this.outputStream.writeObject(current);;
                 this.outputStream.flush();
                 textField.setText("");
             } catch (IOException e) {
@@ -68,7 +75,8 @@ public class UserInterface extends JFrame implements Runnable{
     public void run () {
         try {
             while(true) {
-                String line = inputStream.readUTF();
+                Message current = (Message) inputStream.readObject();
+                String line = current.contents;
                 chatLog.append(line + "\n");
                 chatLog.setCaretPosition(chatLog.getDocument().getLength());
             }
@@ -81,8 +89,8 @@ public class UserInterface extends JFrame implements Runnable{
             button.addActionListener(actionEvent -> {
                 try {
                     Socket s = new Socket(host, port);
-                    this.inputStream = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    this.outputStream = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
+                    this.inputStream = new ObjectInputStream(inputStream);
+                    this.outputStream = new ObjectOutputStream(outputStream);
                     listener = new Thread (this);
                     listener.start ();
                     chatLog.append("Local : Reconnection Successful.\n");
@@ -91,7 +99,8 @@ public class UserInterface extends JFrame implements Runnable{
                     button.removeActionListener(button.getActionListeners()[0]);
                     button.addActionListener(actionEvent1 -> {
                         try{
-                            outputStream.writeUTF(textField.getText());
+                            Message current = new Message(textField.getText());
+                            this.outputStream.writeObject(current);
                             outputStream.flush();
                             textField.setText("");
                         } catch (IOException ex) {
@@ -112,7 +121,7 @@ public class UserInterface extends JFrame implements Runnable{
             JOptionPane.showMessageDialog(null, "Unable to communicate with the chat server.", "Connection Lost", JOptionPane.WARNING_MESSAGE);
         }
 
-        catch (IOException ex) {
+        catch (IOException | ClassNotFoundException ex) {
             chatLog.append(Arrays.toString(ex.getStackTrace()) + "\n");
         } finally {
             listener = null;

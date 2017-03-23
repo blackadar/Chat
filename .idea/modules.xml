@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\brownl\IdeaProjects\Chat\ChatGUI\ChatGUI.iml" filepath="C:\Users\brownl\IdeaProjects\Chat\ChatGUI\ChatGUI.iml" />
-      <module fileurl="file://C:\Users\brownl\IdeaProjects\Chat\ChatServer\ChatServer.iml" filepath="C:\Users\brownl\IdeaProjects\Chat\ChatServer\ChatServer.iml" />
+      <module fileurl="file://C:/Users/brownl/IdeaProjects/Chat/ChatGUI/ChatGUI.iml" filepath="C:/Users/brownl/IdeaProjects/Chat/ChatGUI/ChatGUI.iml" />
+      <module fileurl="file://C:/Users/brownl/IdeaProjects/Chat/ChatServer/ChatServer.iml" filepath="C:/Users/brownl/IdeaProjects/Chat/ChatServer/ChatServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/Client/Client.iml" filepath="$PROJECT_DIR$/Client/Client.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
       <module fileurl="file://$PROJECT_DIR$/Transferable/Transferable.iml" filepath="$PROJECT_DIR$/Transferable/Transferable.iml" />

@@ -43,7 +43,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         while(true) {
             try {
                 Socket client = server.accept();
-                ClientListener c = new ClientListener(client);
+                ClientListener c = new ClientListener(client, "METADATA USERNAME");
                 c.addListener(this);
                 Thread t = new Thread(c);
                 t.start();

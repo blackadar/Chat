@@ -12,19 +12,19 @@ import java.util.*;
 public class ClientListener implements Runnable {
 
     protected Socket socket;
-    protected DataInputStream inputStream;
-    protected DataOutputStream outputStream;
+    protected ObjectInputStream inputStream;
+    protected ObjectOutputStream outputStream;
     protected String userName;
     protected boolean isAFK;
     protected static ArrayList<ClientListener> handlers = new ArrayList<>();
     protected ArrayList<ClientActionListener> listeners = new ArrayList<>();
 
-    public ClientListener(Socket socket) throws IOException {
+    public ClientListener(Socket socket, String userName) throws IOException {
         this.socket = socket;
-        this.inputStream = new DataInputStream (new BufferedInputStream (socket.getInputStream()));
-        this.outputStream = new DataOutputStream (new BufferedOutputStream (socket.getOutputStream()));
-        this.userName = socket.getInetAddress().toString(); //Set default username to IP address
-        this.userName = userName.substring(1,userName.length()); //Remove beginning slash and end dot
+        this.outputStream = new ObjectOutputStream(socket.getOutputStream());
+        outputStream.flush();
+        this.inputStream = new ObjectInputStream(socket.getInputStream());
+        this.userName = userName;
         this.isAFK = false;
         tellAll(userName + " is online.");
         tell("Welcome to the Chat Server.");
@@ -41,24 +41,26 @@ public class ClientListener implements Runnable {
                 x.clientConnected(userName);
             }
             while (true) {
-                String received = inputStream.readUTF();
-                if(received.isEmpty()){
+                Message received =(Message)inputStream.readObject();
+                if(received.contents.isEmpty()){
                     //Ignore Empty Submissions
                 }
-                else if(hasCommand(received)){
-                    executeCommand(received);
+                else if(hasCommand(received.contents)){
+                    executeCommand(received.contents);
                 }
                 else if(isAFK){
                     tellAll(userName + " is no longer AFK.");
                     isAFK = false;
-                    broadcast(userName + " : " + received);
+                    broadcast(userName + " : " + received.contents);
                 }
                 else {
-                    broadcast(userName + " : " + received);
+                    broadcast(userName + " : " + received.contents);
                 }
             }
         } catch (IOException e) {
             this.stop();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
             handlers.remove(this);
             try {
@@ -176,7 +178,7 @@ public class ClientListener implements Runnable {
                 ClientListener currentClientListener = (ClientListener) allHandlers.nextElement();
                 try {
                     synchronized(currentClientListener.outputStream) {
-                        currentClientListener.outputStream.writeUTF(message);
+                        currentClientListener.outputStream.writeObject(new Message(message));
                     }
                     currentClientListener.outputStream.flush();
                 } catch (IOException e) {
@@ -189,7 +191,7 @@ public class ClientListener implements Runnable {
     protected void tell(String message){
         try {
             synchronized(this.outputStream) {
-                this.outputStream.writeUTF("Server : " + message);
+                this.outputStream.writeObject(new Message("Server : " + message));
             }
             this.outputStream.flush();
         } catch (IOException e) {
