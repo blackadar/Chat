@@ -9,8 +9,7 @@ import java.io.Serializable;
  */
 public class Message implements Serializable{
     public String contents;
-    public boolean isCommand;
-    public String destinationRoom;
+    Prefix prefix;
 
     /**
      * Initializes a message for a /all room.
@@ -18,8 +17,7 @@ public class Message implements Serializable{
      */
     public Message(String contents){
         this.contents = contents;
-        this.isCommand = false;
-        this.destinationRoom = "all";
+        this.prefix = new Prefix(false, "all");
     }
 
     /**
@@ -29,8 +27,7 @@ public class Message implements Serializable{
      */
     public Message(String contents, String destinationRoom){
         this.contents = contents;
-        this.isCommand = false;
-        this.destinationRoom = destinationRoom;
+        this.prefix = new Prefix(false, destinationRoom);
     }
 
     /**
@@ -41,7 +38,25 @@ public class Message implements Serializable{
      */
     public Message(String contents, String destinationRoom, boolean isCommand){
         this.contents = contents;
-        this.isCommand = isCommand;
-        this.destinationRoom = destinationRoom;
+        this.prefix = new Prefix(isCommand, destinationRoom);
+    }
+
+    /**
+       Inner class representing message prefix, to be used exclusively by instances of Message.
+     */
+    private class Prefix{
+        boolean isCommand;
+        String destinationRoom;
+
+        public Prefix(boolean isCommand, String destinationRoom) {
+            this.isCommand = isCommand;
+            this.destinationRoom = destinationRoom;
+        }
+        public boolean isCommand(){
+            return isCommand;
+        }
+        public String getDestinationRoom(){
+            return destinationRoom;
+        }
     }
 }
