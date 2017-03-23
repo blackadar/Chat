@@ -30,6 +30,7 @@ public class UserInterface extends JFrame implements Runnable{
 
     public UserInterface(InputStream inputStream, OutputStream outputStream) {
         super("Network Chat");
+        recoverState();
         this.setIconImage(image);
         setContentPane(rootPanel);
         this.setPreferredSize(new Dimension(600,400));
@@ -123,7 +124,9 @@ public class UserInterface extends JFrame implements Runnable{
         }
 
         catch (IOException | ClassNotFoundException ex) {
+            chatLog.append("Local : General I/O Exception during Reconnection.\n");
             chatLog.append(Arrays.toString(ex.getStackTrace()) + "\n");
+            ex.printStackTrace();
         } finally {
             listener = null;
             textField.setVisible(false);
@@ -165,6 +168,13 @@ public class UserInterface extends JFrame implements Runnable{
         } catch(Exception e){
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void recoverState(){
+        File save = new File("save.csave");
+        if(!(save.exists())){
+            JOptionPane.showInputDialog(null, "Welcome to Network Chat.\nInput Username:");
         }
     }
 }
