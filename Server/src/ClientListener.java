@@ -26,6 +26,7 @@ public class ClientListener implements Runnable {
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         outputStream.flush();
         this.inputStream = new ObjectInputStream(socket.getInputStream());
+
         try {
             myMetaData = (MetaData)inputStream.readObject();
         } catch (ClassNotFoundException e) {

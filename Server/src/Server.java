@@ -15,64 +15,58 @@ import java.util.Arrays;
  * @since 3/19/2017 : 2:15 PM
  */
 public class Server extends JFrame implements Runnable, ClientActionListener {
+    public static final String SERVER_ERR_LBL = "<<ERROR>> ";
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
     private ServerSocket server;
     protected int numberOnline = 0;
     protected File save = new File("save.svs");
-    public Save currentSave;
+    protected Save currentSave;
 
 
     public Server(int port) throws IOException {
         super("Chat Server");
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
-        this.setIconImage(image);
-        setContentPane(panel);
-        this.setPreferredSize(new Dimension(600, 400));
-        serverLog.setLineWrap(true);
-        updateLabel();
-        pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-        server = new ServerSocket(port);
-        output("Local IP: " + InetAddress.getLocalHost());
-        if(save.exists()){
-            try {
-                currentSave = Save.revive();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            currentSave = new Save();
-        }
-        this.run();
+        initGui(); //Set up GUI
+        server = new ServerSocket(port); //Create socket to listen for connections
+        output("Local IP: " + InetAddress.getLocalHost());  //Output the local IP
+        initSaveFile(); //Initialize the save file, creating it if it does not exist
+        this.run(); //Begin server operation
     }
 
+    /**
+     * Main loop for running server.  Waits for connections, upon receiving them creates a new ClientListener thread.
+     * @throws
+     */
     public void run() {
         output("Listening on Port " + server.getLocalPort() + ".");
         updateLabel();
-        while (true) {
+        while (true) { //Continuously look for and accept new incoming connections
             try {
-                Socket client = server.accept();
+                Socket client = server.accept(); //Block until a connection is attempted
+
+                //Create a client listener object to handle new user
                 ClientListener pending_user = new ClientListener(client, this);
-                pending_user.addListener(this);
-                System.out.println("Is mod: " + pending_user.myUser.isMod);
+                pending_user.addListener(this); //Assign this server as the listener for new client
+
+                //Check if the user is in the saved list of users
                 currentSave.addIfMissing(pending_user.myUser);
-                Save.preserve(currentSave);
+                Save.preserve(currentSave); //Save the user list
+
+                //Create and run client listener thread
                 Thread t = new Thread(pending_user);
                 t.start();
             } catch (IOException e) {
+                System.err.println("Could not store user data file");
                 e.printStackTrace();
-                output(Arrays.toString(e.getStackTrace()));
+                output(SERVER_ERR_LBL + "Could not store user data file");
             }
         }
     }
 
     public static void main(String[] args) {
         try {
-            new Server(9090);
+            new Server(9090); //Create serve and set port
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
@@ -107,5 +101,29 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         serverLog.append(toOutput + "\n");
         System.out.println(toOutput);
         updateLabel();
+    }
+
+    private void initGui(){
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
+        this.setIconImage(image);
+        setContentPane(panel);
+        this.setPreferredSize(new Dimension(600, 400));
+        serverLog.setLineWrap(true);
+        updateLabel();
+        pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+
+    private void initSaveFile () throws IOException{
+        if(save.exists()){
+            try {
+                currentSave = Save.revive();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            currentSave = new Save();
+        }
     }
 }
