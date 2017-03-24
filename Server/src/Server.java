@@ -56,12 +56,11 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         while (true) {
             try {
                 Socket client = server.accept();
-                ClientListener pending_user = new ClientListener(client, this);
-                pending_user.addListener(this);
-                System.out.println("Is mod: " + pending_user.myUser.isMod);
-                currentSave.addIfMissing(pending_user.myUser);
+                ClientListener pendingUser = new ClientListener(client, this);
+                pendingUser.addListener(this);
+                currentSave.addIfMissing(pendingUser.myUser);
                 Save.preserve(currentSave);
-                Thread t = new Thread(pending_user);
+                Thread t = new Thread(pendingUser);
                 t.start();
             } catch (IOException e) {
                 e.printStackTrace();
