@@ -61,7 +61,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 Socket client = server.accept();
                 ClientListener pending_user = new ClientListener(client);
                 pending_user.addListener(this);
-                currentSave.addIfMissing(new User(pending_user.myUser.userName, false, false));
+                currentSave.addIfMissing(pending_user.myUser);
                 Save.preserve(currentSave);
                 Thread t = new Thread(pending_user);
                 t.start();
