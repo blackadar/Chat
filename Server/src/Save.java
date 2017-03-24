@@ -31,10 +31,12 @@ public class Save implements Serializable{
     }
 
     public void addIfMissing(String name, boolean isMod) {
-        System.out.println("Adding " + name);
+        System.out.println("Checking " + name);
         for (User x : all) {
-            if (x.name.equalsIgnoreCase(name)) return;
-            System.out.print("Inside Loop");
+            if (x.name.equalsIgnoreCase(name)){
+                System.out.println(name + " already exists.");
+                return;
+            }
         }
         this.all.add(new User(name, isMod));
         System.out.println("Added " + all.get(all.size() - 1).name);
