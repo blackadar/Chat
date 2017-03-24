@@ -11,6 +11,7 @@ import java.util.Arrays;
  * Created by Jordan Blackadar as a part of the Server package in Chat.
  * GUI for Server interface
  * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
+ * @author Liam Brown<"liamnb525@gmail.com"/>
  * @version 0.3.5
  * @since 3/19/2017 : 2:15 PM
  */
@@ -111,7 +112,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         serverLog.setLineWrap(true);
         updateLabel();
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
