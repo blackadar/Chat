@@ -46,6 +46,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
             try {
                 Socket client = server.accept(); //Block until a connection is attempted
 
+
                 //Create a client listener object to handle new user
                 ClientListener pending_user = new ClientListener(client, this);
                 pending_user.addListener(this); //Assign this server as the listener for new client
@@ -61,6 +62,10 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 System.err.println("Could not store user data file");
                 e.printStackTrace();
                 output(SERVER_ERR_LBL + "Could not store user data file");
+            } catch (ClassNotFoundException e) {
+                System.err.println("Client did not properly initialize connection");
+                e.printStackTrace();
+                output(SERVER_ERR_LBL + "Client did not properly initialize connection");
             }
         }
     }
