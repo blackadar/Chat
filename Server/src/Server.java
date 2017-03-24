@@ -15,7 +15,6 @@ import java.util.Arrays;
  * @since 3/19/2017 : 2:15 PM
  */
 public class Server extends JFrame implements Runnable, ClientActionListener {
-    public static Server staticReference;
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
@@ -73,7 +72,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
     public static void main(String[] args) {
         try {
-            staticReference = new Server(9090);
+            new Server(9090);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
