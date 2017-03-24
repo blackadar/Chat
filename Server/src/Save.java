@@ -42,31 +42,11 @@ public class Save implements Serializable{
         System.out.println("Added " + all.get(all.size() - 1).userName);
     }
 
-    public static User instantiateUser(String name, boolean isMod, boolean blacklist){
-        return (new Save()).new User(name, isMod, blacklist);
+
+
+    public static void updateUser(){
+
     }
 
-    class User implements Serializable{
-        public String userName;
-        public boolean isMod;
-        public boolean blacklist;
 
-        public User(String userName, boolean isMod, boolean blacklist){
-            this.userName = userName;
-            this.isMod = isMod;
-            this.blacklist = blacklist;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public void setMod(boolean isMod) {
-            this.isMod = isMod;
-        }
-
-        public void setBlacklist(boolean blacklist) {
-            this.blacklist = blacklist;
-        }
-    }
 }

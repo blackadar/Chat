@@ -14,20 +14,31 @@ public class ClientListener implements Runnable {
     protected Socket socket;
     protected ObjectInputStream inputStream;
     protected ObjectOutputStream outputStream;
-    protected String userName;
+    protected User myUser;
     protected boolean isAFK;
 
     protected static ArrayList<ClientListener> all = new ArrayList<>();
     protected ArrayList<ClientActionListener> actionListeners = new ArrayList<>();
 
-    public ClientListener(Socket socket, String userName) throws IOException {
+    public ClientListener(Socket socket) throws IOException {
         this.socket = socket;
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         outputStream.flush();
         this.inputStream = new ObjectInputStream(socket.getInputStream());
-        this.userName = userName;
+
+        //TODO ACCEPT METADATA HERE (called userdata)
+
+        boolean exists = false;
+        for(User temp : Server.staticReference.currentSave.all){
+            if(temp.userName.equals(userData.handle)){
+                myUser = temp;
+                exists = true;
+            }
+        }
+        if(exists == false) myUser = new User(userData.handle, false, false);
+
         this.isAFK = false;
-        tellAll(userName + " is online.");
+        tellAll(myUser.userName + " is online.");
         tell("Welcome to the Chat Server.");
         tell("For a full list of commands, type /help .");
     }
@@ -39,7 +50,7 @@ public class ClientListener implements Runnable {
         try {
             all.add(this);
             for(ClientActionListener x : actionListeners){
-                x.clientConnected(userName);
+                x.clientConnected(myUser.userName);
             }
             while (true) {
                 Message received =(Message)inputStream.readObject();
@@ -50,12 +61,12 @@ public class ClientListener implements Runnable {
                     executeCommand(received.contents);
                 }
                 else if(isAFK){
-                    tellAll(userName + " is no longer AFK.");
+                    tellAll(myUser.userName + " is no longer AFK.");
                     isAFK = false;
-                    broadcast(userName + " : " + received.contents);
+                    broadcast(myUser.userName + " : " + received.contents);
                 }
                 else {
-                    broadcast(userName + " : " + received.contents);
+                    broadcast(myUser.userName + " : " + received.contents);
                 }
             }
         } catch (IOException e) {
@@ -75,9 +86,9 @@ public class ClientListener implements Runnable {
     public void stop(){
         all.remove(this);
         for(ClientActionListener x : actionListeners){
-            x.clientDisconnected(userName);
+            x.clientDisconnected(myUser.userName);
         }
-        tellAll(userName + " is offline.");
+        tellAll(myUser.userName + " is offline.");
     }
 
     protected static boolean hasCommand(String input){
@@ -112,7 +123,7 @@ public class ClientListener implements Runnable {
                 }
                 break;
                 case ("hack"): {//Hacks
-                    tellAll("Oh no I've been hacked by " + userName + "!");
+                    tellAll("Oh no I've been hacked by " + myUser.userName + "!");
                 }
                 break;
                 case ("name"): { //Changes userName
@@ -123,22 +134,22 @@ public class ClientListener implements Runnable {
                     }
                     if (name.isEmpty()) throw new IllegalArgumentException("Command Invalid: /name [user name]");
                     for (ClientListener c : all) {
-                        if (name.equalsIgnoreCase(c.userName))
+                        if (name.equalsIgnoreCase(c.myUser.userName))
                             throw new IllegalArgumentException("Username already exists.");
                         else if(name.equalsIgnoreCase("server"))
                             throw new IllegalArgumentException("Cannot be named server.");
                     }
                     setName(name);
-                    tell("Username changed to " + userName);
+                    tell("Username changed to " + myUser.userName);
                 }
                 break;
 
                 case ("afk"): { //Toggles isAFK and broadcasts state
                     if (this.isAFK) {
-                        tellAll(userName + " is no longer AFK");
+                        tellAll(myUser.userName + " is no longer AFK");
                         this.isAFK = false;
                     } else {
-                        tellAll(userName + " is now AFK");
+                        tellAll(myUser.userName + " is now AFK");
                         this.isAFK = true;
                     }
                 }
@@ -147,7 +158,7 @@ public class ClientListener implements Runnable {
                 case ("list"): { // Sends list of all online users
                     String online = "";
                     for (ClientListener x : all) {
-                        online += x.userName + ", ";
+                        online += x.myUser.userName + ", ";
                     }
                     tell("Online: " + online);
                 }
@@ -155,12 +166,12 @@ public class ClientListener implements Runnable {
 
                 case ("me"): { //Announces User-Provided State
                     if (arguments.length == 0) throw new IllegalArgumentException("Command requires parameters.");
-                    tellAll(userName + " " + input.substring(input.indexOf(" ") + 1, input.length()) + ".");
+                    tellAll(myUser.userName + " " + input.substring(input.indexOf(" ") + 1, input.length()) + ".");
                 }
                 break;
 
                 case("shrug"): {
-                    tellAll(userName + ": ¯\\_(ツ)_/¯ ");
+                    tellAll(myUser.userName + ": ¯\\_(ツ)_/¯ ");
                 }
                 break;
 
@@ -222,8 +233,8 @@ public class ClientListener implements Runnable {
 
     public void setName(String name){
         for(ClientActionListener x : actionListeners){
-            x.clientChangedName(userName, name);
+            x.clientChangedName(myUser.userName, name);
         }
-        this.userName = name;
+        this.myUser.userName = name;
     }
 }
