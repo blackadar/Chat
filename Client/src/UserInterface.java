@@ -29,7 +29,7 @@ public class UserInterface extends JFrame implements Runnable {
     protected static int port;
     protected static String userName;
 
-    public UserInterface(InputStream inputStream, OutputStream outputStream) {
+    public UserInterface() {
         super("Network Chat");
         this.setIconImage(image);
         setContentPane(rootPanel);
@@ -40,14 +40,12 @@ public class UserInterface extends JFrame implements Runnable {
         chatLog.setAutoscrolls(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
-            this.outputStream = new ObjectOutputStream(outputStream);
-            outputStream.flush();
-            this.inputStream = new ObjectInputStream(inputStream);
-        } catch (IOException e) {
+            initializeStreams();
+        } catch (IOException e){
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
+
         }
-        listener = new Thread(this);
-        listener.start();
 
         button.addActionListener(actionEvent -> {
             try {
@@ -57,6 +55,7 @@ public class UserInterface extends JFrame implements Runnable {
                 textField.setText("");
             } catch (IOException e) {
                 e.printStackTrace();
+                chatLog.append("Local : Server could not interpret your message.\n");
             }
         });
 
@@ -68,15 +67,16 @@ public class UserInterface extends JFrame implements Runnable {
                 textField.setText("");
             } catch (IOException e) {
                 e.printStackTrace();
+                chatLog.append("Local : Server could not interpret your message.\n");
             }
         });
-
         this.setVisible(true);
+        listener = new Thread(this);
+        listener.start();
     }
 
     public void run() {
         try {
-            System.out.println(userName);
             outputStream.writeObject(new MetaData(userName));
             while (true) {
                 Message current = (Message) inputStream.readObject();
@@ -118,13 +118,12 @@ public class UserInterface extends JFrame implements Runnable {
                     chatLog.append("Local : Connection to Server could not be established. (Has the Server moved locations?)\n");
                 } catch (EOFException ex){
                     ex.printStackTrace();
-                    chatLog.append("Local : Connection Interrupted or Cut Short. (Have you tried restarting the server?)");
+                    chatLog.append("Local : Connection Interrupted or Cut Short. (Have you tried restarting the server?)\n");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     chatLog.append("Local : General I/O Exception during Reconnection.\n");
                 }
             });
-
             JOptionPane.showMessageDialog(null, "Unable to communicate with the chat server.", "Connection Lost", JOptionPane.WARNING_MESSAGE);
         } catch (IOException | ClassNotFoundException ex) {
             chatLog.append("Local : General I/O Exception during Reconnection.\n");
@@ -150,19 +149,9 @@ public class UserInterface extends JFrame implements Runnable {
                     break;
                 }
             }
-        } catch (Exception ex) {
-            try {
-                UIManager.setLookAndFeel(
-                        UIManager.getCrossPlatformLookAndFeelClassName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             recoverState();
-            Socket s = new Socket(host, port);
-            new UserInterface(s.getInputStream(), s.getOutputStream());
+            new UserInterface();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
@@ -189,5 +178,12 @@ public class UserInterface extends JFrame implements Runnable {
                 port = Integer.parseInt(recovered.lastUsedServer.split(":")[1]);
                 userName = recovered.handle;
         }
+    }
+
+    private void initializeStreams() throws IOException {
+            Socket s = new Socket(host, port);
+            this.outputStream = new ObjectOutputStream(s.getOutputStream());
+            outputStream.flush();
+            this.inputStream = new ObjectInputStream(s.getInputStream());
     }
 }
