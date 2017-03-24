@@ -20,29 +20,17 @@ public class ClientListener implements Runnable {
     protected static ArrayList<ClientListener> all = new ArrayList<>();
     protected ArrayList<ClientActionListener> actionListeners = new ArrayList<>();
     protected MetaData myMetaData;
+    protected Server runningServer;
 
-    public ClientListener(Socket socket, Server theServer) throws IOException {
+    public ClientListener(Socket socket, Server theServer) throws IOException, ClassNotFoundException {
         this.socket = socket;
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
-        outputStream.flush();
+        this.outputStream.flush(); //Necessary to avoid 'chicken or egg' situation
         this.inputStream = new ObjectInputStream(socket.getInputStream());
-
-        try {
-            myMetaData = (MetaData)inputStream.readObject();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        boolean exists = false;
-        for(User temp : theServer.currentSave.all){
-            if(temp.userName.equals(myMetaData.handle)){
-                myUser = temp;
-                exists = true;
-            }
-        }
-        System.out.println(myMetaData.handle);
-        if(exists == false) myUser = new User(myMetaData.handle, false, false);
-
+        this.myMetaData = (MetaData)inputStream.readObject(); //First, read the client MetaData
+        this.runningServer = theServer;
         this.isAFK = false;
+        initializeSave(); //Recovers Save or Creates One
         tellAll(myUser.userName + " is online.");
         tell("Welcome to the Chat Server.");
         tell("For a full list of commands, type /help .");
@@ -59,79 +47,78 @@ public class ClientListener implements Runnable {
             }
             while (true) {
                 Message received =(Message)inputStream.readObject();
-                if(received.contents.isEmpty()){
-                    //Ignore Empty Submissions
-                }
-                else if(hasCommand(received.contents)){
-                    executeCommand(received.contents);
-                }
-                else if(isAFK){
-                    tellAll(myUser.userName + " is no longer AFK.");
-                    isAFK = false;
-                    broadcast(myUser.userName + " : " + received.contents);
-                }
-                else {
-                    broadcast(myUser.userName + " : " + received.contents);
+                if(!(received.contents.isEmpty())) {
+                    if (hasCommand(received.contents)) {
+                        executeCommand(received.contents);
+                    } else if (isAFK) {
+                        tellAll(myUser.userName + " is no longer AFK.");
+                        isAFK = false;
+                        broadcast(myUser.userName + " : " + received.contents);
+                    } else {
+                        broadcast(myUser.userName + " : " + received.contents);
+                    }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException|ClassNotFoundException e) {
             this.stop();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            all.remove(this);
-            try {
-                socket.close ();
-            } catch (IOException e) {
-                this.stop();
-            }
+            this.stop();
         }
     }
 
+    /**
+     * Finalizes client stream and announces departure
+     */
     public void stop(){
         all.remove(this);
         for(ClientActionListener x : actionListeners){
             x.clientDisconnected(myUser.userName);
         }
         tellAll(myUser.userName + " is offline.");
+        try {
+            socket.close ();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Returns a boolean indicating if a String starts with a slash, to execute
+     * @param input The String to Analyze
+     * @return boolean for containing a command
+     */
     protected static boolean hasCommand(String input){
-        if(input.length() >= 0){
-            if(input.charAt(0) == '/' || input.charAt(0) == '\\') {
-                return true;
-            }
-            else{
-                return false;
-            }
+        if(input.charAt(0) == '/' || input.charAt(0) == '\\') {
+            return true;
         }
         else return false;
     }
 
+    /**
+     * Analyze command, and take corresponding action
+     * @param input The String command starting with a /
+     */
     protected void executeCommand(String input) {
-        String command = input.substring(1, input.length()); //Remove beginning slash
-        String[] commandParts = command.split(" "); //Split into parts on spaces
+        input = input.substring(1, input.length()); //Remove beginning slash
+        String[] commandParts = input.split(" "); //Split into parts on spaces
         String[] arguments = new String[commandParts.length - 1]; //Take args after command
 
         for (int x = 1; x < commandParts.length; x++) { //Fill arguments
             arguments[x - 1] = commandParts[x];
         }
 
-        /*
-        Server Commands
-         */
-
         try {
-            switch (commandParts[0].toLowerCase()) { //Switch on command (ignoring case)
+            switch (commandParts[0].toLowerCase()) {
                 case ("help"): { //Sends help documentation
-                    tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users. \n 4.  /me [phrase]: (Ex. /me does something = [name] does something)");
+                    tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users. \n 4.  /me [phrase] : (Ex. /me does something = [name] does something)");
                 }
                 break;
-                case ("hack"): {//Hacks
+                case ("hack"): { //Hacks
                     tellAll("Oh no I've been hacked by " + myUser.userName + "!");
                 }
                 break;
-                case ("name"): { //Changes userName
+                case ("name"): { //Changes userName, checking for dupes
                     String name = "";
                     for (int i = 0; i < arguments.length; i++) {
                         if(i > 0) name += arguments[i] + " ";
@@ -176,8 +163,8 @@ public class ClientListener implements Runnable {
                 }
                 break;
 
-                case("shrug"): {
-                    tellAll(myUser.userName + ": ¯\\_(ツ)_/¯ ");
+                case("shrug"): { //Shrugs
+                    broadcast(myUser.userName + " : ¯\\_(ツ)_/¯ ");
                 }
                 break;
 
@@ -189,18 +176,22 @@ public class ClientListener implements Runnable {
             }
         }
         catch(IllegalArgumentException e){
-            tell(e.getMessage());
+            tell("Server Error: " + e.getMessage());
         }
     }
 
-    /*
-    Internal Methods
+    /**
+     * Adds an ActionListener to the list of all listeners
+     * @param toAdd the ActionListener to add to the list
      */
-
     public void addListener(ClientActionListener toAdd) {
         actionListeners.add(toAdd);
     }
 
+    /**
+     * Sends a message to /all, with no prefixes
+     * @param message The String to send
+     */
     protected static void broadcast(String message) {
         synchronized(all) {
             Enumeration allHandlers = Collections.enumeration(all);
@@ -218,6 +209,10 @@ public class ClientListener implements Runnable {
         }
     }
 
+    /**
+     * Sends a message to this specific client, with the Server: prefix.
+     * @param message The message to display as Server
+     */
     protected void tell(String message){
         try {
             synchronized(this.outputStream) {
@@ -229,22 +224,44 @@ public class ClientListener implements Runnable {
         }
     }
 
-    protected void message(String sender, ClientListener recipient, String message){
-        //TODO: Implement message method
-    }
-
+    /**
+     * Sends a message to /all, with the Server: prefix.
+     * @param message The message to broadcast as Server
+     */
     protected static void tellAll(String message){
         broadcast("Server : " + message);
     }
 
+    /**
+     * Changes a ClientListener's name as it appears in chat.
+     */
     public void setName(String name){
+        //TODO: Update to work with new naming convention
         for(ClientActionListener x : actionListeners){
             x.clientChangedName(myUser.userName, name);
         }
         this.myUser.userName = name;
     }
 
+    /**
+     * Changes a user's status to Moderator
+     */
     public void setIsMod(){
         this.myUser.setMod(true);
+    }
+
+    /**
+     * Initializes a user's saved state. If it exists, load it, otherwise create it.
+     */
+    private void initializeSave(){
+        boolean savedUser = false;
+        for(User temp : runningServer.currentSave.all){
+            if(temp.userName.equals(myMetaData.handle)){
+                myUser = temp;
+                savedUser = true;
+            }
+        }
+        System.out.println(myMetaData.handle);
+        if(savedUser == false) myUser = new User(myMetaData.handle, false, false);
     }
 }
