@@ -37,6 +37,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         this.setVisible(true);
         server = new ServerSocket(port);
         output("Local IP: " + InetAddress.getLocalHost());
+
         if(save.exists()){
             try {
                 System.out.println("Loaded save file.");
@@ -58,11 +59,11 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         while (true) {
             try {
                 Socket client = server.accept();
-                ClientListener c = new ClientListener(client, "METADATA USERNAME");
-                c.addListener(this);
-                currentSave.addIfMissing(c.userName, false);
+                ClientListener pending_user = new ClientListener(client, "METADATA USERNAME");
+                pending_user.addListener(this);
+                currentSave.addIfMissing(Save.instantiateUser(pending_user.userName, false, false));
                 Save.preserve(currentSave);
-                Thread t = new Thread(c);
+                Thread t = new Thread(pending_user);
                 t.start();
             } catch (IOException e) {
                 e.printStackTrace();

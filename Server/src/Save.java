@@ -31,28 +31,42 @@ public class Save implements Serializable{
     }
 
     public void addIfMissing(User check) {
-        System.out.println("Checking " + check.name);
+        System.out.println("Checking " + check.userName);
         for (User x : all) {
-            if (x.name.equalsIgnoreCase(check.name)){
-                System.out.println(check.name + " already exists.");
+            if (x.userName.equalsIgnoreCase(check.userName)){
+                System.out.println(check.userName + " already exists.");
                 return;
             }
         }
         this.all.add(check);
-        System.out.println("Added " + all.get(all.size() - 1).name);
+        System.out.println("Added " + all.get(all.size() - 1).userName);
     }
 
+    public static User instantiateUser(String name, boolean isMod, boolean blacklist){
+        return (new Save()).new User(name, isMod, blacklist);
+    }
 
     class User implements Serializable{
-        public String name;
+        public String userName;
         public boolean isMod;
         public boolean blacklist;
 
-        public User(String name, boolean isMod, boolean blacklist){
-            this.name = name;
+        public User(String userName, boolean isMod, boolean blacklist){
+            this.userName = userName;
             this.isMod = isMod;
             this.blacklist = blacklist;
         }
 
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public void setMod(boolean isMod) {
+            this.isMod = isMod;
+        }
+
+        public void setBlacklist(boolean blacklist) {
+            this.blacklist = blacklist;
+        }
     }
 }
