@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -21,7 +22,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     private ServerSocket server;
     protected int numberOnline = 0;
     protected File save = new File("save.svs");
-    protected Save currentSave;
+    public Save currentSave;
 
 
     public Server(int port) throws IOException {
@@ -37,17 +38,14 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         this.setVisible(true);
         server = new ServerSocket(port);
         output("Local IP: " + InetAddress.getLocalHost());
-
         if(save.exists()){
             try {
-                System.out.println("Loaded save file.");
                 currentSave = Save.revive();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
         else{
-            System.out.println("Created a new Save");
             currentSave = new Save();
         }
         this.run();
@@ -59,8 +57,9 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         while (true) {
             try {
                 Socket client = server.accept();
-                ClientListener pending_user = new ClientListener(client);
+                ClientListener pending_user = new ClientListener(client, this);
                 pending_user.addListener(this);
+                System.out.println("Is mod: " + pending_user.myUser.isMod);
                 currentSave.addIfMissing(pending_user.myUser);
                 Save.preserve(currentSave);
                 Thread t = new Thread(pending_user);

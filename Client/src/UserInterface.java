@@ -64,7 +64,6 @@ public class UserInterface extends JFrame implements Runnable {
             try {
                 Message current = new Message(textField.getText());
                 this.outputStream.writeObject(current);
-                ;
                 this.outputStream.flush();
                 textField.setText("");
             } catch (IOException e) {
@@ -77,6 +76,7 @@ public class UserInterface extends JFrame implements Runnable {
 
     public void run() {
         try {
+            System.out.println(userName);
             outputStream.writeObject(new MetaData(userName));
             while (true) {
                 Message current = (Message) inputStream.readObject();
@@ -168,7 +168,7 @@ public class UserInterface extends JFrame implements Runnable {
     private static void recoverState() throws IOException, ClassNotFoundException {
         File save = new File("save.sv");
         if (!(save.exists())) {
-            JOptionPane.showInputDialog(null, "Welcome to Network Chat.\nInput Username:");
+            userName = JOptionPane.showInputDialog(null, "Welcome to Network Chat.\nInput Username:");
             String inputDialog = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
             if (!(inputDialog == null || ("".equals(inputDialog)))) {
                 host = inputDialog.split(":")[0];

@@ -21,7 +21,7 @@ public class ClientListener implements Runnable {
     protected ArrayList<ClientActionListener> actionListeners = new ArrayList<>();
     protected MetaData myMetaData;
 
-    public ClientListener(Socket socket) throws IOException {
+    public ClientListener(Socket socket, Server theServer) throws IOException {
         this.socket = socket;
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         outputStream.flush();
@@ -32,12 +32,13 @@ public class ClientListener implements Runnable {
             e.printStackTrace();
         }
         boolean exists = false;
-        for(User temp : Server.staticReference.currentSave.all){
+        for(User temp : theServer.currentSave.all){
             if(temp.userName.equals(myMetaData.handle)){
                 myUser = temp;
                 exists = true;
             }
         }
+        System.out.println(myMetaData.handle);
         if(exists == false) myUser = new User(myMetaData.handle, false, false);
 
         this.isAFK = false;
@@ -240,5 +241,9 @@ public class ClientListener implements Runnable {
             x.clientChangedName(myUser.userName, name);
         }
         this.myUser.userName = name;
+    }
+
+    public void setIsMod(){
+        this.myUser.setMod(true);
     }
 }

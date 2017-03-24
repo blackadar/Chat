@@ -10,7 +10,11 @@ import java.util.ArrayList;
  */
 
 public class Save implements Serializable{
-    public ArrayList<User> all = new ArrayList<>();
+    public ArrayList<User> all;
+
+    public Save(){
+        all = new ArrayList<User>();
+    }
 
     public static Save revive() throws IOException, ClassNotFoundException {
         File save = new File("save.svs");
