@@ -30,15 +30,15 @@ public class Save implements Serializable{
         out.close();
     }
 
-    public void addIfMissing(String name, boolean isMod) {
-        System.out.println("Checking " + name);
+    public void addIfMissing(User check) {
+        System.out.println("Checking " + check.name);
         for (User x : all) {
-            if (x.name.equalsIgnoreCase(name)){
-                System.out.println(name + " already exists.");
+            if (x.name.equalsIgnoreCase(check.name)){
+                System.out.println(check.name + " already exists.");
                 return;
             }
         }
-        this.all.add(new User(name, isMod));
+        this.all.add(check);
         System.out.println("Added " + all.get(all.size() - 1).name);
     }
 
@@ -46,10 +46,12 @@ public class Save implements Serializable{
     class User implements Serializable{
         public String name;
         public boolean isMod;
+        public boolean blacklist;
 
-        public User(String name, boolean isMod){
+        public User(String name, boolean isMod, boolean blacklist){
             this.name = name;
             this.isMod = isMod;
+            this.blacklist = blacklist;
         }
 
     }
