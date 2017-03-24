@@ -9,9 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/ClientListener.java" afterPath="$PROJECT_DIR$/Server/src/ClientListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Save.java" afterPath="$PROJECT_DIR$/Server/src/Save.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.java" afterPath="$PROJECT_DIR$/Server/src/Server.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,7 +37,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1260">
@@ -49,10 +47,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3320">
+            <state relative-caret-position="-400">
               <caret line="168" column="17" lean-forward="true" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
               <folding />
             </state>
@@ -62,8 +60,8 @@
       <file leaf-file-name="Save.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Save.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="39" column="5" lean-forward="false" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+            <state relative-caret-position="100">
+              <caret line="35" column="54" lean-forward="true" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -299,13 +297,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="248" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="150" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Transferable/Transferable.iml" />
   </component>
   <component name="RecentsManager">
@@ -805,7 +803,7 @@
       <workItem from="1490293001941" duration="234000" />
       <workItem from="1490294777828" duration="103000" />
       <workItem from="1490296008466" duration="6797000" />
-      <workItem from="1490319023521" duration="5168000" />
+      <workItem from="1490319023521" duration="7427000" />
     </task>
     <task id="LOCAL-00001" summary="Added commands system and better exception handling">
       <created>1489712799656</created>
@@ -1003,11 +1001,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490321832550</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Code Cleanup and Modification">
+      <created>1490324232830</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1490324232830</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71670000" />
+    <option name="totallyTimeSpent" value="73929000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1062,7 +1067,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Modern GUI" />
     <MESSAGE value="Added Modern GUI and Exception Handling" />
     <MESSAGE value="Added functionality" />
     <MESSAGE value="Added source dependencies" />
@@ -1087,7 +1091,8 @@
     <MESSAGE value="Switched to Object Transmission" />
     <MESSAGE value="Fixed Serial bug" />
     <MESSAGE value="Fixed Server Save bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Server Save bug" />
+    <MESSAGE value="Code Cleanup and Modification" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code Cleanup and Modification" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1364,19 +1369,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/Save.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="39" column="5" lean-forward="false" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        <state relative-caret-position="100">
+          <caret line="35" column="54" lean-forward="true" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3320">
-          <caret line="168" column="17" lean-forward="true" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1384,6 +1381,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
           <caret line="69" column="13" lean-forward="true" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-400">
+          <caret line="168" column="17" lean-forward="true" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1447,6 +1452,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
