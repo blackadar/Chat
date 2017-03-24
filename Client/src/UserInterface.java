@@ -92,8 +92,9 @@ public class UserInterface extends JFrame implements Runnable {
             button.addActionListener(actionEvent -> {
                 try {
                     Socket s = new Socket(host, port);
-                    this.inputStream = new ObjectInputStream(inputStream);
-                    this.outputStream = new ObjectOutputStream(outputStream);
+                    this.outputStream = new ObjectOutputStream(s.getOutputStream());
+                    outputStream.flush();
+                    this.inputStream = new ObjectInputStream(s.getInputStream());
                     listener = new Thread(this);
                     listener.start();
                     chatLog.append("Local : Reconnection Successful.\n");
@@ -115,6 +116,9 @@ public class UserInterface extends JFrame implements Runnable {
                 } catch (SocketException ex) {
                     ex.printStackTrace();
                     chatLog.append("Local : Connection to Server could not be established. (Has the Server moved locations?)\n");
+                } catch (EOFException ex){
+                    ex.printStackTrace();
+                    chatLog.append("Local : Connection Interrupted or Cut Short. (Have you tried restarting the server?)");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     chatLog.append("Local : General I/O Exception during Reconnection.\n");
