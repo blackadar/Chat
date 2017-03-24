@@ -26,17 +26,19 @@ public class ClientListener implements Runnable {
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         outputStream.flush();
         this.inputStream = new ObjectInputStream(socket.getInputStream());
-
-        //TODO ACCEPT METADATA HERE (called userdata)
-
+        try {
+            myMetaData = (MetaData)inputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         boolean exists = false;
         for(User temp : Server.staticReference.currentSave.all){
-            if(temp.userName.equals(userData.handle)){
+            if(temp.userName.equals(myMetaData.handle)){
                 myUser = temp;
                 exists = true;
             }
         }
-        if(exists == false) myUser = new User(userData.handle, false, false);
+        if(exists == false) myUser = new User(myMetaData.handle, false, false);
 
         this.isAFK = false;
         tellAll(myUser.userName + " is online.");
@@ -53,7 +55,6 @@ public class ClientListener implements Runnable {
             for(ClientActionListener x : actionListeners){
                 x.clientConnected(myUser.userName);
             }
-            myMetaData = (MetaData)inputStream.readObject();
             while (true) {
                 Message received =(Message)inputStream.readObject();
                 if(received.contents.isEmpty()){
