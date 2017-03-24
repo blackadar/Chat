@@ -77,6 +77,7 @@ public class UserInterface extends JFrame implements Runnable {
 
     public void run() {
         try {
+            outputStream.writeObject(new MetaData(userName));
             while (true) {
                 Message current = (Message) inputStream.readObject();
                 String line = current.contents;

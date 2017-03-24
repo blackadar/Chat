@@ -19,6 +19,7 @@ public class ClientListener implements Runnable {
 
     protected static ArrayList<ClientListener> all = new ArrayList<>();
     protected ArrayList<ClientActionListener> actionListeners = new ArrayList<>();
+    protected MetaData myMetaData;
 
     public ClientListener(Socket socket, String userName) throws IOException {
         this.socket = socket;
@@ -41,6 +42,7 @@ public class ClientListener implements Runnable {
             for(ClientActionListener x : actionListeners){
                 x.clientConnected(userName);
             }
+            myMetaData = (MetaData)inputStream.readObject();
             while (true) {
                 Message received =(Message)inputStream.readObject();
                 if(received.contents.isEmpty()){
@@ -128,6 +130,7 @@ public class ClientListener implements Runnable {
                         else if(name.equalsIgnoreCase("server"))
                             throw new IllegalArgumentException("Cannot be named server.");
                     }
+
                     setName(name);
                     tell("Username changed to " + userName);
                 }
