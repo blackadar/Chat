@@ -16,8 +16,9 @@ public class ClientListener implements Runnable {
     protected ObjectOutputStream outputStream;
     protected String userName;
     protected boolean isAFK;
-    protected static ArrayList<ClientListener> handlers = new ArrayList<>();
-    protected ArrayList<ClientActionListener> listeners = new ArrayList<>();
+
+    protected static ArrayList<ClientListener> all = new ArrayList<>();
+    protected ArrayList<ClientActionListener> actionListeners = new ArrayList<>();
 
     public ClientListener(Socket socket, String userName) throws IOException {
         this.socket = socket;
@@ -36,8 +37,8 @@ public class ClientListener implements Runnable {
      */
     public void run(){
         try {
-            handlers.add(this);
-            for(ClientActionListener x : listeners){
+            all.add(this);
+            for(ClientActionListener x : actionListeners){
                 x.clientConnected(userName);
             }
             while (true) {
@@ -62,7 +63,7 @@ public class ClientListener implements Runnable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            handlers.remove(this);
+            all.remove(this);
             try {
                 socket.close ();
             } catch (IOException e) {
@@ -72,8 +73,8 @@ public class ClientListener implements Runnable {
     }
 
     public void stop(){
-        handlers.remove(this);
-        for(ClientActionListener x : listeners){
+        all.remove(this);
+        for(ClientActionListener x : actionListeners){
             x.clientDisconnected(userName);
         }
         tellAll(userName + " is offline.");
@@ -120,7 +121,7 @@ public class ClientListener implements Runnable {
                         name += arguments[i];
                     }
                     if (name.isEmpty()) throw new IllegalArgumentException("Command Invalid: /name [user name]");
-                    for (ClientListener c : handlers) {
+                    for (ClientListener c : all) {
                         if (name.equalsIgnoreCase(c.userName))
                             throw new IllegalArgumentException("Username already exists");
                         else if(name.equalsIgnoreCase("server"))
@@ -144,7 +145,7 @@ public class ClientListener implements Runnable {
 
                 case ("list"): { // Sends list of all online users
                     String online = "";
-                    for (ClientListener x : handlers) {
+                    for (ClientListener x : all) {
                         online += x.userName + ", ";
                     }
                     tell("Online: " + online);
@@ -179,12 +180,12 @@ public class ClientListener implements Runnable {
      */
 
     public void addListener(ClientActionListener toAdd) {
-        listeners.add(toAdd);
+        actionListeners.add(toAdd);
     }
 
     protected static void broadcast(String message) {
-        synchronized(handlers) {
-            Enumeration allHandlers = Collections.enumeration(handlers);
+        synchronized(all) {
+            Enumeration allHandlers = Collections.enumeration(all);
             while (allHandlers.hasMoreElements ()) {
                 ClientListener currentClientListener = (ClientListener) allHandlers.nextElement();
                 try {
@@ -219,7 +220,7 @@ public class ClientListener implements Runnable {
     }
 
     protected void setName(String name){
-        for(ClientActionListener x : listeners){
+        for(ClientActionListener x : actionListeners){
             x.clientChangedName(userName, name);
         }
         this.userName = name;

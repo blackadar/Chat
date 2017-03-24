@@ -8,21 +8,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Jordan Blackadar as a part of the main package in Chat.
+ * Created by Jordan Blackadar as a part of the Server package in Chat.
  * GUI for Server interface
  * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
  * @version 0.3.5
  * @since 3/19/2017 : 2:15 PM
  */
 public class Server extends JFrame implements Runnable, ClientActionListener {
-    private UserData userList = new UserData();
-    File savedUserList = new File("Users.svs");
-
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
     private ServerSocket server;
     protected int numberOnline = 0;
+    protected File save = new File("save.svs");
+    protected Save currentSave;
 
 
     public Server(int port) throws IOException {
@@ -30,7 +29,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
         setContentPane(panel);
-        this.setPreferredSize(new Dimension(600,400));
+        this.setPreferredSize(new Dimension(600, 400));
         serverLog.setLineWrap(true);
         updateLabel();
         pack();
@@ -38,37 +37,44 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         this.setVisible(true);
         server = new ServerSocket(port);
         output("Local IP: " + InetAddress.getLocalHost());
-
-        //Load username list from file.
-        userList = loadUserData();
-
+        if(save.exists()){
+            try {
+                currentSave = Save.revive();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            currentSave = new Save();
+        }
         this.run();
     }
 
-    public void run(){
+    public void run() {
         output("Listening on Port " + server.getLocalPort() + ".");
         updateLabel();
-        while(true) {
+        while (true) {
             try {
                 Socket client = server.accept();
                 ClientListener c = new ClientListener(client, "METADATA USERNAME");
                 c.addListener(this);
+                currentSave.instantiate(c.userName, false);
+                Save.preserve(currentSave);
                 Thread t = new Thread(c);
                 t.start();
-                userList.users.add((new UserData()).instantiateUser(false, "h"));
-                writeUserData(userList);
             } catch (IOException e) {
+                e.printStackTrace();
                 output(Arrays.toString(e.getStackTrace()));
             }
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             new Server(9090);
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog( null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -91,71 +97,14 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         output("ClientListener " + old + " changed alias to " + updated + ".");
     }
 
-    private void updateLabel(){
+    private void updateLabel() {
         numberOnlineLabel.setText("Online: " + numberOnline);
         serverLog.setCaretPosition(serverLog.getDocument().getLength());
     }
 
-    private void output(String toOutput){
+    private void output(String toOutput) {
         serverLog.append(toOutput + "\n");
         System.out.println(toOutput);
         updateLabel();
     }
-
-    /**
-     * Loads the list of username and statuses(UserData objects) into memory
-     * @return UserData[] An array of all UserData objects in the list
-     */
-    private UserData loadUserData(){
-        ObjectInputStream in = null;
-        UserData loaded = null;
-        if(!savedUserList.exists()){
-            System.err.println("Cannot load list, does not exist...");
-            return new UserData();
-        } else {
-            try {
-                in = new ObjectInputStream(new FileInputStream(savedUserList));
-                loaded = (UserData) in.readObject();
-            } catch (IOException e){
-                System.err.println("Could not open stream to read usernames into memory");
-                e.printStackTrace();
-            } catch(ClassNotFoundException e){
-                System.err.println("Could not load UserData object from file");
-            }
-            return loaded;
-        }
-    }
-
-    private void writeUserData(UserData toSave){
-        ObjectOutputStream out = null;
-        try {
-            out = new ObjectOutputStream(new FileOutputStream(savedUserList));
-            out.writeObject(toSave);
-        } catch (IOException e){
-            System.err.println("Could not open stream to write usernames into memory");
-        }
-    }
-
-    /**
-    Contains the server's knowledge of each user who has connected previously.
-     Will be written to file to persist indefinitely between multiple server launches.
-     **/
-    private class UserData implements Serializable{
-       ArrayList<User> users = new ArrayList<>();
-
-        private class User implements Serializable{
-            boolean isMod;
-            String userName;
-
-            public User(boolean isMod, String userName){
-                this.isMod = isMod;
-                this.userName = userName;
-            }
-        }
-
-        public User instantiateUser(boolean isMod, String userName){
-            return new User(isMod, userName);
-        }
-    }
-
 }
