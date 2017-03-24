@@ -118,14 +118,15 @@ public class ClientListener implements Runnable {
                 case ("name"): { //Changes userName
                     String name = "";
                     for (int i = 0; i < arguments.length; i++) {
-                        name += arguments[i];
+                        if(i > 0) name += arguments[i] + " ";
+                        else name += arguments[i];
                     }
                     if (name.isEmpty()) throw new IllegalArgumentException("Command Invalid: /name [user name]");
                     for (ClientListener c : all) {
                         if (name.equalsIgnoreCase(c.userName))
-                            throw new IllegalArgumentException("Username already exists");
+                            throw new IllegalArgumentException("Username already exists.");
                         else if(name.equalsIgnoreCase("server"))
-                            throw new IllegalArgumentException("Cannot be named server ");
+                            throw new IllegalArgumentException("Cannot be named server.");
                     }
                     setName(name);
                     tell("Username changed to " + userName);
@@ -219,7 +220,7 @@ public class ClientListener implements Runnable {
         broadcast("Server : " + message);
     }
 
-    protected void setName(String name){
+    public void setName(String name){
         for(ClientActionListener x : actionListeners){
             x.clientChangedName(userName, name);
         }

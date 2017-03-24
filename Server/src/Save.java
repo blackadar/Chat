@@ -30,8 +30,13 @@ public class Save implements Serializable{
         out.close();
     }
 
-    public void instantiate(String name, boolean isMod){
-        this.all.add(new User(name, isMod));
+    public void addIfMissing(String name, boolean isMod) {
+        System.out.println("Adding " + name);
+        for (User x : all) {
+            if (x.name.equalsIgnoreCase(name)) return;
+            else this.all.add(new User(name, isMod));
+        }
+        System.out.println("Added " + all.get(all.size() - 1));
     }
 
 

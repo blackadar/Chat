@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -15,6 +14,7 @@ import java.util.Arrays;
  * @since 3/19/2017 : 2:15 PM
  */
 public class Server extends JFrame implements Runnable, ClientActionListener {
+    public static Server staticReference;
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
@@ -39,12 +39,14 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         output("Local IP: " + InetAddress.getLocalHost());
         if(save.exists()){
             try {
+                System.out.println("Loaded save file.");
                 currentSave = Save.revive();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
         else{
+            System.out.println("Created a new Save");
             currentSave = new Save();
         }
         this.run();
@@ -58,7 +60,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 Socket client = server.accept();
                 ClientListener c = new ClientListener(client, "METADATA USERNAME");
                 c.addListener(this);
-                currentSave.instantiate(c.userName, false);
+                currentSave.addIfMissing(c.userName, false);
                 Save.preserve(currentSave);
                 Thread t = new Thread(c);
                 t.start();
@@ -71,7 +73,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
     public static void main(String[] args) {
         try {
-            new Server(9090);
+            staticReference = new Server(9090);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
