@@ -54,8 +54,10 @@ public class UserInterface extends JFrame implements Runnable {
         setContentPane(rootPanel);
         this.setPreferredSize(new Dimension(600, 400));
         chatLog.setLineWrap(true);
+        chatLog.setFont(chatLog.getFont().deriveFont(15f));
         pack();
         chatLog.setAutoscrolls(true);
+        this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setDefaultActionListeners();
         this.setVisible(true);
@@ -77,7 +79,7 @@ public class UserInterface extends JFrame implements Runnable {
             outputStream.writeObject(new MetaData(userName));
             while (true) {
                 Message current = (Message) inputStream.readObject();
-                if(current.isCommand){
+                if(current.prefix.isCommand()){
                     executeCommand(current);
                 }
                 else {
@@ -203,6 +205,10 @@ public class UserInterface extends JFrame implements Runnable {
     protected void executeCommand(Message message){
         switch(message.contents.toLowerCase()){
             case("clear") : clearText();
+            break;
+            case("alert") : {
+                JOptionPane.showMessageDialog(null, message.arguments, "Server Alert", JOptionPane.INFORMATION_MESSAGE);
+            }
             break;
         }
     }

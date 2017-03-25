@@ -117,6 +117,8 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         this.setPreferredSize(new Dimension(600, 400));
         serverLog.setLineWrap(true);
         updateLabel();
+        serverLog.setFont(serverLog.getFont().deriveFont(15f));
+        this.setLocationRelativeTo(null);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);

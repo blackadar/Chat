@@ -10,7 +10,19 @@ import java.io.Serializable;
 public class Message implements Serializable{
     public String contents;
     Prefix prefix;
-    public boolean isCommand;
+    public String arguments;
+
+    /**
+     * Initializes a message for a client with a command and arguments
+     * @param contents
+     * @param isCommand
+     * @param arguments
+     */
+    public Message(String contents, boolean isCommand, String arguments) {
+        this.contents = contents;
+        this.prefix = new Prefix(isCommand, null);
+        this.arguments = arguments;
+    }
 
     /**
      * Initializes a message for a /all room.
@@ -40,13 +52,12 @@ public class Message implements Serializable{
     public Message(String contents, String destinationRoom, boolean isCommand){
         this.contents = contents;
         this.prefix = new Prefix(isCommand, destinationRoom);
-        this.isCommand = isCommand;
     }
 
     /**
        Inner class representing message prefix, to be used exclusively by instances of Message.
      */
-    private class Prefix implements Serializable{
+    class Prefix implements Serializable{
         boolean isCommand;
         String destinationRoom;
 

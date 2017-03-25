@@ -46,6 +46,7 @@ public class ClientListener implements Runnable {
             for(ClientActionListener x : actionListeners){
                 x.clientConnected(myUser.userName, socket.getInetAddress().toString());
             }
+            alert("Welcome!");
             while (true) {
                 Message received =(Message)inputStream.readObject();
                 if(!(received.contents.isEmpty())) {
@@ -242,6 +243,17 @@ public class ClientListener implements Runnable {
         try {
             synchronized(this.outputStream) {
                 this.outputStream.writeObject(new Message(command, null, true));
+            }
+            this.outputStream.flush();
+        } catch (IOException e) {
+            this.stop();
+        }
+    }
+
+    protected void alert(String alertMessage){
+        try {
+            synchronized(this.outputStream) {
+                this.outputStream.writeObject(new Message("alert", true, alertMessage));
             }
             this.outputStream.flush();
         } catch (IOException e) {

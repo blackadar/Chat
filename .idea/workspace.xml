@@ -11,8 +11,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/UserInterface.java" afterPath="$PROJECT_DIR$/Client/src/UserInterface.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/ClientListener.java" afterPath="$PROJECT_DIR$/Server/src/ClientListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.form" afterPath="$PROJECT_DIR$/Server/src/Server.form" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.java" afterPath="$PROJECT_DIR$/Server/src/Server.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Transferable/src/Message.java" afterPath="$PROJECT_DIR$/Transferable/src/Message.java" />
     </list>
     <list id="d51252c1-0cec-4708-b9f5-2883a6ea60ed" name="Revert: " comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -41,21 +41,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+            <state relative-caret-position="100">
+              <caret line="120" column="39" lean-forward="false" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Message.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Transferable/src/Message.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1180">
+              <caret line="59" column="4" lean-forward="false" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="62" column="56" lean-forward="false" selection-start-line="62" selection-start-column="56" selection-end-line="62" selection-end-column="56" />
+            <state relative-caret-position="560">
+              <caret line="48" column="27" lean-forward="true" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -64,11 +74,11 @@
       <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="75" column="52" lean-forward="true" selection-start-line="75" selection-start-column="52" selection-end-line="75" selection-end-column="52" />
+            <state relative-caret-position="179">
+              <caret line="59" column="39" lean-forward="false" selection-start-line="59" selection-start-column="39" selection-end-line="59" selection-end-column="39" />
               <folding>
-                <element signature="e#7956#7957#0" expanded="true" />
-                <element signature="e#8017#8018#0" expanded="true" />
+                <element signature="e#8067#8068#0" expanded="true" />
+                <element signature="e#8128#8129#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -94,8 +104,9 @@
       <find>validate</find>
       <find>initializeStreams</find>
       <find>myMeta</find>
-      <find>lost connect</find>
       <find>clientDisconnected</find>
+      <find>lost connect</find>
+      <find>stop</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -139,12 +150,12 @@
         <option value="$PROJECT_DIR$/Server/src/User.java" />
         <option value="$PROJECT_DIR$/Server/src/Save.java" />
         <option value="$PROJECT_DIR$/save.svs" />
-        <option value="$PROJECT_DIR$/Transferable/src/Message.java" />
         <option value="$PROJECT_DIR$/Server/src/ClientActionListener.java" />
         <option value="$PROJECT_DIR$/Server/src/Server.form" />
+        <option value="$PROJECT_DIR$/Transferable/src/Message.java" />
+        <option value="$PROJECT_DIR$/Server/src/ClientListener.java" />
         <option value="$PROJECT_DIR$/Client/src/UserInterface.java" />
         <option value="$PROJECT_DIR$/Server/src/Server.java" />
-        <option value="$PROJECT_DIR$/Server/src/ClientListener.java" />
       </list>
     </option>
   </component>
@@ -1869,11 +1880,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490403441906</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Completed MetaData exchange process. It is now as follows:&#10;- Client Creates Socket&#10;- Server Accepts Connection&#10;- Server Sends a MetaData object&#10;- Client receives that MetaData&#10;- Client Sends a MetaData object&#10;- Server receives that object&#10;- Both Server and Client await Message objects indefinitely">
+      <created>1490405655248</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1490405655248</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92186000" />
+    <option name="totallyTimeSpent" value="93750000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1886,7 +1904,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1898,7 +1915,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39461884" sideWeight="0.50277776" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3258595" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45889387" sideWeight="0.49722221" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45889387" sideWeight="0.49722221" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1970,7 +1987,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cleaning Up, reducing verbosity" />
     <MESSAGE value="Added CLI output for headless servers" />
     <MESSAGE value="Interface Updates" />
     <MESSAGE value="Fixed Formatting" />
@@ -1995,7 +2011,8 @@
     <MESSAGE value="Updated Hierarchy and VCS" />
     <MESSAGE value="Added newLine when clearing" />
     <MESSAGE value="Added IP to ServerMonitor notifications" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added IP to ServerMonitor notifications" />
+    <MESSAGE value="Completed MetaData exchange process. It is now as follows:&#10;- Client Creates Socket&#10;- Server Accepts Connection&#10;- Server Sends a MetaData object&#10;- Client receives that MetaData&#10;- Client Sends a MetaData object&#10;- Server receives that object&#10;- Both Server and Client await Message objects indefinitely" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed MetaData exchange process. It is now as follows:&#10;- Client Creates Socket&#10;- Server Accepts Connection&#10;- Server Sends a MetaData object&#10;- Client receives that MetaData&#10;- Client Sends a MetaData object&#10;- Server receives that object&#10;- Both Server and Client await Message objects indefinitely" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2240,14 +2257,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Transferable/src/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="42" column="35" lean-forward="false" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/ClientActionListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -2261,29 +2270,37 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
+    <entry file="file://$PROJECT_DIR$/Transferable/src/Message.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="75" column="52" lean-forward="true" selection-start-line="75" selection-start-column="52" selection-end-line="75" selection-end-column="52" />
-          <folding>
-            <element signature="e#7956#7957#0" expanded="true" />
-            <element signature="e#8017#8018#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+        <state relative-caret-position="1180">
+          <caret line="59" column="4" lean-forward="false" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="62" column="56" lean-forward="false" selection-start-line="62" selection-start-column="56" selection-end-line="62" selection-end-column="56" />
+        <state relative-caret-position="560">
+          <caret line="48" column="27" lean-forward="true" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="59" column="39" lean-forward="false" selection-start-line="59" selection-start-column="39" selection-end-line="59" selection-end-column="39" />
+          <folding>
+            <element signature="e#8067#8068#0" expanded="true" />
+            <element signature="e#8128#8129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="120" column="39" lean-forward="false" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
           <folding />
         </state>
       </provider>
