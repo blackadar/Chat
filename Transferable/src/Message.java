@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class Message implements Serializable{
     public String contents;
     Prefix prefix;
+    public boolean isCommand;
 
     /**
      * Initializes a message for a /all room.
@@ -39,6 +40,7 @@ public class Message implements Serializable{
     public Message(String contents, String destinationRoom, boolean isCommand){
         this.contents = contents;
         this.prefix = new Prefix(isCommand, destinationRoom);
+        this.isCommand = isCommand;
     }
 
     /**

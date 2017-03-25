@@ -168,11 +168,14 @@ public class ClientListener implements Runnable {
                 }
                 break;
 
+                case("clear"): { //Clears client terminal
+                    command("clear");
+                }
+                break;
+
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
                 }
-
-
             }
         }
         catch(IllegalArgumentException e){
@@ -230,6 +233,20 @@ public class ClientListener implements Runnable {
      */
     protected static void tellAll(String message){
         broadcast("Server : " + message);
+    }
+
+    /**
+     * Sends a command-marked message to a client to trigger an action
+     */
+    protected void command(String command){
+        try {
+            synchronized(this.outputStream) {
+                this.outputStream.writeObject(new Message(command, null, true));
+            }
+            this.outputStream.flush();
+        } catch (IOException e) {
+            this.stop();
+        }
     }
 
     /**
