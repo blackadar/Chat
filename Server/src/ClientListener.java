@@ -10,7 +10,6 @@ import java.util.*;
  * @since 3/17/2017 : 3:05 PM
  */
 
-//TODO clientDisabled is being called twice each time a user disconnects!
 public class ClientListener implements Runnable {
 
     protected Socket socket;
@@ -51,7 +50,7 @@ public class ClientListener implements Runnable {
             alert("Welcome!");
             while (true) {
                 Message received =(Message)inputStream.readObject();
-                if(myUser.blacklist) this.stop(); //If banned, client will send ackgnowldegment, stop
+                if(myUser.blacklist) throw new InvalidObjectException("Banned."); //If banned, client will send ackgnowldegment, stop
                 if(!(received.contents.isEmpty())) {
                     if (hasCommand(received.contents)) {
                         executeCommand(received.contents);
