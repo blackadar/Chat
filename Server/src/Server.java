@@ -1,11 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Jordan Blackadar as a part of the Server package in Chat.
@@ -17,9 +17,11 @@ import java.util.Arrays;
  */
 public class Server extends JFrame implements Runnable, ClientActionListener {
     public static final String SERVER_ERR_LBL = "<<ERROR>> ";
+    static boolean four_k = true;
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
+    private JTextField AdminField;
     private ServerSocket server;
     protected int numberOnline = 0;
     protected File save = new File("save.svs");
@@ -33,6 +35,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         output("Local IP: " + InetAddress.getLocalHost());  //Output the local IP
         initSaveFile(); //Initialize the save file, creating it if it does not exist
         this.run(); //Begin server operation
+
     }
 
     /**
@@ -49,6 +52,13 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
                 //Create a client listener object to handle new user
                 ClientListener pending_user = new ClientListener(client, this);
+                if(pending_user.myUser.blacklist == true){ //Ensure that user is not banned before starting a listener
+                    output("Banned user " + pending_user.myUser.userName + " attempted to connect to the server");
+
+                    //Ignore the connection attempt before starting new ClientListener thread
+                    pending_user = null;
+                    continue;
+                }
                 pending_user.addListener(this); //Assign this server as the listener for new client
 
                 //Check if the user is in the saved list of users
@@ -110,16 +120,42 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     private void initGui(){
+        Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int)screen_size.getWidth();
+        int height = (int) screen_size.getHeight();
+
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
         setContentPane(panel);
-        this.setPreferredSize(new Dimension(600, 400));
+        this.setPreferredSize(new Dimension(width / 2, height / 2));
+        numberOnlineLabel.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         serverLog.setLineWrap(true);
+        serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         updateLabel();
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //Initialize administrator command field
+        AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        AdminField.setSize(new Dimension(-1, height / 14));
+        AdminField.setText("Administrator command area");
+        AdminField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                AdminField.setText("");
+            }
+        });
+        AdminField.addActionListener(actionEvent -> {
+                Message current = new Message(AdminField.getText());
+                executeAdminCommand(current.contents);
+                AdminField.setText("");
+        });
+
         this.setVisible(true);
     }
+
+
 
     private void initSaveFile () throws IOException{
         if(save.exists()){
@@ -130,6 +166,51 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
             }
         } else {
             currentSave = new Save();
+        }
+    }
+
+    private void executeAdminCommand(String input) {
+        String [] cmd = input.substring(1).split(" ");
+        switch(cmd[0]){
+            case "mod":
+                for(int c = 0; c < currentSave.all.size(); c++){
+                    if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        output("Modded: " + currentSave.all.get(c).userName);
+                        currentSave.all.get(c).isMod = true;
+                        break;
+                    }
+                }
+                break;
+            case "unmod":
+                for(int c = 0; c < currentSave.all.size(); c++){
+                    if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        output("Unmodded: " + currentSave.all.get(c).userName);
+                        currentSave.all.get(c).isMod = false;
+                        break;
+                    }
+                }
+                break;
+            case "ban":
+                for(int c = 0; c < currentSave.all.size(); c++){
+                    if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        output("Banned: " + currentSave.all.get(c).userName);
+                        currentSave.all.get(c).blacklist = true;
+                        break;
+                    }
+                }
+                break;
+            case "unban":
+                for(int c = 0; c < currentSave.all.size(); c++){
+                    if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        output("Unbanned: " + currentSave.all.get(c).userName);
+                        currentSave.all.get(c).blacklist = false;
+                        break;
+                    }
+                }
+                break;
+            default:
+                output("Admin command " + cmd[1] + " attempted does not exist.");
+                break;
         }
     }
 }
