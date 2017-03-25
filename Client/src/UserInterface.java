@@ -195,7 +195,7 @@ public class UserInterface extends JFrame implements Runnable {
     }
 
     protected void clearText(){
-        chatLog.setText("Local : Cleared History.");
+        chatLog.setText("Local : Cleared History.\n");
     }
 
     protected void executeCommand(Message message){
