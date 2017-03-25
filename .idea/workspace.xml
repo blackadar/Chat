@@ -9,8 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/ClientListener.java" afterPath="$PROJECT_DIR$/Server/src/ClientListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.form" afterPath="$PROJECT_DIR$/Server/src/Server.form" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.java" afterPath="$PROJECT_DIR$/Server/src/Server.java" />
     </list>
     <list id="d51252c1-0cec-4708-b9f5-2883a6ea60ed" name="Revert: " comment="" />
@@ -40,15 +38,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="763">
-              <caret line="195" column="77" lean-forward="true" selection-start-line="195" selection-start-column="77" selection-end-line="195" selection-end-column="77" />
+            <state relative-caret-position="670">
+              <caret line="134" column="22" lean-forward="false" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
               <folding>
-                <element signature="e#5511#5709#0" expanded="true" />
-                <element signature="e#5708#5709#0" expanded="true" />
-                <marker date="1490408270473" expanded="true" signature="3385:3641" ph="{...}" />
+                <element signature="e#5662#5860#0" expanded="true" />
+                <element signature="e#5859#5860#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,25 +54,28 @@
       <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="38" column="15" lean-forward="true" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
-              <folding />
+            <state relative-caret-position="2442">
+              <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+              <folding>
+                <element signature="e#8067#8068#0" expanded="true" />
+                <element signature="e#8128#8129#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="771">
-              <caret line="63" column="13" lean-forward="true" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+            <state relative-caret-position="-5660">
+              <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding>
-                <element signature="e#7464#7465#0" expanded="true" />
-                <element signature="e#7506#7507#0" expanded="true" />
-                <element signature="e#8967#8968#0" expanded="true" />
-                <element signature="e#9015#9016#0" expanded="true" />
-                <element signature="e#9443#9444#0" expanded="true" />
-                <element signature="e#9483#9484#0" expanded="true" />
+                <element signature="e#7812#7813#0" expanded="true" />
+                <element signature="e#7854#7855#0" expanded="true" />
+                <element signature="e#9315#9316#0" expanded="true" />
+                <element signature="e#9363#9364#0" expanded="true" />
+                <element signature="e#10517#10518#0" expanded="true" />
+                <element signature="e#10557#10558#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,8 +140,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Jordan Blackadar &lt;jordan.blackadar@outlook.com&gt;" />
         <option value="Liam Brown &lt;liamnb525@gmail.com&gt;" />
+        <option value="Jordan Blackadar &lt;jordan.blackadar@outlook.com&gt;" />
       </list>
     </option>
     <option name="PUSH_AUTO_UPDATE" value="true" />
@@ -181,8 +181,8 @@
         <option value="$PROJECT_DIR$/save.svs" />
         <option value="$PROJECT_DIR$/Client/src/UserInterface.java" />
         <option value="$PROJECT_DIR$/Server/src/Server.form" />
-        <option value="$PROJECT_DIR$/Server/src/Server.java" />
         <option value="$PROJECT_DIR$/Server/src/ClientListener.java" />
+        <option value="$PROJECT_DIR$/Server/src/Server.java" />
       </list>
     </option>
   </component>
@@ -222,6 +222,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Transferable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Transferable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1694,7 +1708,21 @@
       <option name="project" value="LOCAL" />
       <updated>1490387987818</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Admin command bar&#10;Ban, mod support&#10;Screen size adjustments for server">
+      <created>1490409363054</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1490409363054</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Admin command bar&#10;Ban, mod support&#10;Screen size adjustments for server">
+      <created>1490409458964</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1490409458964</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1793,7 +1821,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Configured Artifacts for ServerMonitor" />
     <MESSAGE value="Optimized Imports" />
     <MESSAGE value="Added Listeners for actions to notify ServerMonitor." />
     <MESSAGE value="Added Program Icons" />
@@ -1818,7 +1845,8 @@
     <MESSAGE value="Fixed unnecessary variable assignments" />
     <MESSAGE value="Cleaned up" />
     <MESSAGE value="Re-Added accidentally removed code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Re-Added accidentally removed code" />
+    <MESSAGE value="Admin command bar&#10;Ban, mod support&#10;Screen size adjustments for server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Admin command bar&#10;Ban, mod support&#10;Screen size adjustments for server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2075,42 +2103,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="38" column="15" lean-forward="true" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/Server.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
+    <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="195" column="77" lean-forward="true" selection-start-line="195" selection-start-column="77" selection-end-line="195" selection-end-column="77" />
+        <state relative-caret-position="-5660">
+          <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
           <folding>
-            <element signature="e#5511#5709#0" expanded="true" />
-            <element signature="e#5708#5709#0" expanded="true" />
-            <marker date="1490408270473" expanded="true" signature="3385:3641" ph="{...}" />
+            <element signature="e#7812#7813#0" expanded="true" />
+            <element signature="e#7854#7855#0" expanded="true" />
+            <element signature="e#9315#9316#0" expanded="true" />
+            <element signature="e#9363#9364#0" expanded="true" />
+            <element signature="e#10517#10518#0" expanded="true" />
+            <element signature="e#10557#10558#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
+    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="771">
-          <caret line="63" column="13" lean-forward="true" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+        <state relative-caret-position="2442">
+          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding>
-            <element signature="e#7464#7465#0" expanded="true" />
-            <element signature="e#7506#7507#0" expanded="true" />
-            <element signature="e#8967#8968#0" expanded="true" />
-            <element signature="e#9015#9016#0" expanded="true" />
-            <element signature="e#9443#9444#0" expanded="true" />
-            <element signature="e#9483#9484#0" expanded="true" />
+            <element signature="e#8067#8068#0" expanded="true" />
+            <element signature="e#8128#8129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="670">
+          <caret line="134" column="22" lean-forward="false" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
+          <folding>
+            <element signature="e#5662#5860#0" expanded="true" />
+            <element signature="e#5859#5860#0" expanded="true" />
           </folding>
         </state>
       </provider>

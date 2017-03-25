@@ -133,7 +133,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         serverLog.setLineWrap(true);
         serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         updateLabel();
-        serverLog.setFont(serverLog.getFont().deriveFont(15f));
         this.setLocationRelativeTo(null);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
