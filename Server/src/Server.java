@@ -151,6 +151,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 AdminField.setText("");
             }
         });
+
         AdminField.addActionListener(actionEvent -> {
                 Message current = new Message(AdminField.getText());
                 executeAdminCommand(current.contents);
