@@ -18,7 +18,6 @@ import java.net.Socket;
 public class Server extends JFrame implements Runnable, ClientActionListener {
     public String name = "Beta Chat Server";
     public static final String SERVER_ERR_LBL = "<<ERROR>> ";
-    static boolean four_k = true;
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
@@ -50,7 +49,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
             try {
                 Socket client = server.accept(); //Block until a connection is attempted
 
-
                 //Create a client listener object to handle new user
                 ClientListener pending_user = new ClientListener(client, this);
                 if(pending_user.myUser.blacklist == true){ //Ensure that user is not banned before starting a listener
@@ -69,6 +67,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 //Create and run client listener thread
                 Thread t = new Thread(pending_user);
                 t.start();
+
             } catch (IOException e) {
                 System.err.println("Could not store user data file");
                 e.printStackTrace();
@@ -83,7 +82,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
     public static void main(String[] args) {
         try {
-            new Server(9090); //Create serve and set port
+            new Server(9090); //Create server and set port
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
