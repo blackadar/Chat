@@ -19,6 +19,7 @@ public class UserInterface extends JFrame implements Runnable {
     private JTextField textField;
     private JButton button;
     private JPanel rootPanel;
+    static JLabel message;
     private JScrollPane chatLogHolder;
     private JTabbedPane serverTabs;
     protected ObjectInputStream inputStream;
@@ -30,6 +31,8 @@ public class UserInterface extends JFrame implements Runnable {
     protected static String userName;
     protected MetaData server;
 
+    static int height;
+    static int width;
     public static void main(String[] args) throws IOException {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -50,11 +53,25 @@ public class UserInterface extends JFrame implements Runnable {
 
     public UserInterface() {
         super("Network Chat");
+        Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
+        width = (int)screen_size.getWidth();
+        height = (int) screen_size.getHeight();
         this.setIconImage(image);
-        setContentPane(rootPanel);
-        this.setPreferredSize(new Dimension(600, 400));
+        this.setContentPane(rootPanel);
+        this.setPreferredSize(new Dimension(width / 2, height / 2));
+
+        button.setPreferredSize(new Dimension(-1, height / 43));
+        textField.setPreferredSize(new Dimension(-1, height / 43));
+        rootPanel.setMinimumSize(new Dimension(-1, -1));
+        message = new JLabel("Welcome to Network Chat.\nInput Username:");
+
+        message.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        serverTabs.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        button.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        chatLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        textField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+
         chatLog.setLineWrap(true);
-        chatLog.setFont(chatLog.getFont().deriveFont(15f));
         pack();
         chatLog.setAutoscrolls(true);
         this.setLocationRelativeTo(null);
@@ -110,7 +127,9 @@ public class UserInterface extends JFrame implements Runnable {
     protected static void recoverState() throws IOException, ClassNotFoundException {
         File save = new File("save.sv");
         if (!(save.exists())) {
-            userName = JOptionPane.showInputDialog(null, "Welcome to Network Chat.\nInput Username:");
+
+
+            userName = JOptionPane.showInputDialog(null, message, "Welcome!", JOptionPane.INFORMATION_MESSAGE);
             String providedAddress = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
             if (!(providedAddress == null )) {
                 host = providedAddress.split(":")[0];
@@ -161,7 +180,9 @@ public class UserInterface extends JFrame implements Runnable {
                 chatLog.append("Local : General I/O Exception during Reconnection.\n");
             }
         });
-        JOptionPane.showMessageDialog(null, "Unable to communicate with the chat server.", "Connection Lost", JOptionPane.WARNING_MESSAGE);
+        JLabel out = new JLabel("Unable to communicate with the chat server.");
+        out.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        JOptionPane.showMessageDialog(null, out, "Connection Lost", JOptionPane.WARNING_MESSAGE);
     }
 
     protected void regainedConnectionState(){
@@ -203,11 +224,13 @@ public class UserInterface extends JFrame implements Runnable {
     }
 
     protected void executeCommand(Message message){
+        JLabel out = new JLabel(message.arguments);
+        out.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         switch(message.contents.toLowerCase()){
             case("clear") : clearText();
             break;
             case("alert") : {
-                JOptionPane.showMessageDialog(null, message.arguments, "Server Alert", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, out, "Server Alert", JOptionPane.INFORMATION_MESSAGE);
             }
             break;
         }

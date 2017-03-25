@@ -40,7 +40,7 @@
       </component>
       <component id="78119" class="javax.swing.JTextField" binding="AdminField" default-binding="true">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="1000" height="50"/>
           </grid>
         </constraints>
