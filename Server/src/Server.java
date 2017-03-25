@@ -124,6 +124,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)screen_size.getWidth();
         int height = (int) screen_size.getHeight();
+        System.out.println("width " + width + "height" + height);
 
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
@@ -131,6 +132,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         this.setPreferredSize(new Dimension(width / 2, height / 2));
         numberOnlineLabel.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         serverLog.setLineWrap(true);
+        serverLog.setMinimumSize(new Dimension(-1, -1));
         serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         updateLabel();
         this.setLocationRelativeTo(null);
@@ -139,7 +141,8 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
         //Initialize administrator command field
         AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        AdminField.setSize(new Dimension(-1, height / 14));
+        AdminField.setPreferredSize(new Dimension(-1, height / 14));
+        AdminField.setMinimumSize(new Dimension(-1, -1));
         AdminField.setText("Administrator command area");
         AdminField.addMouseListener(new MouseAdapter() {
             @Override

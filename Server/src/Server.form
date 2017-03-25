@@ -10,9 +10,7 @@
     <children>
       <scrollpane id="93e79">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="500" height="250"/>
-          </grid>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -24,6 +22,7 @@
               <editable value="false"/>
               <foreground color="-16775537"/>
               <lineWrap value="true"/>
+              <minimumSize width="-1" height="-1"/>
               <text value=""/>
               <wrapStyleWord value="false"/>
             </properties>
@@ -41,11 +40,13 @@
       </component>
       <component id="78119" class="javax.swing.JTextField" binding="AdminField" default-binding="true">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="1000" height="50"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
     </children>
   </grid>
