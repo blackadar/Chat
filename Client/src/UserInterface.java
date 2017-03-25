@@ -28,6 +28,7 @@ public class UserInterface extends JFrame implements Runnable {
     protected static String host;
     protected static int port;
     protected static String userName;
+    protected MetaData server;
 
     public static void main(String[] args) throws IOException {
         try {
@@ -53,7 +54,6 @@ public class UserInterface extends JFrame implements Runnable {
         setContentPane(rootPanel);
         this.setPreferredSize(new Dimension(600, 400));
         chatLog.setLineWrap(true);
-        serverTabs.setTitleAt(0, host);
         pack();
         chatLog.setAutoscrolls(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,6 +72,8 @@ public class UserInterface extends JFrame implements Runnable {
 
     public void run() {
         try {
+            server = (MetaData) inputStream.readObject();
+            serverTabs.setTitleAt(0, server.handle);
             outputStream.writeObject(new MetaData(userName));
             while (true) {
                 Message current = (Message) inputStream.readObject();

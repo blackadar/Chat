@@ -19,7 +19,7 @@ public class ClientListener implements Runnable {
 
     protected static ArrayList<ClientListener> all = new ArrayList<>();
     protected ArrayList<ClientActionListener> actionListeners = new ArrayList<>();
-    protected MetaData myMetaData;
+    protected MetaData clientMetaData;
     protected Server runningServer;
 
     public ClientListener(Socket socket, Server theServer) throws IOException, ClassNotFoundException {
@@ -27,7 +27,8 @@ public class ClientListener implements Runnable {
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         this.outputStream.flush(); //Necessary to avoid 'chicken or egg' situation
         this.inputStream = new ObjectInputStream(socket.getInputStream());
-        this.myMetaData = (MetaData)inputStream.readObject(); //First, read the client MetaData
+        outputStream.writeObject(new MetaData(theServer.name, null)); //First, send Server MetaData. TODO: Send list of rooms
+        this.clientMetaData = (MetaData)inputStream.readObject(); //Then, read the client MetaData
         this.runningServer = theServer;
         this.isAFK = false;
         initializeSave(); //Recovers Save or Creates One
@@ -60,7 +61,6 @@ public class ClientListener implements Runnable {
                 }
             }
         } catch (IOException|ClassNotFoundException e) {
-            this.stop();
             e.printStackTrace();
         } finally {
             this.stop();
@@ -273,12 +273,12 @@ public class ClientListener implements Runnable {
     private void initializeSave(){
         boolean savedUser = false;
         for(User temp : runningServer.currentSave.all){
-            if(temp.userName.equals(myMetaData.handle)){
+            if(temp.userName.equals(clientMetaData.handle)){
                 myUser = temp;
                 savedUser = true;
             }
         }
-        System.out.println(myMetaData.handle);
-        if(savedUser == false) myUser = new User(myMetaData.handle, false, false);
+        System.out.println(clientMetaData.handle);
+        if(savedUser == false) myUser = new User(clientMetaData.handle, false, false);
     }
 }

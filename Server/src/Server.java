@@ -16,6 +16,7 @@ import java.util.Arrays;
  * @since 3/19/2017 : 2:15 PM
  */
 public class Server extends JFrame implements Runnable, ClientActionListener {
+    public String name = "Beta Chat Server";
     public static final String SERVER_ERR_LBL = "<<ERROR>> ";
     private JTextArea serverLog;
     private JPanel panel;
