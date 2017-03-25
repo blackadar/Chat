@@ -43,7 +43,7 @@ public class ClientListener implements Runnable {
         try {
             all.add(this);
             for(ClientActionListener x : actionListeners){
-                x.clientConnected(myUser.userName);
+                x.clientConnected(myUser.userName, socket.getInetAddress().toString());
             }
             while (true) {
                 Message received =(Message)inputStream.readObject();
@@ -73,7 +73,7 @@ public class ClientListener implements Runnable {
     public void stop(){
         all.remove(this);
         for(ClientActionListener x : actionListeners){
-            x.clientDisconnected(myUser.userName);
+            x.clientDisconnected(myUser.userName, socket.getInetAddress().toString());
         }
         tellAll(myUser.userName + " is offline.");
         try {

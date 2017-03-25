@@ -80,17 +80,17 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     @Override
-    public void clientDisconnected(String userName) {
+    public void clientDisconnected(String userName, String address) {
         numberOnline--;
         updateLabel();
-        output("Lost connection to " + userName + ".");
+        output("Lost connection to " + userName + " at " + address);
     }
 
     @Override
-    public void clientConnected(String userName) {
+    public void clientConnected(String userName, String address) {
         numberOnline++;
         updateLabel();
-        output("Initializing Connection to " + userName);
+        output("Initializing Connection to " + userName + " at " + address);
     }
 
     @Override

@@ -6,7 +6,7 @@
  * @since 3/19/2017 : 11:52 PM
  */
 interface ClientActionListener {
-    void clientDisconnected(String userName);
-    void clientConnected(String userName);
+    void clientDisconnected(String userName, String address);
+    void clientConnected(String userName, String address);
     void clientChangedName(String old, String updated);
 }
