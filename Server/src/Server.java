@@ -141,7 +141,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
         //Initialize administrator command field
         AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        AdminField.setPreferredSize(new Dimension(-1, height / 14));
+        AdminField.setPreferredSize(new Dimension(-1, height / 43));
         AdminField.setMinimumSize(new Dimension(-1, -1));
         AdminField.setText("Administrator command area");
         AdminField.addMouseListener(new MouseAdapter() {
