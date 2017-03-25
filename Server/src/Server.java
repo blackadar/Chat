@@ -16,6 +16,7 @@ import java.net.Socket;
  * @since 3/19/2017 : 2:15 PM
  */
 public class Server extends JFrame implements Runnable, ClientActionListener {
+    public String name = "Beta Chat Server";
     public static final String SERVER_ERR_LBL = "<<ERROR>> ";
     static boolean four_k = true;
     private JTextArea serverLog;
@@ -90,17 +91,17 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     @Override
-    public void clientDisconnected(String userName) {
+    public void clientDisconnected(String userName, String address) {
         numberOnline--;
         updateLabel();
-        output("Lost connection to " + userName + ".");
+        output("Lost connection to " + userName + " at " + address);
     }
 
     @Override
-    public void clientConnected(String userName) {
+    public void clientConnected(String userName, String address) {
         numberOnline++;
         updateLabel();
-        output("Initializing Connection to " + userName);
+        output("Initializing Connection to " + userName + " at " + address);
     }
 
     @Override
@@ -132,6 +133,8 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         serverLog.setLineWrap(true);
         serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         updateLabel();
+        serverLog.setFont(serverLog.getFont().deriveFont(15f));
+        this.setLocationRelativeTo(null);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

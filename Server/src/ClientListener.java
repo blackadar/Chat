@@ -21,7 +21,7 @@ public class ClientListener implements Runnable {
 
     protected static ArrayList<ClientListener> all = new ArrayList<>();
     protected ArrayList<ClientActionListener> actionListeners = new ArrayList<>();
-    protected MetaData myMetaData;
+    protected MetaData clientMetaData;
     protected Server runningServer;
 
     public ClientListener(Socket socket, Server theServer) throws IOException, ClassNotFoundException {
@@ -29,7 +29,8 @@ public class ClientListener implements Runnable {
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         this.outputStream.flush(); //Necessary to avoid 'chicken or egg' situation
         this.inputStream = new ObjectInputStream(socket.getInputStream());
-        this.myMetaData = (MetaData)inputStream.readObject(); //First, read the client MetaData
+        outputStream.writeObject(new MetaData(theServer.name, null)); //First, send Server MetaData. TODO: Send list of rooms
+        this.clientMetaData = (MetaData)inputStream.readObject(); //Then, read the client MetaData
         this.runningServer = theServer;
         this.isAFK = false;
         initializeSave(); //Recovers Save or Creates One
@@ -45,8 +46,9 @@ public class ClientListener implements Runnable {
         try {
             all.add(this);
             for(ClientActionListener x : actionListeners){
-                x.clientConnected(myUser.userName);
+                x.clientConnected(myUser.userName, socket.getInetAddress().toString());
             }
+            alert("Welcome!");
             while (true) {
                 Message received =(Message)inputStream.readObject();
                 if(myUser.blacklist) this.stop(); //If banned, client will send ackgnowldegment, stop
@@ -63,7 +65,6 @@ public class ClientListener implements Runnable {
                 }
             }
         } catch (IOException|ClassNotFoundException e) {
-            this.stop();
             e.printStackTrace();
         } finally {
             this.stop();
@@ -76,7 +77,7 @@ public class ClientListener implements Runnable {
     public void stop(){
         all.remove(this);
         for(ClientActionListener x : actionListeners){
-            x.clientDisconnected(myUser.userName);
+            x.clientDisconnected(myUser.userName, socket.getInetAddress().toString());
         }
         tellAll(myUser.userName + " is offline.");
         try {
@@ -171,11 +172,14 @@ public class ClientListener implements Runnable {
                 }
                 break;
 
+                case("clear"): { //Clears client terminal
+                    command("clear");
+                }
+                break;
+
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
                 }
-
-
             }
         }
         catch(IllegalArgumentException e){
@@ -236,6 +240,31 @@ public class ClientListener implements Runnable {
     }
 
     /**
+     * Sends a command-marked message to a client to trigger an action
+     */
+    protected void command(String command){
+        try {
+            synchronized(this.outputStream) {
+                this.outputStream.writeObject(new Message(command, null, true));
+            }
+            this.outputStream.flush();
+        } catch (IOException e) {
+            this.stop();
+        }
+    }
+
+    protected void alert(String alertMessage){
+        try {
+            synchronized(this.outputStream) {
+                this.outputStream.writeObject(new Message("alert", true, alertMessage));
+            }
+            this.outputStream.flush();
+        } catch (IOException e) {
+            this.stop();
+        }
+    }
+
+    /**
      * Changes a ClientListener's name as it appears in chat.
      */
     public void setName(String name){
@@ -259,12 +288,12 @@ public class ClientListener implements Runnable {
     private void initializeSave(){
         boolean savedUser = false;
         for(User temp : runningServer.currentSave.all){
-            if(temp.userName.equals(myMetaData.handle)){
+            if(temp.userName.equals(clientMetaData.handle)){
                 myUser = temp;
                 savedUser = true;
             }
         }
-        System.out.println(myMetaData.handle);
-        if(savedUser == false) myUser = new User(myMetaData.handle, false, false);
+        System.out.println(clientMetaData.handle);
+        if(savedUser == false) myUser = new User(clientMetaData.handle, false, false);
     }
 }
