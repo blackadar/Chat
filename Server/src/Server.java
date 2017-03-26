@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by Jordan Blackadar as a part of the Server package in Chat.
@@ -15,6 +16,7 @@ import java.net.Socket;
  * @version 0.3.5
  * @since 3/19/2017 : 2:15 PM
  */
+//TODO Set all users to offline when closing the server
 public class Server extends JFrame implements Runnable, ClientActionListener {
     public String name = "Beta Chat Server";
     public static final String SERVER_ERR_LBL = "<<ERROR>> ";
@@ -22,6 +24,12 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     private JPanel panel;
     private JLabel numberOnlineLabel;
     private JTextField AdminField;
+    private JButton optionsButton;
+    private JTextField userSearch;
+
+    private File preferences;
+    private Preferences loaded_prefs;
+
     private ServerSocket server;
     protected int numberOnline = 0;
     protected File save = new File("save.svs");
@@ -45,6 +53,11 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
      */
     public void run() {
         output("Listening on Port " + server.getLocalPort() + ".");
+
+        preferences = new File ("preferences.sprefs");
+        if(!preferences.exists()) initPrefs(); //first run
+        readPrefs();
+
         updateLabel();
         while (true) { //Continuously look for and accept new incoming connections
             try {
@@ -64,6 +77,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 //Check if the user is in the saved list of users
                 currentSave.addIfMissing(pending_user.myUser);
                 Save.preserve(currentSave); //Save the user list
+                pending_user.myUser.online = true;
 
                 //Create and run client listener thread
                 Thread t = new Thread(pending_user);
@@ -135,9 +149,30 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         serverLog.setMinimumSize(new Dimension(-1, -1));
         serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         updateLabel();
-        this.setLocationRelativeTo(null);
-        pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        userSearch.setPreferredSize(new Dimension(-1, height / 43));
+        userSearch.setText("Search for user");
+        userSearch.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+
+        userSearch.addActionListener(actionEvent -> {
+            Message current = new Message(userSearch.getText());
+            executeAdminCommand("/userinfo " + current.contents);
+            userSearch.setText("");
+        });
+        userSearch.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                userSearch.setText("");
+            }
+        });
+        optionsButton.setPreferredSize(new Dimension(-1, height / 72));
+        optionsButton.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        optionsButton.addActionListener(actionEvent -> {
+            //TODO Create options gui allowing the user to modify the preferences
+            //TODO Integrate preference checking into existing methods and functionality (ex. chatmode needs to check pref and if enabled print message received to server log with username and ip as prefix
+
+                });
 
         //Initialize administrator command field
         AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
@@ -153,11 +188,18 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         });
 
         AdminField.addActionListener(actionEvent -> {
-                Message current = new Message(AdminField.getText());
+            Message current = new Message(AdminField.getText());
+            try {
                 executeAdminCommand(current.contents);
-                AdminField.setText("");
+            } catch(Exception e) {
+                output("Admin command not in a valid format");
+            }
+            AdminField.setText("");
         });
 
+        this.setLocationRelativeTo(null);
+        pack();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
@@ -177,46 +219,114 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
     private void executeAdminCommand(String input) {
         String [] cmd = input.substring(1).split(" ");
+        boolean exists = false;
         switch(cmd[0]){
             case "mod":
+
                 for(int c = 0; c < currentSave.all.size(); c++){
-                    if(currentSave.all.get(c).userName.equals(cmd[1])){
+                    if(currentSave.all.get(c).userName.equals(cmd[1])) {
+                        exists = true;
                         output("Modded: " + currentSave.all.get(c).userName);
                         currentSave.all.get(c).isMod = true;
                         break;
                     }
                 }
+                if(!exists) output("Failed to unmod nonexistent user " + cmd[1]);
                 break;
             case "unmod":
                 for(int c = 0; c < currentSave.all.size(); c++){
                     if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        exists = true;
                         output("Unmodded: " + currentSave.all.get(c).userName);
                         currentSave.all.get(c).isMod = false;
                         break;
                     }
                 }
+                if(!exists) output("Failed to ban nonexistent user " +cmd[1]);
                 break;
             case "ban":
                 for(int c = 0; c < currentSave.all.size(); c++){
                     if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        exists = true;
                         output("Banned: " + currentSave.all.get(c).userName);
                         currentSave.all.get(c).blacklist = true;
                         break;
                     }
                 }
+                if(!exists) output("Failed to ban nonexistent user " + cmd[1]);
                 break;
             case "unban":
                 for(int c = 0; c < currentSave.all.size(); c++){
                     if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        exists = true;
                         output("Unbanned: " + currentSave.all.get(c).userName);
                         currentSave.all.get(c).blacklist = false;
                         break;
                     }
                 }
+                if(!exists) output("Failed to unban nonexistent user " + cmd[1]);
+                break;
+            case "userinfo":
+                for(int c = 0; c < currentSave.all.size(); c++){
+                    if(currentSave.all.get(c).userName.equals(cmd[1])){
+                        exists = true;
+                        output(currentSave.all.get(c).toString());
+                        break;
+                    }
+                }
+                if(!exists) output("Failed to print user info for nonexistent user " + cmd[1]);
                 break;
             default:
                 output("Admin command " + cmd[1] + " attempted does not exist.");
                 break;
         }
     }
+
+    /**
+     * Initializes preferences object and writes it to file preferences.sprefs with some default settings and values.
+     */
+    private void initPrefs(){
+        try {
+            loaded_prefs = new Preferences();
+            loaded_prefs.addPreference("view_chat" , "disabled");
+            loaded_prefs.addPreference("color_scheme" , "default");
+            loaded_prefs.addPreference("reject_connections" , "disabled");
+            loaded_prefs.addPreference("require_password" , "disabled");
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(preferences));
+            out.writeObject(loaded_prefs);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            output("Failed to initialize preferences file");
+        }
+    }
+
+    /**
+     * Reads the preferences file into a preferences object.
+     */
+    private void readPrefs(){
+        try {
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(preferences));
+        loaded_prefs = (Preferences) in.readObject();
+        in.close();
+        } catch (Exception e) {
+            output("Failed to read preferences file");
+        }
+    }
+
+    /**
+     * Writes the preferences object into the preferences.sprefs file.
+     */
+    private void writePrefs(){
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(preferences));
+            out.writeObject(loaded_prefs);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+         output("Failed to write preferences file");
+        }
+    }
+
 }

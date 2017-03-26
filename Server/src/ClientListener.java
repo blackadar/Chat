@@ -75,6 +75,7 @@ public class ClientListener implements Runnable {
      * Finalizes client stream and announces departure
      */
     public void stop(){
+        myUser.online = false;
         all.remove(this);
         for(ClientActionListener x : actionListeners){
             x.clientDisconnected(myUser.userName, socket.getInetAddress().toString());
