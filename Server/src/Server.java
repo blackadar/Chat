@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -24,7 +26,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     private JPanel panel;
     private JLabel numberOnlineLabel;
     private JTextField AdminField;
-    private JButton optionsButton;
+
     private JTextField userSearch;
 
     private File preferences;
@@ -162,40 +164,24 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         updateLabel();
 
-        userSearch.setPreferredSize(new Dimension(-1, height / 43));
-        userSearch.setText("Search for user");
-        userSearch.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-
-        userSearch.addActionListener(actionEvent -> {
-            Message current = new Message(userSearch.getText());
-            executeAdminCommand("/userinfo " + current.contents);
-            userSearch.setText("");
-        });
-        userSearch.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                userSearch.setText("");
-            }
-        });
-        optionsButton.setPreferredSize(new Dimension(-1, height / 72));
-        optionsButton.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        optionsButton.addActionListener(actionEvent -> {
-            //TODO Create options gui allowing the user to modify the preferences
-            //TODO Integrate preference checking into existing methods and functionality (ex. chatmode needs to check pref and if enabled print message received to server log with username and ip as prefix
-
-                });
-
         //Initialize administrator command field
         AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         AdminField.setPreferredSize(new Dimension(-1, height / 43));
         AdminField.setMinimumSize(new Dimension(-1, -1));
-        AdminField.setText("Administrator command area");
-        AdminField.addMouseListener(new MouseAdapter() {
+        AdminField.setText("Command");
+        AdminField.setForeground(new Color(160,160,160));
+
+        AdminField.addFocusListener(new FocusListener(){
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void focusGained(FocusEvent e) {
                 AdminField.setText("");
+                AdminField.setForeground(new Color(0,0,0));
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                AdminField.setText("Command");
+                AdminField.setForeground(new Color(160,160,160));
             }
         });
 
