@@ -19,7 +19,7 @@ public class UserInterface extends JFrame implements Runnable {
     private JTextField textField;
     private JButton button;
     private JPanel rootPanel;
-    static JLabel message;
+    private static JLabel message;
     private JScrollPane chatLogHolder;
     private JTabbedPane serverTabs;
     protected ObjectInputStream inputStream;
