@@ -19,7 +19,7 @@ public class UserInterface extends JFrame implements Runnable {
     private JTextField textField;
     private JButton button;
     private JPanel rootPanel;
-    static JLabel message;
+    static JLabel message = new JLabel("Username: ");
     private JScrollPane chatLogHolder;
     private JTabbedPane serverTabs;
     protected ObjectInputStream inputStream;
@@ -63,7 +63,6 @@ public class UserInterface extends JFrame implements Runnable {
         button.setPreferredSize(new Dimension(-1, height / 43));
         textField.setPreferredSize(new Dimension(-1, height / 43));
         rootPanel.setMinimumSize(new Dimension(-1, -1));
-        message = new JLabel("Welcome to Network Chat.\nInput Username:");
 
         message.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         serverTabs.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
@@ -127,8 +126,6 @@ public class UserInterface extends JFrame implements Runnable {
     protected static void recoverState() throws IOException, ClassNotFoundException {
         File save = new File("save.sv");
         if (!(save.exists())) {
-
-
             userName = JOptionPane.showInputDialog(null, message, "Welcome!", JOptionPane.INFORMATION_MESSAGE);
             String providedAddress = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
             if (!(providedAddress == null )) {
@@ -195,13 +192,9 @@ public class UserInterface extends JFrame implements Runnable {
     }
 
     protected void setDefaultActionListeners(){
-        button.addActionListener(actionEvent -> {
-            sendMessage();
-        });
+        button.addActionListener(actionEvent -> sendMessage());
 
-        textField.addActionListener(actionEvent -> {
-            sendMessage();
-        });
+        textField.addActionListener(actionEvent -> sendMessage());
 
         button.setVisible(true);
         textField.setVisible(true);
