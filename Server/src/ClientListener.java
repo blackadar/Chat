@@ -294,7 +294,6 @@ public class ClientListener implements Runnable {
                 savedUser = true;
             }
         }
-        System.out.println(clientMetaData.handle);
         if(savedUser == false) myUser = new User(clientMetaData.handle, false, false);
     }
 }

@@ -35,15 +35,12 @@ public class Save implements Serializable{
     }
 
     public void addIfMissing(User check) {
-        System.out.println("Checking " + check.userName);
         for (User x : all) {
             if (x.userName.equalsIgnoreCase(check.userName)){
-                System.out.println(check.userName + " already exists.");
                 return;
             }
         }
         this.all.add(check);
-        System.out.println("Added " + all.get(all.size() - 1).userName);
     }
 
 

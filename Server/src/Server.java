@@ -146,7 +146,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
     private void output(String toOutput) {
         serverLog.append(toOutput + "\n");
-        System.out.println(toOutput);
         updateLabel();
     }
 
@@ -154,7 +153,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)screen_size.getWidth();
         int height = (int) screen_size.getHeight();
-        System.out.println("width " + width + "height" + height);
 
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
@@ -195,7 +193,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         AdminField.addActionListener(actionEvent -> {
             Message current = new Message(AdminField.getText());
             try {
-                System.out.println(current);
                 executeAdminCommand(current.contents);
             } catch(Exception e) {
                 output("Admin command not in a valid format");
@@ -224,7 +221,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     private void executeAdminCommand(String input) {
-        System.out.println(input.substring(1));
         String [] cmd = input.substring(1).split(" ");
         boolean exists = false;
         switch(cmd[0]){

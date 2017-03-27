@@ -9,8 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/UserInterface.java" afterPath="$PROJECT_DIR$/Client/src/UserInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.form" afterPath="$PROJECT_DIR$/Server/src/Server.form" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/ClientListener.java" afterPath="$PROJECT_DIR$/Server/src/ClientListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Save.java" afterPath="$PROJECT_DIR$/Server/src/Save.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.java" afterPath="$PROJECT_DIR$/Server/src/Server.java" />
     </list>
     <list id="d51252c1-0cec-4708-b9f5-2883a6ea60ed" name="Revert: " comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -42,11 +43,11 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1581">
-              <caret line="103" column="30" lean-forward="false" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
+            <state relative-caret-position="127">
+              <caret line="93" column="67" lean-forward="false" selection-start-line="93" selection-start-column="67" selection-end-line="93" selection-end-column="67" />
               <folding>
-                <element signature="e#3734#3735#0" expanded="true" />
-                <element signature="e#3791#3792#0" expanded="true" />
+                <element signature="e#3817#3818#0" expanded="true" />
+                <element signature="e#3874#3875#0" expanded="true" />
                 <element signature="method#executeAdminCommand#0;class#Server#0" expanded="false" />
                 <element signature="method#initPrefs#0;class#Server#0" expanded="false" />
                 <element signature="method#readPrefs#0;class#Server#0" expanded="false" />
@@ -73,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="142" column="47" lean-forward="false" selection-start-line="142" selection-start-column="33" selection-end-line="142" selection-end-column="47" />
+            <state relative-caret-position="2346">
+              <caret line="144" column="46" lean-forward="true" selection-start-line="144" selection-start-column="46" selection-end-line="144" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -86,8 +87,8 @@
       <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4624">
-              <caret line="278" column="7" lean-forward="true" selection-start-line="278" selection-start-column="7" selection-end-line="278" selection-end-column="7" />
+            <state relative-caret-position="127">
+              <caret line="134" column="83" lean-forward="false" selection-start-line="134" selection-start-column="73" selection-end-line="134" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -100,11 +101,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Save.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Save.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/Save.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="33" column="20" lean-forward="true" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+            <state relative-caret-position="221">
+              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -113,8 +114,8 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="67" lean-forward="true" selection-start-line="11" selection-start-column="67" selection-end-line="11" selection-end-column="67" />
+            <state relative-caret-position="0">
+              <caret line="0" column="21" lean-forward="false" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -143,8 +144,12 @@
       <find>ClientDis</find>
       <find>welcome</find>
       <find>ObjectOutputStream</find>
-      <find>println</find>
       <find>save</find>
+      <find>println</find>
+      <find>already ex</find>
+      <find>already</find>
+      <find>alrea</find>
+      <find>alre</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,15 +191,15 @@
         <option value="$PROJECT_DIR$/Transferable/src/MetaData.java" />
         <option value="$PROJECT_DIR$/Client/src/Save.java" />
         <option value="$PROJECT_DIR$/Transferable/src/Message.java" />
-        <option value="$PROJECT_DIR$/Server/src/Save.java" />
         <option value="$PROJECT_DIR$/save.svs" />
         <option value="$PROJECT_DIR$/Server/src/User.java" />
         <option value="$PROJECT_DIR$/Server/src/Preference.java" />
         <option value="$PROJECT_DIR$/Server/src/Preferences.java" />
-        <option value="$PROJECT_DIR$/Server/src/ClientListener.java" />
-        <option value="$PROJECT_DIR$/Server/src/Server.java" />
         <option value="$PROJECT_DIR$/Server/src/Server.form" />
         <option value="$PROJECT_DIR$/Client/src/UserInterface.java" />
+        <option value="$PROJECT_DIR$/Server/src/Server.java" />
+        <option value="$PROJECT_DIR$/Server/src/ClientListener.java" />
+        <option value="$PROJECT_DIR$/Server/src/Save.java" />
       </list>
     </option>
   </component>
@@ -525,7 +530,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.UserInterface">
+  <component name="RunManager" selected="Application.Server">
     <configuration default="false" name="UserInterface" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="UserInterface" />
@@ -951,8 +956,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.UserInterface" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Server" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Server" />
+        <item index="1" class="java.lang.String" itemvalue="Application.UserInterface" />
         <item index="2" class="java.lang.String" itemvalue="JAR Application.Client" />
         <item index="3" class="java.lang.String" itemvalue="JAR Application.Server" />
       </list>
@@ -985,7 +990,7 @@
       <workItem from="1490294777828" duration="103000" />
       <workItem from="1490296008466" duration="6797000" />
       <workItem from="1490319023521" duration="7582000" />
-      <workItem from="1490639968792" duration="3433000" />
+      <workItem from="1490639968792" duration="4037000" />
     </task>
     <task id="LOCAL-00001" summary="Added commands system and better exception handling">
       <created>1489712799656</created>
@@ -1316,11 +1321,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490642709361</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Fixed User Input">
+      <created>1490643436795</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1490643436795</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88584000" />
+    <option name="totallyTimeSpent" value="89188000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1393,7 +1405,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed Hierarchy" />
     <MESSAGE value="Cleaning Up, reducing verbosity" />
     <MESSAGE value="Added CLI output for headless servers" />
     <MESSAGE value="Interface Updates" />
@@ -1418,7 +1429,8 @@
     <MESSAGE value="Began to work on scalable UI for user interface + some attempts to fix Server side UI" />
     <MESSAGE value="Modified Client init dialogs" />
     <MESSAGE value="Multithreaded Servers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Multithreaded Servers" />
+    <MESSAGE value="Fixed User Input" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed User Input" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1634,45 +1646,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="67" lean-forward="true" selection-start-line="11" selection-start-column="67" selection-end-line="11" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Save.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="33" column="20" lean-forward="true" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4624">
-          <caret line="278" column="7" lean-forward="true" selection-start-line="278" selection-start-column="7" selection-end-line="278" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="103" column="30" lean-forward="false" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
-          <folding>
-            <element signature="e#3734#3735#0" expanded="true" />
-            <element signature="e#3791#3792#0" expanded="true" />
-            <element signature="method#executeAdminCommand#0;class#Server#0" expanded="false" />
-            <element signature="method#initPrefs#0;class#Server#0" expanded="false" />
-            <element signature="method#readPrefs#0;class#Server#0" expanded="false" />
-            <element signature="method#writePrefs#0;class#Server#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/Server.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
@@ -1695,8 +1668,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="142" column="47" lean-forward="false" selection-start-line="142" selection-start-column="33" selection-end-line="142" selection-end-column="47" />
+        <state relative-caret-position="2346">
+          <caret line="144" column="46" lean-forward="true" selection-start-line="144" selection-start-column="46" selection-end-line="144" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="134" column="83" lean-forward="false" selection-start-line="134" selection-start-column="73" selection-end-line="134" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="93" column="67" lean-forward="false" selection-start-line="93" selection-start-column="67" selection-end-line="93" selection-end-column="67" />
+          <folding>
+            <element signature="e#3817#3818#0" expanded="true" />
+            <element signature="e#3874#3875#0" expanded="true" />
+            <element signature="method#executeAdminCommand#0;class#Server#0" expanded="false" />
+            <element signature="method#initPrefs#0;class#Server#0" expanded="false" />
+            <element signature="method#readPrefs#0;class#Server#0" expanded="false" />
+            <element signature="method#writePrefs#0;class#Server#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="21" lean-forward="false" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Save.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding />
         </state>
       </provider>
