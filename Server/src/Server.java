@@ -188,6 +188,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         AdminField.addActionListener(actionEvent -> {
             Message current = new Message(AdminField.getText());
             try {
+                System.out.println(current);
                 executeAdminCommand(current.contents);
             } catch(Exception e) {
                 output("Admin command not in a valid format");
@@ -216,6 +217,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     private void executeAdminCommand(String input) {
+        System.out.println(input.substring(1));
         String [] cmd = input.substring(1).split(" ");
         boolean exists = false;
         switch(cmd[0]){
