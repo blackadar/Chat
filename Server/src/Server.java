@@ -26,8 +26,10 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     private JPanel panel;
     private JLabel numberOnlineLabel;
     private JTextField AdminField;
-
     private JTextField userSearch;
+
+    private JMenuBar menus;
+    private ArrayList<JMenu> menu = new ArrayList<>();
 
     private File preferences;
     private Preferences loaded_prefs;
@@ -145,6 +147,11 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
         setContentPane(panel);
+
+        menus = new JMenuBar();
+        menu.add(new JMenu());
+
+        //this.setJMenuBar();
         this.setPreferredSize(new Dimension(width / 2, height / 2));
         numberOnlineLabel.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         serverLog.setLineWrap(true);
