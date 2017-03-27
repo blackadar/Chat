@@ -125,16 +125,17 @@ public class UserInterface extends JFrame implements Runnable {
 
     protected static void recoverState() throws IOException, ClassNotFoundException {
         File save = new File("save.sv");
+        String providedAddress = "";
         if (!(save.exists())) {
+            while(userName == null || userName.isEmpty() || userName == "")
             userName = JOptionPane.showInputDialog(null, message, "Welcome!", JOptionPane.INFORMATION_MESSAGE);
-            String providedAddress = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
-            if (!(providedAddress == null )) {
-                host = providedAddress.split(":")[0];
-                port = Integer.parseInt(providedAddress.split(":")[1]);
-                FileOutputStream out = new FileOutputStream(save);
-                ObjectOutputStream fileOut = new ObjectOutputStream(out);
-                fileOut.writeObject(new Save(userName, host + ":" + port));
-            }
+            while(providedAddress == null || providedAddress.isEmpty() || providedAddress == "")
+             providedAddress = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
+            host = providedAddress.split(":")[0];
+            port = Integer.parseInt(providedAddress.split(":")[1]);
+            FileOutputStream out = new FileOutputStream(save);
+            ObjectOutputStream fileOut = new ObjectOutputStream(out);
+            fileOut.writeObject(new Save(userName, host + ":" + port));
         } else {
                 FileInputStream in = new FileInputStream(save);
                 ObjectInputStream fileOut = new ObjectInputStream(in);
