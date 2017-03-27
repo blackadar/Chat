@@ -18,8 +18,8 @@ import java.util.ArrayList;
  */
 //TODO Set all users to offline when closing the server
 public class Server extends JFrame implements Runnable, ClientActionListener {
-    public String name = "Beta Chat Server";
-    public static final String SERVER_ERR_LBL = "<<ERROR>> ";
+    public String name;
+    public static final String SERVER_ERR_LBL = "Error: ";
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
@@ -42,7 +42,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         server = new ServerSocket(port); //Create socket to listen for connections
         output("Local IP: " + InetAddress.getLocalHost());  //Output the local IP
         initSaveFile(); //Initialize the save file, creating it if it does not exist
-        this.run(); //Begin server operation
 
     }
 
@@ -64,23 +63,23 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 Socket client = server.accept(); //Block until a connection is attempted
 
                 //Create a client listener object to handle new user
-                ClientListener pending_user = new ClientListener(client, this);
-                if(pending_user.myUser.blacklist == true){ //Ensure that user is not banned before starting a listener
-                    output("Banned user " + pending_user.myUser.userName + " attempted to connect to the server");
+                ClientListener pendingUser = new ClientListener(client, this);
+                if(pendingUser.myUser.blacklist){ //Ensure that user is not banned before starting a listener
+                    output("Banned user " + pendingUser.myUser.userName + " attempted to connect to the server");
 
                     //Ignore the connection attempt before starting new ClientListener thread
-                    pending_user = null;
+                    pendingUser = null;
                     continue;
                 }
-                pending_user.addListener(this); //Assign this server as the listener for new client
+                pendingUser.addListener(this); //Assign this server as the listener for new client
 
                 //Check if the user is in the saved list of users
-                currentSave.addIfMissing(pending_user.myUser);
+                currentSave.addIfMissing(pendingUser.myUser);
                 Save.preserve(currentSave); //Save the user list
-                pending_user.myUser.online = true;
+                pendingUser.myUser.online = true;
 
                 //Create and run client listener thread
-                Thread t = new Thread(pending_user);
+                Thread t = new Thread(pendingUser);
                 t.start();
 
             } catch (IOException e) {
@@ -96,11 +95,24 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     public static void main(String[] args) {
+        threadNewServer("Beta Chat Server", 9090);
+    }
+
+    private static void threadNewServer(String name, int port){
+        Server running = null;
         try {
-            new Server(9090); //Create server and set port
+            running = new Server(port); //Create server and set port
+            running.name = name;
+            Thread server = new Thread(running);
+            server.start();
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "A General Exception was Detected.", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+            if(!(running == null)) {
+                for (User x : running.currentSave.all) {
+                    x.online = false;
+                }
+            }
+            JOptionPane.showMessageDialog(null, "A General Exception was Detected on Server " + running.name, e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
     }
 

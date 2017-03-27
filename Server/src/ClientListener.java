@@ -137,7 +137,7 @@ public class ClientListener implements Runnable {
                             throw new IllegalArgumentException("Cannot be named server.");
                     }
 
-                    setName(name);
+                    setUserName(name);
                     tell("Username changed to " + myUser.userName);
                 }
                 break;
@@ -268,7 +268,7 @@ public class ClientListener implements Runnable {
     /**
      * Changes a ClientListener's name as it appears in chat.
      */
-    public void setName(String name){
+    public void setUserName(String name){
         //TODO: Update to work with new naming convention
         for(ClientActionListener x : actionListeners){
             x.clientChangedName(myUser.userName, name);
