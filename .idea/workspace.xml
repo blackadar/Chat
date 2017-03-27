@@ -8,10 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/ClientListener.java" afterPath="$PROJECT_DIR$/Server/src/ClientListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.java" afterPath="$PROJECT_DIR$/Server/src/Server.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/UserInterface.java" afterPath="$PROJECT_DIR$/Client/src/UserInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.form" afterPath="$PROJECT_DIR$/Server/src/Server.form" />
     </list>
     <list id="d51252c1-0cec-4708-b9f5-2883a6ea60ed" name="Revert: " comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,15 +39,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="21" column="56" lean-forward="false" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
+            <state relative-caret-position="1581">
+              <caret line="103" column="30" lean-forward="false" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
               <folding>
-                <element signature="e#3697#3698#0" expanded="true" />
-                <element signature="e#3754#3755#0" expanded="true" />
-                <element signature="method#initSaveFile#0;class#Server#0" expanded="false" />
+                <element signature="e#3734#3735#0" expanded="true" />
+                <element signature="e#3791#3792#0" expanded="true" />
                 <element signature="method#executeAdminCommand#0;class#Server#0" expanded="false" />
                 <element signature="method#initPrefs#0;class#Server#0" expanded="false" />
                 <element signature="method#readPrefs#0;class#Server#0" expanded="false" />
@@ -75,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1292">
-              <caret line="82" column="32" lean-forward="true" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+            <state relative-caret-position="323">
+              <caret line="142" column="47" lean-forward="false" selection-start-line="142" selection-start-column="33" selection-end-line="142" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -92,6 +90,13 @@
               <caret line="278" column="7" lean-forward="true" selection-start-line="278" selection-start-column="7" selection-end-line="278" selection-end-column="7" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Server.form" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Server/src/Server.form">
+          <provider selected="true" editor-type-id="ui-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -139,6 +144,7 @@
       <find>welcome</find>
       <find>ObjectOutputStream</find>
       <find>println</find>
+      <find>save</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -183,12 +189,12 @@
         <option value="$PROJECT_DIR$/Server/src/Save.java" />
         <option value="$PROJECT_DIR$/save.svs" />
         <option value="$PROJECT_DIR$/Server/src/User.java" />
-        <option value="$PROJECT_DIR$/Server/src/Server.form" />
         <option value="$PROJECT_DIR$/Server/src/Preference.java" />
         <option value="$PROJECT_DIR$/Server/src/Preferences.java" />
-        <option value="$PROJECT_DIR$/Client/src/UserInterface.java" />
         <option value="$PROJECT_DIR$/Server/src/ClientListener.java" />
         <option value="$PROJECT_DIR$/Server/src/Server.java" />
+        <option value="$PROJECT_DIR$/Server/src/Server.form" />
+        <option value="$PROJECT_DIR$/Client/src/UserInterface.java" />
       </list>
     </option>
   </component>
@@ -379,7 +385,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="457" />
-    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="360" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="108" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Transferable/Transferable.iml" />
@@ -397,6 +403,116 @@
       <recent name="P:\Chat\src" />
     </key>
   </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Server/src/Server.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -409,7 +525,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.UserInterface">
     <configuration default="false" name="UserInterface" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="UserInterface" />
@@ -835,8 +951,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.Server" />
-        <item index="1" class="java.lang.String" itemvalue="Application.UserInterface" />
+        <item index="0" class="java.lang.String" itemvalue="Application.UserInterface" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Server" />
         <item index="2" class="java.lang.String" itemvalue="JAR Application.Client" />
         <item index="3" class="java.lang.String" itemvalue="JAR Application.Server" />
       </list>
@@ -869,7 +985,7 @@
       <workItem from="1490294777828" duration="103000" />
       <workItem from="1490296008466" duration="6797000" />
       <workItem from="1490319023521" duration="7582000" />
-      <workItem from="1490639968792" duration="2713000" />
+      <workItem from="1490639968792" duration="3433000" />
     </task>
     <task id="LOCAL-00001" summary="Added commands system and better exception handling">
       <created>1489712799656</created>
@@ -1193,11 +1309,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490641038263</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Multithreaded Servers">
+      <created>1490642709361</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1490642709361</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87864000" />
+    <option name="totallyTimeSpent" value="88584000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1270,7 +1393,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Program Icons" />
     <MESSAGE value="Fixed Hierarchy" />
     <MESSAGE value="Cleaning Up, reducing verbosity" />
     <MESSAGE value="Added CLI output for headless servers" />
@@ -1295,7 +1417,8 @@
     <MESSAGE value="Admin command bar&#10;Ban, mod support&#10;Screen size adjustments for server" />
     <MESSAGE value="Began to work on scalable UI for user interface + some attempts to fix Server side UI" />
     <MESSAGE value="Modified Client init dialogs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified Client init dialogs" />
+    <MESSAGE value="Multithreaded Servers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Multithreaded Servers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1511,11 +1634,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Server.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1540,12 +1658,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
+    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1292">
-          <caret line="82" column="32" lean-forward="true" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="1581">
+          <caret line="103" column="30" lean-forward="false" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
+          <folding>
+            <element signature="e#3734#3735#0" expanded="true" />
+            <element signature="e#3791#3792#0" expanded="true" />
+            <element signature="method#executeAdminCommand#0;class#Server#0" expanded="false" />
+            <element signature="method#initPrefs#0;class#Server#0" expanded="false" />
+            <element signature="method#readPrefs#0;class#Server#0" expanded="false" />
+            <element signature="method#writePrefs#0;class#Server#0" expanded="false" />
+          </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Server.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/Preferences.java">
@@ -1563,19 +1693,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
+    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="21" column="56" lean-forward="false" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
-          <folding>
-            <element signature="e#3697#3698#0" expanded="true" />
-            <element signature="e#3754#3755#0" expanded="true" />
-            <element signature="method#initSaveFile#0;class#Server#0" expanded="false" />
-            <element signature="method#executeAdminCommand#0;class#Server#0" expanded="false" />
-            <element signature="method#initPrefs#0;class#Server#0" expanded="false" />
-            <element signature="method#readPrefs#0;class#Server#0" expanded="false" />
-            <element signature="method#writePrefs#0;class#Server#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="142" column="47" lean-forward="false" selection-start-line="142" selection-start-column="33" selection-end-line="142" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
