@@ -14,25 +14,23 @@ import java.util.Arrays;
  * @since 3/17/2017 : 3:05 PM
  */
 public class UserInterface extends JFrame implements Runnable {
+    private static String host;
+    private static int port;
+    private static String userName;
+    private MetaData server;
     private Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
     private JTextArea chatLog;
     private JTextField textField;
     private JButton button;
     private JPanel rootPanel;
-    static JLabel message = new JLabel("Username: ");
-    private JScrollPane chatLogHolder;
     private JTabbedPane serverTabs;
-    protected ObjectInputStream inputStream;
-    protected ObjectOutputStream outputStream;
-    protected Thread listener;
+    private ObjectInputStream inputStream;
+    private ObjectOutputStream outputStream;
+    private Thread listener;
+    private static JLabel getUsernameMessage = new JLabel("Username: ");
+    private static int height;
+    private static int width;
 
-    protected static String host;
-    protected static int port;
-    protected static String userName;
-    protected MetaData server;
-
-    static int height;
-    static int width;
     public static void main(String[] args) throws IOException {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -64,7 +62,7 @@ public class UserInterface extends JFrame implements Runnable {
         textField.setPreferredSize(new Dimension(-1, height / 43));
         rootPanel.setMinimumSize(new Dimension(-1, -1));
 
-        message.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        getUsernameMessage.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         serverTabs.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         button.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
         chatLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
@@ -123,35 +121,42 @@ public class UserInterface extends JFrame implements Runnable {
         }
     }
 
-    protected static void recoverState() throws IOException, ClassNotFoundException {
-        File save = new File("save.sv");
-        String providedAddress = "";
-        if (!(save.exists())) {
-            while(userName == null || userName.isEmpty() || userName == "")
-            userName = JOptionPane.showInputDialog(null, message, "Welcome!", JOptionPane.INFORMATION_MESSAGE);
-            while(providedAddress == null || providedAddress.isEmpty() || providedAddress == "")
-             providedAddress = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
-            host = providedAddress.split(":")[0];
-            port = Integer.parseInt(providedAddress.split(":")[1]);
-            FileOutputStream out = new FileOutputStream(save);
-            ObjectOutputStream fileOut = new ObjectOutputStream(out);
-            fileOut.writeObject(new Save(userName, host + ":" + port));
-        } else {
-                FileInputStream in = new FileInputStream(save);
-                ObjectInputStream fileOut = new ObjectInputStream(in);
-                Save recovered = (Save) fileOut.readObject();
-                host = recovered.lastUsedServer.split(":")[0];
-                port = Integer.parseInt(recovered.lastUsedServer.split(":")[1]);
-                userName = recovered.userName;
+    protected void executeCommand(Message message){
+        JLabel out = new JLabel(message.arguments);
+        out.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        switch(message.contents.toLowerCase()){
+            case("clear") : clearText();
+                break;
+            case("alert") : {
+                JOptionPane.showMessageDialog(null, out, "Server Alert", JOptionPane.INFORMATION_MESSAGE);
+            }
+            break;
         }
     }
 
     protected void initializeStreams() throws IOException {
-            Socket s = new Socket(host, port);
-            this.outputStream = new ObjectOutputStream(s.getOutputStream());
-            outputStream.flush();
-            this.inputStream = new ObjectInputStream(s.getInputStream());
+        Socket s = new Socket(host, port);
+        this.outputStream = new ObjectOutputStream(s.getOutputStream());
+        outputStream.flush();
+        this.inputStream = new ObjectInputStream(s.getInputStream());
     }
+
+    protected void sendMessage(){
+        try {
+            Message current = new Message(textField.getText());
+            this.outputStream.writeObject(current);
+            this.outputStream.flush();
+            textField.setText("");
+        } catch (IOException e) {
+            e.printStackTrace();
+            chatLog.append("Local : Server could not interpret your message.\n");
+        }
+    }
+
+    protected void clearText(){
+        chatLog.setText("Local : Cleared History.\n");
+    }
+
 
     protected void lostConnectionState(){
         textField.setVisible(false);
@@ -201,32 +206,27 @@ public class UserInterface extends JFrame implements Runnable {
         textField.setVisible(true);
     }
 
-    protected void sendMessage(){
-        try {
-            Message current = new Message(textField.getText());
-            this.outputStream.writeObject(current);
-            this.outputStream.flush();
-            textField.setText("");
-        } catch (IOException e) {
-            e.printStackTrace();
-            chatLog.append("Local : Server could not interpret your message.\n");
-        }
-    }
 
-    protected void clearText(){
-        chatLog.setText("Local : Cleared History.\n");
-    }
-
-    protected void executeCommand(Message message){
-        JLabel out = new JLabel(message.arguments);
-        out.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        switch(message.contents.toLowerCase()){
-            case("clear") : clearText();
-            break;
-            case("alert") : {
-                JOptionPane.showMessageDialog(null, out, "Server Alert", JOptionPane.INFORMATION_MESSAGE);
-            }
-            break;
+    protected static void recoverState() throws IOException, ClassNotFoundException {
+        File save = new File("save.sv");
+        String providedAddress = "";
+        if (!(save.exists())) {
+            while(userName == null || userName.isEmpty() || userName == "")
+                userName = JOptionPane.showInputDialog(null, getUsernameMessage, "Welcome!", JOptionPane.INFORMATION_MESSAGE);
+            while(providedAddress == null || providedAddress.isEmpty() || providedAddress == "")
+                providedAddress = (String) JOptionPane.showInputDialog(null, null, "Server IP and Port: ", JOptionPane.QUESTION_MESSAGE, null, null, "localhost:9090");
+            host = providedAddress.split(":")[0];
+            port = Integer.parseInt(providedAddress.split(":")[1]);
+            FileOutputStream out = new FileOutputStream(save);
+            ObjectOutputStream fileOut = new ObjectOutputStream(out);
+            fileOut.writeObject(new Save(userName, host + ":" + port));
+        } else {
+            FileInputStream in = new FileInputStream(save);
+            ObjectInputStream fileOut = new ObjectInputStream(in);
+            Save recovered = (Save) fileOut.readObject();
+            host = recovered.lastUsedServer.split(":")[0];
+            port = Integer.parseInt(recovered.lastUsedServer.split(":")[1]);
+            userName = recovered.userName;
         }
     }
 }

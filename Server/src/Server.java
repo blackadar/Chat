@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -20,8 +18,6 @@ import java.util.ArrayList;
  */
 //TODO Set all users to offline when closing the server
 public class Server extends JFrame implements Runnable, ClientActionListener {
-    public String name;
-    public static final String SERVER_ERR_LBL = "Error: ";
     private JTextArea serverLog;
     private JPanel panel;
     private JLabel numberOnlineLabel;
@@ -34,11 +30,17 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     private File preferences;
     private Preferences loaded_prefs;
 
+    public String name;
+    private static final String SERVER_ERR_LBL = "Error: ";
     private ServerSocket server;
-    protected int numberOnline = 0;
-    protected File save = new File("save.svs");
-    protected Save currentSave;
+    private int numberOnline = 0;
 
+    private File save = new File("save.svs");
+    Save currentSave;
+
+    public static void main(String[] args) {
+        threadNewServer("Beta Chat Server", 9090);
+    }
 
     public Server(int port) throws IOException {
         super("Chat Server");
@@ -47,59 +49,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         output("Local IP: " + InetAddress.getLocalHost());  //Output the local IP
         initSaveFile(); //Initialize the save file, creating it if it does not exist
 
-    }
-
-
-    /**
-     * Main loop for running server.  Waits for connections, upon receiving them creates a new ClientListener thread.
-     * @throws
-     */
-    public void run() {
-        output("Listening on Port " + server.getLocalPort() + ".");
-
-        preferences = new File ("preferences.sprefs");
-        if(!preferences.exists()) initPrefs(); //first run
-        readPrefs();
-
-        updateLabel();
-        while (true) { //Continuously look for and accept new incoming connections
-            try {
-                Socket client = server.accept(); //Block until a connection is attempted
-
-                //Create a client listener object to handle new user
-                ClientListener pendingUser = new ClientListener(client, this);
-                if(pendingUser.myUser.blacklist){ //Ensure that user is not banned before starting a listener
-                    output("Banned user " + pendingUser.myUser.userName + " attempted to connect to the server");
-
-                    //Ignore the connection attempt before starting new ClientListener thread
-                    pendingUser = null;
-                    continue;
-                }
-                pendingUser.addListener(this); //Assign this server as the listener for new client
-
-                //Check if the user is in the saved list of users
-                currentSave.addIfMissing(pendingUser.myUser);
-                Save.preserve(currentSave); //Save the user list
-                pendingUser.myUser.online = true;
-
-                //Create and run client listener thread
-                Thread t = new Thread(pendingUser);
-                t.start();
-
-            } catch (IOException e) {
-                System.err.println("Could not store user data file");
-                e.printStackTrace();
-                output(SERVER_ERR_LBL + "Could not store user data file");
-            } catch (ClassNotFoundException e) {
-                System.err.println("Client did not properly initialize connection");
-                e.printStackTrace();
-                output(SERVER_ERR_LBL + "Client did not properly initialize connection");
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        threadNewServer("Beta Chat Server", 9090);
     }
 
     private static void threadNewServer(String name, int port){
@@ -120,28 +69,51 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         }
     }
 
-    @Override
-    public void clientDisconnected(String userName, String address) {
-        numberOnline--;
+    /**
+     * Main loop for running server.  Waits for connections, upon receiving them creates a new ClientListener thread.
+     */
+    public void run() {
+        output("Listening on Port " + server.getLocalPort() + ".");
+
+        preferences = new File ("preferences.sprefs");
+        if(!preferences.exists()) initPrefs(); //first run
+        readPrefs();
+
         updateLabel();
-        output("Lost connection to " + userName + " at " + address);
-    }
+        while (true) { //Continuously look for and accept new incoming connections
+            try {
+                Socket client = server.accept(); //Block until a connection is attempted
 
-    @Override
-    public void clientConnected(String userName, String address) {
-        numberOnline++;
-        updateLabel();
-        output("Initializing Connection to " + userName + " at " + address);
-    }
+                //Create a client listener object to handle new user
+                ClientListener pendingUser = new ClientListener(client, this);
+                if(pendingUser.client.blacklist){ //Ensure that user is not banned before starting a listener
+                    output("Banned user " + pendingUser.client.userName + " attempted to connect to the server");
 
-    @Override
-    public void clientChangedName(String old, String updated) {
-        output("ClientListener " + old + " changed alias to " + updated + ".");
-    }
+                    //Ignore the connection attempt before starting new ClientListener thread
+                    pendingUser = null;
+                    continue;
+                }
+                pendingUser.addListener(this); //Assign this server as the listener for new client
 
-    private void updateLabel() {
-        numberOnlineLabel.setText("Online: " + numberOnline);
-        serverLog.setCaretPosition(serverLog.getDocument().getLength());
+                //Check if the user is in the saved list of users
+                currentSave.recognize(pendingUser.client);
+                Save.write(currentSave); //Save the user list
+                pendingUser.client.online = true;
+
+                //Create and run client listener thread
+                Thread t = new Thread(pendingUser);
+                t.start();
+
+            } catch (IOException e) {
+                System.err.println("Could not store user data file");
+                e.printStackTrace();
+                output(SERVER_ERR_LBL + "Could not store user data file");
+            } catch (ClassNotFoundException e) {
+                System.err.println("Client did not properly initialize connection");
+                e.printStackTrace();
+                output(SERVER_ERR_LBL + "Client did not properly initialize connection");
+            }
+        }
     }
 
     private void output(String toOutput) {
@@ -149,75 +121,9 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         updateLabel();
     }
 
-    private void initGui(){
-        Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int)screen_size.getWidth();
-        int height = (int) screen_size.getHeight();
-
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
-        this.setIconImage(image);
-        setContentPane(panel);
-
-        menus = new JMenuBar();
-        menu.add(new JMenu());
-
-        //this.setJMenuBar();
-        this.setPreferredSize(new Dimension(width / 2, height / 2));
-        numberOnlineLabel.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        serverLog.setLineWrap(true);
-        serverLog.setMinimumSize(new Dimension(-1, -1));
-        serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        updateLabel();
-
-        //Initialize administrator command field
-        AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        AdminField.setPreferredSize(new Dimension(-1, height / 43));
-        AdminField.setMinimumSize(new Dimension(-1, -1));
-        AdminField.setText("Command");
-        AdminField.setForeground(new Color(160,160,160));
-
-        AdminField.addFocusListener(new FocusListener(){
-            @Override
-            public void focusGained(FocusEvent e) {
-                AdminField.setText("");
-                AdminField.setForeground(new Color(0,0,0));
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                AdminField.setText("Command");
-                AdminField.setForeground(new Color(160,160,160));
-            }
-        });
-
-        AdminField.addActionListener(actionEvent -> {
-            Message current = new Message(AdminField.getText());
-            try {
-                executeAdminCommand(current.contents);
-            } catch(Exception e) {
-                output("Admin command not in a valid format");
-            }
-            AdminField.setText("");
-        });
-
-        this.setLocationRelativeTo(null);
-        pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setVisible(true);
-    }
-
-
-
-    private void initSaveFile () throws IOException{
-        if(save.exists()){
-            try {
-                currentSave = Save.revive();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
-            currentSave = new Save();
-        }
+    private void updateLabel() {
+        numberOnlineLabel.setText("Online: " + numberOnline);
+        serverLog.setCaretPosition(serverLog.getDocument().getLength());
     }
 
     private void executeAdminCommand(String input) {
@@ -284,6 +190,96 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
                 break;
         }
     }
+
+    @Override
+    public void clientDisconnected(String userName, String address) {
+        numberOnline--;
+        updateLabel();
+        output("Lost connection to " + userName + " at " + address);
+    }
+
+    @Override
+    public void clientConnected(String userName, String address) {
+        numberOnline++;
+        updateLabel();
+        output("Initializing Connection to " + userName + " at " + address);
+    }
+
+    @Override
+    public void clientChangedName(String old, String updated) {
+        output("ClientListener " + old + " changed alias to " + updated + ".");
+    }
+
+    private void initGui(){
+        Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int)screen_size.getWidth();
+        int height = (int) screen_size.getHeight();
+
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
+        this.setIconImage(image);
+        setContentPane(panel);
+
+        menus = new JMenuBar();
+        menu.add(new JMenu());
+
+        this.setPreferredSize(new Dimension(width / 2, height / 2));
+        numberOnlineLabel.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        serverLog.setLineWrap(true);
+        serverLog.setMinimumSize(new Dimension(-1, -1));
+        serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        updateLabel();
+
+        //Initialize administrator command field
+        AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        AdminField.setPreferredSize(new Dimension(-1, height / 43));
+        AdminField.setMinimumSize(new Dimension(-1, -1));
+        AdminField.setText("Command");
+        AdminField.setForeground(new Color(160,160,160));
+
+        AdminField.addFocusListener(new FocusListener(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                AdminField.setText("");
+                AdminField.setForeground(new Color(0,0,0));
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                AdminField.setText("Command");
+                AdminField.setForeground(new Color(160,160,160));
+            }
+        });
+
+        AdminField.addActionListener(actionEvent -> {
+            Message current = new Message(AdminField.getText());
+            try {
+                executeAdminCommand(current.contents);
+            } catch(Exception e) {
+                output("Admin command not in a valid format");
+            }
+            AdminField.setText("");
+        });
+
+        this.setLocationRelativeTo(null);
+        pack();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+
+
+
+    private void initSaveFile () throws IOException{
+        if(save.exists()){
+            try {
+                currentSave = Save.read();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            currentSave = new Save();
+        }
+    }
+
 
     /**
      * Initializes preferences object and writes it to file preferences.sprefs with some default settings and values.

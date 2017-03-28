@@ -16,7 +16,7 @@ public class Save implements Serializable{
         all = new ArrayList<User>();
     }
 
-    public static Save revive() throws IOException, ClassNotFoundException {
+    public static Save read() throws IOException, ClassNotFoundException {
         File save = new File("save.svs");
         FileInputStream in = new FileInputStream(save);
         ObjectInputStream fileIn = new ObjectInputStream(in);
@@ -26,7 +26,7 @@ public class Save implements Serializable{
         return toReturn;
     }
 
-    public static void preserve(Save s) throws IOException {
+    public static void write(Save s) throws IOException {
         FileOutputStream out = new FileOutputStream(new File("save.svs"));
         ObjectOutputStream fileOut = new ObjectOutputStream(out);
         fileOut.writeObject(s);
@@ -34,7 +34,7 @@ public class Save implements Serializable{
         out.close();
     }
 
-    public void addIfMissing(User check) {
+    public void recognize(User check) {
         for (User x : all) {
             if (x.userName.equalsIgnoreCase(check.userName)){
                 return;
