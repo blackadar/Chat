@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -211,22 +213,64 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     private void initGui(){
+
         Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)screen_size.getWidth();
         int height = (int) screen_size.getHeight();
-
+        Font Sans = new Font("Sans Serif", Font.PLAIN, height / 72);
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
         this.setIconImage(image);
         setContentPane(panel);
 
+        //Create Menus
         menus = new JMenuBar();
-        menu.add(new JMenu());
+
+        //File
+        JMenu file = new JMenu("File");
+        file.setFont(Sans);
+        file.add(new JMenu("Test"));
+        menus.add(file);
+
+        //Preferences
+        JMenu prefs = new JMenu("Preferences");
+        prefs.setFont(Sans);
+        menus.add(prefs);
+
+        //Sub Menus
+        JMenu save = new JMenu("Save");
+        save.setFont(Sans);
+        file.add(save);
+
+        JMenu buffer = new JMenu("Buffer");
+        buffer.setFont(Sans);
+        prefs.add(buffer);
+
+        JCheckBoxMenuItem chatlog = new JCheckBoxMenuItem("Chat Log");
+        chatlog.setFont(Sans);
+        chatlog.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent source) {
+                if(source.getStateChange() == ItemEvent.DESELECTED){
+
+                } else {
+
+                }
+            }
+        });
+        buffer.add(chatlog);
+
+        menu.add(file);
+        menu.add(prefs);
+        for(JMenu temp : menu) menus.add(temp);
+        menus.setFont(Sans);
+        menus.setPreferredSize(new Dimension(-1, height / 43));
+        this.setJMenuBar(menus);
 
         this.setPreferredSize(new Dimension(width / 2, height / 2));
-        numberOnlineLabel.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        numberOnlineLabel.setFont(Sans);
         serverLog.setLineWrap(true);
         serverLog.setMinimumSize(new Dimension(-1, -1));
-        serverLog.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+        serverLog.setFont(Sans);
         updateLabel();
 
         //Initialize administrator command field
@@ -235,21 +279,18 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         AdminField.setMinimumSize(new Dimension(-1, -1));
         AdminField.setText("Command");
         AdminField.setForeground(new Color(160,160,160));
-
         AdminField.addFocusListener(new FocusListener(){
             @Override
             public void focusGained(FocusEvent e) {
                 AdminField.setText("");
                 AdminField.setForeground(new Color(0,0,0));
             }
-
             @Override
             public void focusLost(FocusEvent e) {
                 AdminField.setText("Command");
                 AdminField.setForeground(new Color(160,160,160));
             }
         });
-
         AdminField.addActionListener(actionEvent -> {
             Message current = new Message(AdminField.getText());
             try {
