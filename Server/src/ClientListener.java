@@ -208,7 +208,7 @@ public class ClientListener implements Runnable {
                         if (name.equalsIgnoreCase(c.client.userName)) {
                             exists = true;
                                 c.privateMessage(this.client.userName + " : " + message);
-                                this.privateMessage("-> " + name + " : ");
+                                this.privateMessage("-> " + name + " : " + message);
                         }
                     }
                     if(exists == false){
