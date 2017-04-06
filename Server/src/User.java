@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by liamn on 3/24/2017.
@@ -8,6 +9,7 @@ class User implements Serializable {
     public boolean isMod;
     public boolean blacklist;
     public boolean online = false;
+    public ArrayList<Message> pendingMessages = new ArrayList<>();
 
     public User(String userName, boolean isMod, boolean blacklist){
         this.userName = userName;
@@ -25,6 +27,14 @@ class User implements Serializable {
 
     public void setBlacklist(boolean blacklist) {
         this.blacklist = blacklist;
+    }
+
+    public void saveMessage(Message toSave){
+        pendingMessages.add(toSave);
+    }
+
+    public void clearPendingMessages(){
+        pendingMessages = new ArrayList<>();
     }
 
     public String toString(){

@@ -111,19 +111,28 @@ public class ClientListener implements Runnable {
         try {
             switch (commandParts[0].toLowerCase()) {
                 case ("help"): { //Sends help documentation
-                    tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. \n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users. \n 4.  /me [phrase] : (Ex. /me does something = [name] does something)");
+                        if (arguments[0] != null || arguments[0].equals("1")) {
+                            tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. " +
+                                    "\n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users." + "" +
+                                    "\n 4.  /me [phrase] : (Ex. /me does something = [name] does something)");
+                        } else if (arguments[0].equals("2")) {
+                            tell("List of Available Commands Page 2: " +
+                                    "\n 1. /clear : Clears your screen of all previous messages." +
+                                    "\n 2. /whisper [name] [message] : Doesn't work yet...");
+                        }
+
                 }
                 break;
+
                 case ("hack"): { //Hacks
                     tellAll("Oh no I've been hacked by " + client.userName + "!");
                 }
                 break;
                 case ("name"): { //Changes userName, checking for dupes
                     String name = "";
-                    for (int i = 0; i < arguments.length; i++) {
-                        if(i > 0) name += arguments[i] + " ";
-                        else name += arguments[i];
-                    }
+
+                    name += arguments[0];
+
                     if (name.isEmpty()) throw new IllegalArgumentException("Command Invalid: /name [user name]");
                     for (ClientListener c : all) {
                         if (name.equalsIgnoreCase(c.client.userName))
@@ -172,6 +181,37 @@ public class ClientListener implements Runnable {
                     command("clear");
                 }
                 break;
+
+                case("whisper"): { // Private message
+                    String name = "";
+                    String message = "";
+                    boolean exists = false;
+
+                    name += arguments[0];
+
+                    for(int i = 1; i < arguments.length; i++) {
+                        message += arguments[i] + " ";
+                    }
+
+                    if (name.isEmpty()) throw new IllegalArgumentException("Command Invalid: /whisper [username] [message]");
+                    if (message.isEmpty()) throw new IllegalArgumentException("Command Invalid: /whisper [username] [message]");
+
+                    for (ClientListener c : all) {
+                        if (name.equalsIgnoreCase(c.client.userName)) {
+                            exists = true;
+                                c.privateMessage(this.client.userName + " : " + message);
+                        }
+                    }
+                    if(exists == false){
+                        for(User x : runningServer.currentSave.all){
+                            if(x.userName.equalsIgnoreCase(name)){
+                                x.pendingMessages.add(new Message(this.client.userName + " : " + message));
+                                exists = true;
+                            }
+                        }
+                    }
+                        if(exists == false) throw new IllegalArgumentException("Name does not exist.");
+                }
 
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
@@ -278,6 +318,17 @@ public class ClientListener implements Runnable {
         this.client.setMod(true);
     }
 
+    public void privateMessage(String message){
+        try {
+            synchronized(this.outputStream) {
+                this.outputStream.writeObject(new Message( " : " + message));
+            }
+            this.outputStream.flush();
+        } catch (IOException e) {
+            this.stop();
+        }
+    }
+
     /**
      * Initializes a user's saved state. If it exists, load it, otherwise create it.
      */
@@ -286,6 +337,12 @@ public class ClientListener implements Runnable {
         for(User temp : runningServer.currentSave.all){
             if(temp.userName.equals(clientMetaData.handle)){
                 client = temp;
+                client.online = true;
+                if(client.pendingMessages.size() > 0) this.alert("You have received " + client.pendingMessages.size() + " pending messages.");
+                for(Message x : client.pendingMessages){
+                    this.privateMessage(x.contents);
+                }
+                this.client.clearPendingMessages();
                 savedUser = true;
             }
         }
