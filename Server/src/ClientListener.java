@@ -120,7 +120,7 @@ public class ClientListener implements Runnable {
         try {
             switch (commandParts[0].toLowerCase()) {
                 case ("help"): { //Sends help documentation
-                        if (arguments[0] != null || arguments[0].equals("1")) {
+                        if (arguments.length == 0 || arguments[0].equals("1")) {
                             tell("List of Available Commands: \n 1.  /name [name] : Modifies your server-wide alias. " +
                                     "\n 2.  /afk : Notifies others that you are away. \n 3.  /list : Lists all online users." + "" +
                                     "\n 4.  /me [phrase] : (Ex. /me does something = [name] does something)");
