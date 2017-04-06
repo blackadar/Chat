@@ -355,7 +355,7 @@ public class ClientListener implements Runnable {
                         this.privateMessage(x.contents);
                     }
                     this.client.clearPendingMessages();
-                    this.tell("That's all your private messages.");
+                    this.tell("That's all your Private Messages.");
                 }
                 savedUser = true;
             }

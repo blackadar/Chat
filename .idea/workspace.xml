@@ -97,17 +97,17 @@
       <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="357" column="67" lean-forward="false" selection-start-line="357" selection-start-column="67" selection-end-line="357" selection-end-column="67" />
+            <state relative-caret-position="301">
+              <caret line="355" column="21" lean-forward="true" selection-start-line="355" selection-start-column="21" selection-end-line="355" selection-end-column="21" />
               <folding>
                 <element signature="e#10256#10257#0" expanded="true" />
                 <element signature="e#10298#10299#0" expanded="true" />
                 <element signature="e#12956#12957#0" expanded="true" />
                 <element signature="e#12996#12997#0" expanded="true" />
-                <marker date="1491509688559" expanded="false" signature="4377:4387" ph=" { " />
-                <marker date="1491509688559" expanded="false" signature="4444:4450" ph=" }" />
-                <marker date="1491509688559" expanded="false" signature="11753:11763" ph=" { " />
-                <marker date="1491509688559" expanded="false" signature="11796:11802" ph=" }" />
+                <marker date="1491509731074" expanded="false" signature="4377:4387" ph=" { " />
+                <marker date="1491509731074" expanded="false" signature="4444:4450" ph=" }" />
+                <marker date="1491509731074" expanded="false" signature="11753:11763" ph=" { " />
+                <marker date="1491509731074" expanded="false" signature="11796:11802" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -193,8 +193,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Ben Clermont &lt;&quot;benclermontt@gmail.com&quot;&gt;" />
         <option value="Jordan Blackadar &lt;jordan.blackadar@outlook.com&gt;" />
+        <option value="Ben Clermont &lt;&quot;benclermontt@gmail.com&quot;&gt;" />
         <option value="Liam Brown &lt;liamnb525@gmail.com&gt;" />
       </list>
     </option>
@@ -830,13 +830,6 @@
       <workItem from="1490714994104" duration="459000" />
       <workItem from="1490720631705" duration="1064000" />
     </task>
-    <task id="LOCAL-00002" summary="Added Modern GUI">
-      <created>1489721640766</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1489721640766</updated>
-    </task>
     <task id="LOCAL-00003" summary="Added Modern GUI and Exception Handling">
       <created>1489722495296</created>
       <option name="number" value="00003" />
@@ -1173,7 +1166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491507693781</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Fixed Private Messaging format">
+      <created>1491509709422</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1491509709422</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1250,7 +1250,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Interface Updates" />
     <MESSAGE value="Fixed Formatting" />
     <MESSAGE value="Added /me command" />
     <MESSAGE value="Formatting" />
@@ -1275,7 +1274,8 @@
     <MESSAGE value="Fixed User Input" />
     <MESSAGE value="Cleaned verbosity" />
     <MESSAGE value="Added Private Messaging (Not tested)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Private Messaging (Not tested)" />
+    <MESSAGE value="Fixed Private Messaging format" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Private Messaging format" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1583,17 +1583,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="357" column="67" lean-forward="false" selection-start-line="357" selection-start-column="67" selection-end-line="357" selection-end-column="67" />
+        <state relative-caret-position="301">
+          <caret line="355" column="21" lean-forward="true" selection-start-line="355" selection-start-column="21" selection-end-line="355" selection-end-column="21" />
           <folding>
             <element signature="e#10256#10257#0" expanded="true" />
             <element signature="e#10298#10299#0" expanded="true" />
             <element signature="e#12956#12957#0" expanded="true" />
             <element signature="e#12996#12997#0" expanded="true" />
-            <marker date="1491509688559" expanded="false" signature="4377:4387" ph=" { " />
-            <marker date="1491509688559" expanded="false" signature="4444:4450" ph=" }" />
-            <marker date="1491509688559" expanded="false" signature="11753:11763" ph=" { " />
-            <marker date="1491509688559" expanded="false" signature="11796:11802" ph=" }" />
+            <marker date="1491509731074" expanded="false" signature="4377:4387" ph=" { " />
+            <marker date="1491509731074" expanded="false" signature="4444:4450" ph=" }" />
+            <marker date="1491509731074" expanded="false" signature="11753:11763" ph=" { " />
+            <marker date="1491509731074" expanded="false" signature="11796:11802" ph=" }" />
           </folding>
         </state>
       </provider>
