@@ -30,7 +30,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     private ArrayList<JMenu> menu = new ArrayList<>();
 
     private File preferences;
-    private Preferences loaded_prefs;
+    protected Preferences loaded_prefs;
 
     public String name;
     private static final String SERVER_ERR_LBL = "Error: ";
@@ -118,7 +118,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
         }
     }
 
-    private void output(String toOutput) {
+    protected void output(String toOutput) {
         serverLog.append(toOutput + "\n");
         updateLabel();
     }
@@ -247,14 +247,14 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
         JCheckBoxMenuItem chatlog = new JCheckBoxMenuItem("Chat Log");
         chatlog.setFont(Sans);
-        chatlog.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent source) {
-                if(source.getStateChange() == ItemEvent.DESELECTED){
-
-                } else {
-
-                }
+        chatlog.addItemListener(source -> {
+            //System.out.println(loaded_prefs.readPreference("view_chat").getValue());
+            if(loaded_prefs.readPreference("view_chat").getValue().equals("disabled")){
+                System.out.println("SELECTED");
+                loaded_prefs.setPreference("view_chat", "enabled");
+            } else {
+                System.out.println("DESELECTED");
+                loaded_prefs.setPreference("view_chat", "disabled");
             }
         });
         buffer.add(chatlog);

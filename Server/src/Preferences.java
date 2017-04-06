@@ -48,6 +48,15 @@ public class Preferences implements Serializable{
         return false;
     }
 
+    public Preference readPreference(String key){
+        for(int i = 0; i < preferences.size(); i++){
+            if(preferences.get(i).getKey().equals(key)){
+                return preferences.get(i);
+            }
+        }
+        return null;
+    }
+
     public class Preference implements Serializable {
         private String key;
         private String value;

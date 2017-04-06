@@ -54,11 +54,20 @@ public class ClientListener implements Runnable {
                 if(!(received.contents.isEmpty())) {
                     if (hasCommand(received.contents)) {
                         executeCommand(received.contents);
+                        if(runningServer.loaded_prefs.readPreference("view_chat").getValue().equals("enabled")) {
+                            runningServer.output("<<USER COMMAND - " + client.userName + " : " + received.contents + ">>");
+                        }
                     } else if (isAFK) {
                         tellAll(client.userName + " is no longer AFK.");
                         isAFK = false;
+                        if(runningServer.loaded_prefs.readPreference("view_chat").getValue().equals("enabled")) {
+                            runningServer.output("<<" + client.userName + " : " + received.contents + ">>");
+                        }
                         broadcast(client.userName + " : " + received.contents);
                     } else {
+                        if(runningServer.loaded_prefs.readPreference("view_chat").getValue().equals("enabled")) {
+                            runningServer.output("<<" + client.userName + " : " + received.contents + ">>");
+                        }
                         broadcast(client.userName + " : " + received.contents);
                     }
                 }
