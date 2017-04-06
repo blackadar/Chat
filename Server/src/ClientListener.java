@@ -47,7 +47,6 @@ public class ClientListener implements Runnable {
             for(ClientActionListener x : actionListeners){
                 x.clientConnected(client.userName, socket.getInetAddress().toString());
             }
-            alert("Welcome!");
             while (true) {
                 Message received =(Message)inputStream.readObject();
                 if(client.blacklist) throw new InvalidObjectException("Banned."); //If banned, client will send ackgnowldegment, stop
@@ -209,6 +208,7 @@ public class ClientListener implements Runnable {
                         if (name.equalsIgnoreCase(c.client.userName)) {
                             exists = true;
                                 c.privateMessage(this.client.userName + " : " + message);
+                                this.privateMessage("-> " + name + " : ");
                         }
                     }
                     if(exists == false){
@@ -221,8 +221,7 @@ public class ClientListener implements Runnable {
                     }
                         if(exists == false) throw new IllegalArgumentException("Name does not exist.");
                 }
-
-
+                break;
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
                 }
@@ -331,7 +330,7 @@ public class ClientListener implements Runnable {
     public void privateMessage(String message){
         try {
             synchronized(this.outputStream) {
-                this.outputStream.writeObject(new Message(  message));
+                this.outputStream.writeObject(new Message("(P) " + message));
             }
             this.outputStream.flush();
         } catch (IOException e) {
@@ -349,13 +348,12 @@ public class ClientListener implements Runnable {
                 client = temp;
                 client.online = true;
                 if(client.pendingMessages.size() > 0) {
-                    this.alert("You have received " + client.pendingMessages.size() + " pending messages.");
-                    this.tell("Here are your pending Private Messages:");
+                    this.alert("You have received " + client.pendingMessages.size() + " Private Message(s).");
+                    this.tell("Here are your Private Messages:");
                     for (Message x : client.pendingMessages) {
                         this.privateMessage(x.contents);
                     }
                     this.client.clearPendingMessages();
-                    this.tell("That's all your Private Messages.");
                 }
                 savedUser = true;
             }
