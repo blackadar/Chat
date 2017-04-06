@@ -9,7 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8e61328b-9d11-4cdd-8d2d-50fb0729c0c4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/ClientListener.java" afterPath="$PROJECT_DIR$/Server/src/ClientListener.java" />
     </list>
     <list id="d51252c1-0cec-4708-b9f5-2883a6ea60ed" name="Revert: " comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -41,23 +40,11 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4199">
+            <state relative-caret-position="-1518">
               <caret line="259" column="14" lean-forward="false" selection-start-line="259" selection-start-column="14" selection-end-line="259" selection-end-column="14" />
               <folding>
-                <marker date="1491507896657" expanded="true" signature="9809:9823" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="9809:9833" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="9809:11669" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="10756:11154" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="10830:10945" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="11016:11144" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="11209:11506" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="11724:11984" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="11991:12120" ph="/**...*/" />
-                <marker date="1491507896657" expanded="true" signature="12149:12791" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="12797:12869" ph="/**...*/" />
-                <marker date="1491507896657" expanded="true" signature="12898:13178" ph="{...}" />
-                <marker date="1491507896657" expanded="true" signature="13184:13266" ph="/**...*/" />
-                <marker date="1491507896657" expanded="true" signature="13296:13601" ph="{...}" />
+                <element signature="e#1296#1297#0" expanded="true" />
+                <element signature="e#1353#1354#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,21 +71,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
+            <state relative-caret-position="-1909">
               <caret line="94" column="69" lean-forward="true" selection-start-line="94" selection-start-column="69" selection-end-line="94" selection-end-column="69" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="210" column="73" lean-forward="false" selection-start-line="210" selection-start-column="73" selection-end-line="210" selection-end-column="73" />
+            <state relative-caret-position="-2133">
+              <caret line="211" column="25" lean-forward="true" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
               <folding>
                 <element signature="e#10331#10332#0" expanded="true" />
                 <element signature="e#10373#10374#0" expanded="true" />
@@ -329,6 +316,24 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UserInterface" />
+              <option name="myItemType" value="com.intellij.uiDesigner.projectView.FormNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -831,13 +836,6 @@
       <workItem from="1490714994104" duration="459000" />
       <workItem from="1490720631705" duration="1064000" />
     </task>
-    <task id="LOCAL-00005" summary="Added functionality">
-      <created>1489775528951</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1489775528951</updated>
-    </task>
     <task id="LOCAL-00006" summary="Added functionality">
       <created>1489775789578</created>
       <option name="number" value="00006" />
@@ -1174,7 +1172,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491510293569</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Oops">
+      <created>1491510469825</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1491510469825</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1251,7 +1256,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Formatting" />
     <MESSAGE value="Adding ChatRooms" />
     <MESSAGE value="Added transferable objects (not yet implemented)." />
     <MESSAGE value="Modified Naming for Simplicity." />
@@ -1276,7 +1280,8 @@
     <MESSAGE value="Fixed Private Messaging format" />
     <MESSAGE value="Fixed formatting" />
     <MESSAGE value="Added self-notify for PM" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added self-notify for PM" />
+    <MESSAGE value="Oops" />
+    <option name="LAST_COMMIT_MESSAGE" value="Oops" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1518,29 +1523,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4199">
-          <caret line="259" column="14" lean-forward="false" selection-start-line="259" selection-start-column="14" selection-end-line="259" selection-end-column="14" />
-          <folding>
-            <marker date="1491507896657" expanded="true" signature="9809:9823" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="9809:9833" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="9809:11669" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="10756:11154" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="10830:10945" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="11016:11144" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="11209:11506" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="11724:11984" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="11991:12120" ph="/**...*/" />
-            <marker date="1491507896657" expanded="true" signature="12149:12791" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="12797:12869" ph="/**...*/" />
-            <marker date="1491507896657" expanded="true" signature="12898:13178" ph="{...}" />
-            <marker date="1491507896657" expanded="true" signature="13184:13266" ph="/**...*/" />
-            <marker date="1491507896657" expanded="true" signature="13296:13601" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/Save.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -1574,18 +1556,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="94" column="69" lean-forward="true" selection-start-line="94" selection-start-column="69" selection-end-line="94" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/ClientListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="210" column="73" lean-forward="false" selection-start-line="210" selection-start-column="73" selection-end-line="210" selection-end-column="73" />
+        <state relative-caret-position="-2133">
+          <caret line="211" column="25" lean-forward="true" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
           <folding>
             <element signature="e#10331#10332#0" expanded="true" />
             <element signature="e#10373#10374#0" expanded="true" />
@@ -1596,6 +1570,25 @@
             <marker date="1491510456893" expanded="false" signature="11828:11838" ph=" { " />
             <marker date="1491510456893" expanded="false" signature="11871:11877" ph=" }" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1518">
+          <caret line="259" column="14" lean-forward="false" selection-start-line="259" selection-start-column="14" selection-end-line="259" selection-end-column="14" />
+          <folding>
+            <element signature="e#1296#1297#0" expanded="true" />
+            <element signature="e#1353#1354#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/UserInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1909">
+          <caret line="94" column="69" lean-forward="true" selection-start-line="94" selection-start-column="69" selection-end-line="94" selection-end-column="69" />
+          <folding />
         </state>
       </provider>
     </entry>
