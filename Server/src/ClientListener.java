@@ -222,6 +222,7 @@ public class ClientListener implements Runnable {
                         if(exists == false) throw new IllegalArgumentException("Name does not exist.");
                 }
 
+
                 default: { //Catches unrecognized commands
                     throw new IllegalArgumentException("Unrecognized command. Use /help for a list of all commands.");
                 }
@@ -330,7 +331,7 @@ public class ClientListener implements Runnable {
     public void privateMessage(String message){
         try {
             synchronized(this.outputStream) {
-                this.outputStream.writeObject(new Message( " : " + message));
+                this.outputStream.writeObject(new Message(  message));
             }
             this.outputStream.flush();
         } catch (IOException e) {
@@ -347,11 +348,15 @@ public class ClientListener implements Runnable {
             if(temp.userName.equals(clientMetaData.handle)){
                 client = temp;
                 client.online = true;
-                if(client.pendingMessages.size() > 0) this.alert("You have received " + client.pendingMessages.size() + " pending messages.");
-                for(Message x : client.pendingMessages){
-                    this.privateMessage(x.contents);
+                if(client.pendingMessages.size() > 0) {
+                    this.alert("You have received " + client.pendingMessages.size() + " pending messages.");
+                    this.tell("Here are your pending Private Messages:");
+                    for (Message x : client.pendingMessages) {
+                        this.privateMessage(x.contents);
+                    }
+                    this.client.clearPendingMessages();
+                    this.tell("That's all your private messages.");
                 }
-                this.client.clearPendingMessages();
                 savedUser = true;
             }
         }
