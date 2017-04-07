@@ -126,7 +126,7 @@ public class ClientListener implements Runnable {
                         } else if (arguments[0].equals("2")) {
                             tell("List of Available Commands Page 2: " +
                                     "\n 1. /clear : Clears your screen of all previous messages." +
-                                    "\n 2. /whisper [name] [message] : Doesn't work yet...");
+                                    "\n 2. /whisper [name] [message] : A private message, pretty self-explanatory");
                         }
 
                 }
