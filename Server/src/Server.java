@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
  * @version 0.3.5
  * @since 3/19/2017 : 2:15 PM
  */
-//TODO Set all users to offline when closing the server
 public class Server extends JFrame implements Runnable, ClientActionListener {
     private JTextArea serverLog;
     private JPanel panel;
@@ -119,13 +116,20 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     protected void output(String toOutput) {
-        serverLog.append(toOutput + "\n");
-        updateLabel();
+        if(!(GraphicsEnvironment.isHeadless())) {
+            serverLog.append(toOutput + "\n");
+            updateLabel();
+        }
+        else{
+            System.out.println(toOutput);
+        }
     }
 
     private void updateLabel() {
-        numberOnlineLabel.setText("Online: " + numberOnline);
-        serverLog.setCaretPosition(serverLog.getDocument().getLength());
+        if(!(GraphicsEnvironment.isHeadless())) {
+            numberOnlineLabel.setText("Online: " + numberOnline);
+            serverLog.setCaretPosition(serverLog.getDocument().getLength());
+        }
     }
 
     private void executeAdminCommand(String input) {
@@ -213,98 +217,100 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     private void initGui(){
+        if(!(GraphicsEnvironment.isHeadless())) {
+            Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
+            int width = (int) screen_size.getWidth();
+            int height = (int) screen_size.getHeight();
+            Font Sans = new Font("Sans Serif", Font.PLAIN, height / 72);
+            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
+            this.setIconImage(image);
+            setContentPane(panel);
 
-        Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int)screen_size.getWidth();
-        int height = (int) screen_size.getHeight();
-        Font Sans = new Font("Sans Serif", Font.PLAIN, height / 72);
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"));
-        this.setIconImage(image);
-        setContentPane(panel);
+            //Create Menus
+            menus = new JMenuBar();
 
-        //Create Menus
-        menus = new JMenuBar();
+            //File
+            JMenu file = new JMenu("File");
+            file.setFont(Sans);
+            file.add(new JMenu("Test"));
+            menus.add(file);
 
-        //File
-        JMenu file = new JMenu("File");
-        file.setFont(Sans);
-        file.add(new JMenu("Test"));
-        menus.add(file);
+            //Preferences
+            JMenu prefs = new JMenu("Preferences");
+            prefs.setFont(Sans);
+            menus.add(prefs);
 
-        //Preferences
-        JMenu prefs = new JMenu("Preferences");
-        prefs.setFont(Sans);
-        menus.add(prefs);
+            //Sub Menus
+            JMenu save = new JMenu("Save");
+            save.setFont(Sans);
+            file.add(save);
 
-        //Sub Menus
-        JMenu save = new JMenu("Save");
-        save.setFont(Sans);
-        file.add(save);
+            JMenu buffer = new JMenu("Buffer");
+            buffer.setFont(Sans);
+            prefs.add(buffer);
 
-        JMenu buffer = new JMenu("Buffer");
-        buffer.setFont(Sans);
-        prefs.add(buffer);
+            JCheckBoxMenuItem chatlog = new JCheckBoxMenuItem("Chat Log");
+            chatlog.setFont(Sans);
+            chatlog.addItemListener(source -> {
+                if (loaded_prefs.readPreference("view_chat").getValue().equals("disabled")) {
+                    loaded_prefs.setPreference("view_chat", "enabled");
+                } else {
+                    loaded_prefs.setPreference("view_chat", "disabled");
+                }
+            });
+            buffer.add(chatlog);
 
-        JCheckBoxMenuItem chatlog = new JCheckBoxMenuItem("Chat Log");
-        chatlog.setFont(Sans);
-        chatlog.addItemListener(source -> {
-            //System.out.println(loaded_prefs.readPreference("view_chat").getValue());
-            if(loaded_prefs.readPreference("view_chat").getValue().equals("disabled")){
-                System.out.println("SELECTED");
-                loaded_prefs.setPreference("view_chat", "enabled");
-            } else {
-                System.out.println("DESELECTED");
-                loaded_prefs.setPreference("view_chat", "disabled");
-            }
-        });
-        buffer.add(chatlog);
+            menu.add(file);
+            menu.add(prefs);
+            for (JMenu temp : menu) menus.add(temp);
+            menus.setFont(Sans);
+            menus.setPreferredSize(new Dimension(-1, height / 43));
+            this.setJMenuBar(menus);
 
-        menu.add(file);
-        menu.add(prefs);
-        for(JMenu temp : menu) menus.add(temp);
-        menus.setFont(Sans);
-        menus.setPreferredSize(new Dimension(-1, height / 43));
-        this.setJMenuBar(menus);
+            this.setPreferredSize(new Dimension(width / 2, height / 2));
+            numberOnlineLabel.setFont(Sans);
+            serverLog.setLineWrap(true);
+            serverLog.setMinimumSize(new Dimension(-1, -1));
+            serverLog.setFont(Sans);
+            updateLabel();
 
-        this.setPreferredSize(new Dimension(width / 2, height / 2));
-        numberOnlineLabel.setFont(Sans);
-        serverLog.setLineWrap(true);
-        serverLog.setMinimumSize(new Dimension(-1, -1));
-        serverLog.setFont(Sans);
-        updateLabel();
+            //Initialize administrator command field
+            AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
+            AdminField.setPreferredSize(new Dimension(-1, height / 43));
+            AdminField.setMinimumSize(new Dimension(-1, -1));
+            AdminField.setText("Command");
+            AdminField.setForeground(new Color(160, 160, 160));
+            AdminField.addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    AdminField.setText("");
+                    AdminField.setForeground(new Color(0, 0, 0));
+                }
 
-        //Initialize administrator command field
-        AdminField.setFont(new Font("Sans Serif", Font.PLAIN, height / 72));
-        AdminField.setPreferredSize(new Dimension(-1, height / 43));
-        AdminField.setMinimumSize(new Dimension(-1, -1));
-        AdminField.setText("Command");
-        AdminField.setForeground(new Color(160,160,160));
-        AdminField.addFocusListener(new FocusListener(){
-            @Override
-            public void focusGained(FocusEvent e) {
+                @Override
+                public void focusLost(FocusEvent e) {
+                    AdminField.setText("Command");
+                    AdminField.setForeground(new Color(160, 160, 160));
+                }
+            });
+            AdminField.addActionListener(actionEvent -> {
+                Message current = new Message(AdminField.getText());
+                try {
+                    executeAdminCommand(current.contents);
+                } catch (Exception e) {
+                    output("Admin command not in a valid format");
+                }
                 AdminField.setText("");
-                AdminField.setForeground(new Color(0,0,0));
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                AdminField.setText("Command");
-                AdminField.setForeground(new Color(160,160,160));
-            }
-        });
-        AdminField.addActionListener(actionEvent -> {
-            Message current = new Message(AdminField.getText());
-            try {
-                executeAdminCommand(current.contents);
-            } catch(Exception e) {
-                output("Admin command not in a valid format");
-            }
-            AdminField.setText("");
-        });
+            });
 
-        this.setLocationRelativeTo(null);
-        pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setVisible(true);
+            this.setLocationRelativeTo(null);
+            pack();
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            this.setVisible(true);
+        }
+        else{
+            System.out.println("Initializing...");
+        }
     }
 
 

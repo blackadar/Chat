@@ -79,7 +79,7 @@ public class UserInterface extends JFrame implements Runnable {
             initializeStreams();
         } catch (IOException e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Unable to communicate with " + host + ":" + port, "Connection Lost", JOptionPane.WARNING_MESSAGE);
+            lostConnectionState();
 
         }
         listener = new Thread(this);
