@@ -72,7 +72,6 @@ public class ClientListener implements Runnable {
                 }
             }
         } catch (IOException|ClassNotFoundException e) {
-            e.printStackTrace();
         } finally {
             this.stop();
         }
@@ -92,7 +91,6 @@ public class ClientListener implements Runnable {
         try {
             socket.close ();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

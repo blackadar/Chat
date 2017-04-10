@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Created by Jordan Blackadar as a part of the Server package in Chat.
+ * Created by Jordan Blackadar as a part of the ServerInterface package in Chat.
  * Defines a Save and its abilities
  * @author Jordan Blackadar<"jordan.blackadar@outlook.com"/>
  * @version 0.3.5
