@@ -226,7 +226,7 @@ public class ClientListener implements Runnable {
             }
         }
         catch(IllegalArgumentException e){
-            tell("Server Error: " + e.getMessage());
+            tell("Internal Error: " + e.getMessage());
         }
     }
 
