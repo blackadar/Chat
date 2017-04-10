@@ -42,7 +42,6 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
     }
 
     public Server(int port) throws IOException {
-        super("Chat Server");
         initGui(); //Set up GUI
         server = new ServerSocket(port); //Create socket to listen for connections
         output("Local IP: " + InetAddress.getLocalHost());  //Output the local IP
@@ -218,6 +217,7 @@ public class Server extends JFrame implements Runnable, ClientActionListener {
 
     private void initGui(){
         if(!(GraphicsEnvironment.isHeadless())) {
+            this.setTitle("Server Monitor");
             Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
             int width = (int) screen_size.getWidth();
             int height = (int) screen_size.getHeight();
