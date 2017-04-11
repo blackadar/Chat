@@ -170,6 +170,13 @@ public class Server implements ClientActionListener, Runnable{
         output("ClientListener " + old + " changed alias to " + updated + ".");
     }
 
+    @Override
+    public void clientSentMessage(String contents, String userName){
+        if(loaded_prefs.readPreference("view_chat").getValue().equals("enabled")){
+            output( userName + " : " + contents);
+        }
+    }
+
     private void initSaveFile () throws IOException{
         if(save.exists()){
             try {

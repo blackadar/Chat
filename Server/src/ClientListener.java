@@ -49,24 +49,18 @@ public class ClientListener implements Runnable {
             }
             while (true) {
                 Message received =(Message)inputStream.readObject();
-                if(client.blacklist) throw new InvalidObjectException("Banned."); //If banned, client will send ackgnowldegment, stop
+                if(client.blacklist) throw new InvalidObjectException("Banned."); //If banned, client will send acknowledgment, stop
                 if(!(received.contents.isEmpty())) {
                     if (hasCommand(received.contents)) {
                         executeCommand(received.contents);
-                        if(runningServer.loaded_prefs.readPreference("view_chat").getValue().equals("enabled")) {
-                            runningServer.output("<<USER COMMAND - " + client.userName + " : " + received.contents + ">>");
-                        }
+                        for(ClientActionListener x : actionListeners) x.clientSentMessage(received.contents, client.userName);
                     } else if (isAFK) {
                         tellAll(client.userName + " is no longer AFK.");
                         isAFK = false;
-                        if(runningServer.loaded_prefs.readPreference("view_chat").getValue().equals("enabled")) {
-                            runningServer.output("<<" + client.userName + " : " + received.contents + ">>");
-                        }
+                        for(ClientActionListener x : actionListeners) x.clientSentMessage(received.contents, client.userName);
                         broadcast(client.userName + " : " + received.contents);
                     } else {
-                        if(runningServer.loaded_prefs.readPreference("view_chat").getValue().equals("enabled")) {
-                            runningServer.output("<<" + client.userName + " : " + received.contents + ">>");
-                        }
+                        for(ClientActionListener x : actionListeners) x.clientSentMessage(received.contents, client.userName);
                         broadcast(client.userName + " : " + received.contents);
                     }
                 }

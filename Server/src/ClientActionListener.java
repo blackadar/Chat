@@ -9,4 +9,5 @@ interface ClientActionListener {
     void clientDisconnected(String userName, String address);
     void clientConnected(String userName, String address);
     void clientChangedName(String old, String updated);
+    void clientSentMessage(String contents, String userName);
 }
