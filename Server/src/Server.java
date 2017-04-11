@@ -86,6 +86,10 @@ public class Server implements ClientActionListener, Runnable{
         String [] cmd = input.substring(1).split(" ");
         boolean exists = false;
         switch(cmd[0]){
+            case "alert":
+                //Send user a command-alert Message
+                output("Not yet implemented.");
+                break;
             case "mod":
 
                 for(int c = 0; c < currentSave.all.size(); c++){
